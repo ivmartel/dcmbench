@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>DICOM Parser Benchmark</title>
+<meta charset="UTF-8">
+<!-- Third party -->
+<script src="dcmjs/libs/jquery-1.11.0.min.js"></script>
+<script src="benchmark/lodash.js"></script>
+<script src="benchmark/benchmark.js"></script>
+<!-- start chrome with: --enable-benchmarking -->
+
+<!-- dcmjs -->
+<script src="dcmjs/libs/dcmjs-nico.js"></script>
+<script src="dcmjs/utils.js"></script>
+<script type="text/javascript">
+parse_dcmjs = function (response) {
+  // avoid console log
+  var dumpLines = [];
+  Module.print = function (s) {
+    dumpLines.push(s);
+  }
+  // temp file name
+  var fileName = 'temp';
+  // write to FileSystem
+  var content = new Int8Array(response);
+  FS.writeFile(fileName, content, {encoding: "binary"});
+  // run dcmtk command
+  dcmjs.utils.execute('dcmdump', [fileName]);
+  //window.console.log(dumpLines);
+}
+</script>
+
+<!-- chafey -->
+<script src="dicomparser/dicomParser.min.js"></script>
+<script type="text/javascript">
+parse_dicomParser = function (response) {
+  // convert to uint
+  var content = new Uint8Array(response);
+  // parse
+  var dataSet = dicomParser.parseDicom(content);
+}
+</script>
+
+<!-- dwv -->
+<script src="dwv/dwv-0.10.0.min.js"></script>
+<script type="text/javascript">
+parse_dwv = function (response) {
+  // setup the dicom parser
+  var dwvParser = new dwv.dicom.DicomParser();
+  // parse the buffer
+  dwvParser.parse(response);
+}
+</script>
+
+<!-- real business -->
+<script type="text/javascript">
+
+benchUrl = function (url) {
+
+  var urlTitle = document.createElement("h1");
+  urlTitle.appendChild(document.createTextNode("url: " + url));
+
+  var urlUl = document.createElement("ul");
+
+  var urlDiv = document.createElement("div");
+  urlDiv.appendChild(urlTitle);
+  urlDiv.appendChild(urlUl);
+
+  var resDiv = document.getElementById("bench-results");
+  resDiv.appendChild(urlDiv);
+
+  // benchmark
+  var suite = new Benchmark.Suite;
+  // add listeners to show output
+  suite.on('cycle', function(event) {
+    var text = String(event.target);
+    // html
+    var urlLi = document.createElement("li");
+    urlLi.appendChild(document.createTextNode(text));
+    urlUl.appendChild(urlLi);
+  });
+  suite.on('complete', function() {
+    var text = 'Fastest is ' + this.filter('fastest').pluck('name');
+    // html
+    var urlRes = document.createElement("h3");
+    urlRes.appendChild(document.createTextNode(text));
+    urlDiv.appendChild(urlRes);
+  });
+
+  var request = new XMLHttpRequest();
+  request.open('GET', url, true);
+  request.responseType = "arraybuffer";
+  request.onload = function (/*event*/) {
+    // closure to response
+    var response = this.response;
+    // add parsers to suite
+    suite.add('parse_dcmjs', function() {
+      parse_dcmjs(response);
+    })
+    .add('parse_dicomParser', function() {
+      parse_dicomParser(response);
+    })
+    .add('parse_dwv', function() {
+      parse_dwv(response);
+    })
+    // run async
+    .run({ 'async': true });
+    /*
+    // brut force...
+    console.time("parse::dcmjs");
+    for ( var i = 0; i < 30; ++i ) {
+      parse_dcmjs(this.response);
+    }
+    console.timeEnd("parse::dcmjs");
+    console.time("parse::dicomParser");
+    for ( var i = 0; i < 30; ++i ) {
+      parse_dicomParser(this.response);
+    }
+    console.timeEnd("parse::dicomParser");
+    */
+  };
+  request.send(null);
+}
+
+var urls = [
+  "data/osirix-toutatix-100.dcm",
+  "data/osirix-goudurix.dcm",
+  "data/dicompyler-ct.0.dcm",
+  "data/gdcm-CR-MONO1-10-chest.dcm",
+  "data/gdcm-CT-MONO2-8-abdo.dcm",
+  "data/gdcm-US-RGB-8-epicard.dcm",
+  "data/gdcm-US-RGB-8-esopecho.dcm"
+  ];
+
+$(document).ready( function()
+{
+  //for ( var i = 0; i < urls.length; ++i ) {
+  //  benchUrl(urls[i]);
+  //}
+
+  benchUrl(urls[4]);
+});
+
+</script>
+</head>
+
+<body>
+  <div id="bench-results"></div>
+</body>
+
+</html>
