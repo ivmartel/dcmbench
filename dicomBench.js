@@ -3,13 +3,13 @@ var Benchmark = Benchmark || {};
 
 // Class to handle benchmarks.
 // @param funcs The array of {name, func} to test.
-// @param urls The list of url to test the functions on.
-DicomBench = function (funcs, urls) {
+// @param dataList The list of url to test the functions on.
+DicomBench = function (funcs, dataList) {
 
   // closure to self
   var self = this;
-  // current url index
-  var urlIndex = 0;
+  // current data index
+  var dataIndex = 0;
   // run index
   var runIndex = 0;
   // status
@@ -52,16 +52,16 @@ DicomBench = function (funcs, urls) {
 
   // run the benchmark(s)
   this.run = function () {
-    var url = urls[urlIndex];
+    var data = dataList[dataIndex];
     // console output
-    console.log("Bench for: '" + url + "'");
+    console.log("Bench for: '" + data.name + "'");
     // status
     setStatus("running");
 
     // html display
     tableId = "bench-table-" + runIndex;
     var table = null;
-    if ( urlIndex === 0 ) {
+    if ( dataIndex === 0 ) {
       // table
       table = document.createElement("table");
       table.id = tableId;
@@ -91,7 +91,7 @@ DicomBench = function (funcs, urls) {
       // header row
       var row = table.insertRow();
       var cell0 = row.insertCell();
-      cell0.appendChild(document.createTextNode(url));
+      cell0.appendChild(document.createTextNode(data.name));
       for ( var i = 0; i < funcs.length; ++i ) {
         row.insertCell();
       }
@@ -118,7 +118,7 @@ DicomBench = function (funcs, urls) {
         throw new Error("No function found.");
       }
       var cellId = index + 1;
-      var cell = table.rows[urlIndex+1].cells[cellId];
+      var cell = table.rows[dataIndex+1].cells[cellId];
       cell.appendChild(document.createTextNode(text));
 
       // check if cancelling
@@ -131,13 +131,13 @@ DicomBench = function (funcs, urls) {
       // check status
       if ( self.getStatus() !== "cancelled" ) {
         // launch next
-        ++urlIndex;
-        if ( urlIndex < urls.length ) {
+        ++dataIndex;
+        if ( dataIndex < dataList.length ) {
           self.run();
         }
         else {
           ++runIndex;
-          urlIndex = 0;
+          dataIndex = 0;
           setStatus("done");
         }
       }
@@ -145,13 +145,13 @@ DicomBench = function (funcs, urls) {
     // handle abort
     suite.on('abort', function(event) {
       ++runIndex;
-      urlIndex = 0;
+      dataIndex = 0;
       setStatus("cancelled");
     });
 
     // real work
     var request = new XMLHttpRequest();
-    request.open('GET', url, true);
+    request.open('GET', data.url, true);
     request.responseType = "arraybuffer";
     request.onload = function (/*event*/) {
       // closure to response

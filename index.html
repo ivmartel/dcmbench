@@ -62,7 +62,7 @@ parse_2 = function (response) {
   dwvParser.parse(response);
 };
 function_2 = {
-  "name": "dcmjs",
+  "name": "dwv",
   "func": parse_2
 };
 </script>
@@ -72,15 +72,22 @@ function_2 = {
 
 // create DicomBench object
 dicomBench = new DicomBench([
-  function_1, function_2
+  function_0, function_1, function_2
   ],
-  [ "data/osirix-toutatix-100.dcm",
-  "data/osirix-goudurix.dcm",
-  "data/dicompyler-ct.0.dcm",
-  "data/gdcm-CR-MONO1-10-chest.dcm",
-  "data/gdcm-CT-MONO2-8-abdo.dcm",
-  "data/gdcm-US-RGB-8-epicard.dcm",
-  "data/gdcm-US-RGB-8-esopecho.dcm"
+  [ { "name": "osirix-toutatix-100",
+    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
+    { "name": "osirix-goudurix",
+    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
+    { "name": "dicompyler-ct.0",
+    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" }, 
+    { "name": "gdcm-CR-MONO1-10-chest",
+    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
+    { "name": "gdcm-CT-MONO2-8-abdo",
+    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
+    { "name": "gdcm-US-RGB-8-epicard",
+    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
+    { "name": "gdcm-US-RGB-8-esopecho",
+    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
 ]);
 
 // handle launch
