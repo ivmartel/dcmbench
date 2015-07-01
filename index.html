@@ -67,19 +67,34 @@ function_2 = {
 };
 </script>
 
+<!-- daikon -->
+<script src="daikon/daikon-min.js"></script>
+<script type="text/javascript">
+parse_3 = function (response) {
+    // get data view
+    var data = new DataView(response);
+    // parse the data
+    var image = daikon.Series.parseImage(data);
+};
+function_3 = {
+  "name": "daikon",
+  "func": parse_3
+};
+</script>
+
 <!-- real business -->
 <script type="text/javascript">
 
 // create DicomBench object
 dicomBench = new DicomBench([
-  function_0, function_1, function_2
+  function_0, function_1, function_2, function_3
   ],
   [ { "name": "osirix-toutatix-100",
     "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
     { "name": "osirix-goudurix",
     "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
     { "name": "dicompyler-ct.0",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" }, 
+    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
     { "name": "gdcm-CR-MONO1-10-chest",
     "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
     { "name": "gdcm-CT-MONO2-8-abdo",
