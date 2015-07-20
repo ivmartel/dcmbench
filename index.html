@@ -128,7 +128,7 @@ $( document ).ready(function() {
   // output user agent
   var pAgent = document.createElement("p");
   pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent))
-  var resDiv = document.getElementById("bench-results");
+  var resDiv = document.getElementById("browser");
   resDiv.appendChild(pAgent);
 });
 </script>
@@ -136,6 +136,9 @@ $( document ).ready(function() {
 
 <body>
   <h1>DICOM Javascript parser benchmark</h1>
+
+  <div id="browser"></div>
+
   <div id="bench-toolbar">
     <button id="bench-button" onclick="onBenchButton()">Launch</button>
     <p id="bench-status">Ready</p>
