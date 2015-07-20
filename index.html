@@ -37,7 +37,7 @@ parse_0 = function (response) {
   // run dcmtk command
   dcmjs.utils.execute('dcmdump', [fileName]);
 };
-function_0 = {
+var function_0 = {
   "name": "dcmjs",
   "func": parse_0
 };
@@ -52,7 +52,7 @@ parse_1 = function (response) {
   // parse
   var dataSet = dicomParser.parseDicom(content);
 };
-function_1 = {
+var function_1 = {
   "name": "dicomParser",
   "func": parse_1
 };
@@ -67,7 +67,7 @@ parse_2 = function (response) {
   // parse the buffer
   dwvParser.parse(response);
 };
-function_2 = {
+var function_2 = {
   "name": "dwv",
   "func": parse_2
 };
@@ -82,7 +82,7 @@ parse_3 = function (response) {
     // parse the data
     var image = daikon.Series.parseImage(data);
 };
-function_3 = {
+var function_3 = {
   "name": "daikon",
   "func": parse_3
 };
@@ -91,25 +91,28 @@ function_3 = {
 <!-- real business -->
 <script type="text/javascript">
 
+// default test data
+var defaultTestData = [ { "name": "osirix-toutatix-100",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
+  { "name": "osirix-goudurix",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
+  { "name": "dicompyler-ct.0",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
+  { "name": "gdcm-CR-MONO1-10-chest",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
+  { "name": "gdcm-CT-MONO2-8-abdo",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
+  { "name": "gdcm-US-RGB-8-epicard",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
+  { "name": "gdcm-US-RGB-8-esopecho",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
+];
+
 // create DicomBench object
-dicomBench = new DicomBench([
+var dicomBench = new DicomBench([
   function_0, function_1, function_2, function_3
-  ],
-  [ { "name": "osirix-toutatix-100",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
-    { "name": "osirix-goudurix",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
-    { "name": "dicompyler-ct.0",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
-    { "name": "gdcm-CR-MONO1-10-chest",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
-    { "name": "gdcm-CT-MONO2-8-abdo",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
-    { "name": "gdcm-US-RGB-8-epicard",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
-    { "name": "gdcm-US-RGB-8-esopecho",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
-]);
+  ], defaultTestData
+  );
 
 // handle launch
 onBenchButton = function () {
@@ -131,7 +134,7 @@ $( document ).ready(function() {
   // output user agent
   var pAgent = document.createElement("p");
   pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent))
-  var resDiv = document.getElementById("bench-results");
+  var resDiv = document.getElementById("browser");
   resDiv.appendChild(pAgent);
 });
 </script>
@@ -160,6 +163,9 @@ $( document ).ready(function() {
       <section id="main_content" class="inner">
 
   <p>Note: this online version only works with Google Chrome launched with <code>--disable-web-security</code>.</p>
+
+  <div id="browser"></div>
+
   <div id="bench-toolbar">
     <button id="bench-button" onclick="onBenchButton()">Launch</button>
     <p id="bench-status">Ready</p>
