@@ -34,3 +34,6 @@ td {
 #diff-results {
   clear: both;
 }
+#diff-results p {
+  font-size: 12px;
+}

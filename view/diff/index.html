@@ -7,14 +7,14 @@
 <link type="text/css" rel="stylesheet" href="../style.css" />
 
 <!-- Third party -->
-<script src="dcmjs/libs/jquery-1.11.0.min.js"></script>
-<script src="diff/diff.js"></script>
+<script src="../../ext/dcmjs/libs/jquery-1.11.0.min.js"></script>
+<script src="../../ext/diff/diff.js"></script>
 <!-- local -->
-<script src="dicomDiff.js"></script>
+<script src="../../src/dicomDiff.js"></script>
 
 <!-- dcmjs -->
-<script src="dcmjs/libs/dcmjs-nico.js"></script>
-<script src="dcmjs/utils.js"></script>
+<script src="../../ext/dcmjs/libs/dcmjs-nico.js"></script>
+<script src="../../ext/dcmjs/utils.js"></script>
 <script type="text/javascript">
 parse_0 = function (response) {
   // store lines
@@ -39,11 +39,13 @@ var function_0 = {
 </script>
 
 <!-- dwv -->
-<script src="dwv/dwv-0.10.1.min.js"></script>
+<script src="../../ext/dwv/dwv-0.10.1.min.js"></script>
+<script src="../../ext/dwv/new5/dicomParser.js"></script>
+<script src="../../ext/dwv/new5/dictionary.js"></script>
 <script type="text/javascript">
 parse_2 = function (response) {
   // setup the dicom parser
-  var dwvParser = new dwv.dicom.DicomParser();
+  var dwvParser = new dwv5.dicom.DicomParser();
   // parse the buffer
   dwvParser.parse(response);
   // return dump
@@ -93,6 +95,18 @@ onDiffButton = function () {
   }
 }
 
+onShowButton = function (id) {
+  var element = document.getElementById(id);
+  if ( element ) {
+      if ( element.style.display === "none" ) {
+          element.style.display = '';
+      }
+      else {
+          element.style.display = "none";
+      }
+  }
+}
+
 // last minute
 $( document ).ready(function() {
   // output user agent
@@ -101,6 +115,7 @@ $( document ).ready(function() {
   var resDiv = document.getElementById("browser");
   resDiv.appendChild(pAgent);
 });
+
 </script>
 </head>
 
@@ -111,11 +126,11 @@ $( document ).ready(function() {
   <div id="browser"></div>
 
   <div id="diff-toolbar">
-    <h2>Diff</h2>
     <button id="diff-button" onclick="onDiffButton()">Launch</button>
     <p id="diff-status">Ready</p>
   </div>
-  <pre id="diff-results"></pre>
+
+  <div id="diff-results"></div>
 
 </body>
 

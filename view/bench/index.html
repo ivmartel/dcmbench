@@ -4,18 +4,18 @@
 <head>
 <title>DICOM Parser Benchmark</title>
 <meta charset="UTF-8">
-<link type="text/css" rel="stylesheet" href="style.css" />
+<link type="text/css" rel="stylesheet" href="../style.css" />
 
 <!-- Third party -->
-<script src="dcmjs/libs/jquery-1.11.0.min.js"></script>
-<script src="benchmark/lodash.js"></script>
-<script src="benchmark/benchmark.js"></script>
+<script src="../../ext/dcmjs/libs/jquery-1.11.0.min.js"></script>
+<script src="../../ext/benchmark/lodash.js"></script>
+<script src="../../ext/benchmark/benchmark.js"></script>
 <!-- local -->
-<script src="dicomBench.js"></script>
+<script src="../../src/dicomBench.js"></script>
 
 <!-- dcmjs -->
-<script src="dcmjs/libs/dcmjs-nico.js"></script>
-<script src="dcmjs/utils.js"></script>
+<script src="../../ext/dcmjs/libs/dcmjs-nico.js"></script>
+<script src="../../ext/dcmjs/utils.js"></script>
 <script type="text/javascript">
 parse_0 = function (response) {
   // avoid console log
@@ -38,7 +38,7 @@ var function_0 = {
 </script>
 
 <!-- chafey -->
-<script src="dicomParser/dicomParser.min.js"></script>
+<script src="../../ext/dicomParser/dicomParser.min.js"></script>
 <script type="text/javascript">
 parse_1 = function (response) {
   // convert to uint
@@ -53,7 +53,7 @@ var function_1 = {
 </script>
 
 <!-- dwv -->
-<script src="dwv/dwv-0.10.1.min.js"></script>
+<script src="../../ext/dwv/dwv-0.10.1.min.js"></script>
 <script type="text/javascript">
 parse_2 = function (response) {
   // setup the dicom parser
@@ -68,7 +68,7 @@ var function_2 = {
 </script>
 
 <!-- daikon -->
-<script src="daikon/daikon-min.js"></script>
+<script src="../../ext/daikon/daikon-min.js"></script>
 <script type="text/javascript">
 parse_3 = function (response) {
     // get data view
