@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>DICOM Parser Benchmark</title>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="../style.css" />
+
+<!-- Third party -->
+<script src="../../ext/dcmjs/libs/jquery-1.11.0.min.js"></script>
+<script src="../../ext/benchmark/lodash.js"></script>
+<script src="../../ext/benchmark/benchmark.js"></script>
+<!-- local -->
+<script src="../../src/dicomBench.js"></script>
+
+<!-- dcmjs -->
+<script src="../../ext/dcmjs/libs/dcmjs-nico.js"></script>
+<script src="../../ext/dcmjs/utils.js"></script>
+<script type="text/javascript">
+parse_0 = function (response) {
+  // avoid console log
+  var dumpLines = [];
+  Module.print = function (s) {
+    dumpLines.push(s);
+  }
+  // temp file name
+  var fileName = 'temp';
+  // write to FileSystem
+  var content = new Int8Array(response);
+  FS.writeFile(fileName, content, {encoding: "binary"});
+  // run dcmtk command
+  dcmjs.utils.execute('dcmdump', [fileName]);
+};
+var function_0 = {
+  "name": "dcmjs",
+  "func": parse_0
+};
+</script>
+
+<!-- chafey -->
+<script src="../../ext/dicomParser/dicomParser.min.js"></script>
+<script type="text/javascript">
+parse_1 = function (response) {
+  // convert to uint
+  var content = new Uint8Array(response);
+  // parse
+  var dataSet = dicomParser.parseDicom(content);
+};
+var function_1 = {
+  "name": "dicomParser",
+  "func": parse_1
+};
+</script>
+
+<!-- dwv -->
+<script src="../../ext/dwv/dwv-0.10.1.min.js"></script>
+<script type="text/javascript">
+parse_2 = function (response) {
+  // setup the dicom parser
+  var dwvParser = new dwv.dicom.DicomParser();
+  // parse the buffer
+  dwvParser.parse(response);
+};
+var function_2 = {
+  "name": "dwv",
+  "func": parse_2
+};
+</script>
+
+<!-- daikon -->
+<script src="../../ext/daikon/daikon-min.js"></script>
+<script type="text/javascript">
+parse_3 = function (response) {
+    // get data view
+    var data = new DataView(response);
+    // parse the data
+    var image = daikon.Series.parseImage(data);
+};
+var function_3 = {
+  "name": "daikon",
+  "func": parse_3
+};
+</script>
+
+<!-- real business -->
+<script type="text/javascript">
+
+// default test data
+var defaultTestData = [ { "name": "osirix-toutatix-100",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
+  { "name": "osirix-goudurix",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
+  { "name": "dicompyler-ct.0",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
+  { "name": "gdcm-CR-MONO1-10-chest",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
+  { "name": "gdcm-CT-MONO2-8-abdo",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
+  { "name": "gdcm-US-RGB-8-epicard",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
+  { "name": "gdcm-US-RGB-8-esopecho",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
+];
+
+// create DicomBench object
+var dicomBench = new DicomBench([
+  function_0, function_1, function_2, function_3
+  ], defaultTestData
+  );
+
+// handle launch
+onBenchButton = function () {
+  // run bench
+  if ( dicomBench.getStatus() === "ready" ||
+    dicomBench.getStatus() === "done" ||
+    dicomBench.getStatus() === "cancelled" ) {
+    // run bench
+    dicomBench.run();
+  }
+  else if ( dicomBench.getStatus() === "running" ) {
+    // cancel bench
+    dicomBench.cancel();
+  }
+}
+
+// last minute
+$( document ).ready(function() {
+  // output user agent
+  var pAgent = document.createElement("p");
+  pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent))
+  var resDiv = document.getElementById("browser");
+  resDiv.appendChild(pAgent);
+});
+</script>
+</head>
+
+<body>
+  <h1>DICOM Javascript parser benchmark</h1>
+
+  <div id="browser"></div>
+
+  <div id="bench-toolbar">
+    <button id="bench-button" onclick="onBenchButton()">Launch</button>
+    <p id="bench-status">Ready</p>
+  </div>
+  <div id="bench-results"></div>
+</body>
+
+</html>

@@ -22,3 +22,18 @@ td {
 #bench-results {
   clear: both;
 }
+
+#diff-button {
+  float: left; margin-right: 0.5em;
+}
+#diff-status {
+  background: #eee; padding: 0.4em;
+  font-family: Courier, sans-serif;
+  font-size: 12px;
+}
+#diff-results {
+  clear: both;
+}
+#diff-results p {
+  font-size: 12px;
+}
