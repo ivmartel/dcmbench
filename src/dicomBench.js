@@ -4,10 +4,14 @@ var Benchmark = Benchmark || {};
 // Class to handle benchmarks.
 // @param funcs The array of {name, func} to test.
 // @param dataList The list of url to test the functions on.
-DicomBench = function (funcs, dataList) {
+DicomBench = function (funcs) {
 
   // closure to self
   var self = this;
+  // data list
+  var dataList = null;
+  // file or url
+  var isFile = null;
   // current data index
   var dataIndex = 0;
   // run index
@@ -18,6 +22,14 @@ DicomBench = function (funcs, dataList) {
   // get the status
   this.getStatus = function () {
     return status;
+  };
+
+  // set the data list
+  this.setDataList = function (list) {
+    if ( list.length !== 0 ) {
+      dataList = list;
+      isFile = ( typeof list[0].file === "undefined" ) ? false : true;
+    }
   };
 
   // set the statue
@@ -149,13 +161,9 @@ DicomBench = function (funcs, dataList) {
       setStatus("cancelled");
     });
 
-    // real work
-    var request = new XMLHttpRequest();
-    request.open('GET', data.url, true);
-    request.responseType = "arraybuffer";
-    request.onload = function (/*event*/) {
-      // closure to response
-      var response = this.response;
+    // handle loaded data
+    var onloadBuffer = function (buffer) {
+      // avoid creating functions in loops
       var getFunc = function (f, a) {
         return function () {
           f(a);
@@ -163,11 +171,30 @@ DicomBench = function (funcs, dataList) {
       };
       // add parsers to suite
       for ( var i = 0; i < funcs.length; ++i ) {
-        suite.add(funcs[i].name, getFunc(funcs[i].func, response) );
+        suite.add(funcs[i].name, getFunc(funcs[i].func, buffer) );
       }
       // run async
       suite.run({ 'async': true });
     };
-    request.send(null);
+
+    // read according to type
+    if ( isFile ) {
+      // FileReader
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        onloadBuffer(event.target.result);
+      };
+      reader.readAsArrayBuffer(data.file);
+    }
+    else {
+      // XMLHttpRequest
+      var request = new XMLHttpRequest();
+      request.open('GET', data.url, true);
+      request.responseType = "arraybuffer";
+      request.onload = function (/*event*/) {
+        onloadBuffer(this.response);
+      };
+      request.send(null);
+    }
   };
 };

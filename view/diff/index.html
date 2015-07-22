@@ -11,12 +11,13 @@
 <script src="../../ext/diff/diff.js"></script>
 <!-- local -->
 <script src="../../src/dicomDiff.js"></script>
+<script src="../../src/dragndrop.js"></script>
 
 <!-- dcmjs -->
 <script src="../../ext/dcmjs/libs/dcmjs-nico.js"></script>
 <script src="../../ext/dcmjs/utils.js"></script>
 <script type="text/javascript">
-parse_0 = function (response) {
+parse_0 = function (buffer) {
   // store lines
   var dumpLines = [];
   Module.print = function (s) {
@@ -25,7 +26,7 @@ parse_0 = function (response) {
   // temp file name
   var fileName = 'temp';
   // write to FileSystem
-  var content = new Int8Array(response);
+  var content = new Int8Array(buffer);
   FS.writeFile(fileName, content, {encoding: "binary"});
   // run dcmtk command
   dcmjs.utils.execute('dcmdump', [fileName, "-Un"]);
@@ -43,11 +44,11 @@ var function_0 = {
 <script src="../../ext/dwv/new5/dicomParser.js"></script>
 <script src="../../ext/dwv/new5/dictionary.js"></script>
 <script type="text/javascript">
-parse_2 = function (response) {
+parse_2 = function (buffer) {
   // setup the dicom parser
   var dwvParser = new dwv5.dicom.DicomParser();
   // parse the buffer
-  dwvParser.parse(response);
+  dwvParser.parse(buffer);
   // return dump
   return dwvParser.getDicomElements().dump();
 };
@@ -62,39 +63,46 @@ var function_2 = {
 
 // default test data
 var defaultTestData = [ { "name": "osirix-toutatix-100",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
-    { "name": "osirix-goudurix",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
-    { "name": "dicompyler-ct.0",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
-    { "name": "gdcm-CR-MONO1-10-chest",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
-    { "name": "gdcm-CT-MONO2-8-abdo",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
-    { "name": "gdcm-US-RGB-8-epicard",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
-    { "name": "gdcm-US-RGB-8-esopecho",
-    "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
-  ];
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
+  { "name": "osirix-goudurix",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
+  { "name": "dicompyler-ct.0",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
+  { "name": "gdcm-CR-MONO1-10-chest",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
+  { "name": "gdcm-CT-MONO2-8-abdo",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
+  { "name": "gdcm-US-RGB-8-epicard",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
+  { "name": "gdcm-US-RGB-8-esopecho",
+  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
+];
 
-// create DicomDump object
-var dicomDiff = new DicomDiff( function_0, function_2, defaultTestData );
+// create default runner object
+var runner = new DicomDiff( function_0, function_2 );
+runner.setDataList( defaultTestData );
 
-// handle dump launch
-onDiffButton = function () {
-  // run diff
-  if ( dicomDiff.getStatus() === "ready" ||
-    dicomDiff.getStatus() === "done" ||
-    dicomDiff.getStatus() === "cancelled" ) {
-    // run diff
-    dicomDiff.run();
+// called by the drag and drop
+updateDataList = function (datalist) {
+  runner.setDataList(datalist);
+}
+
+// handle launch
+onLaunchButton = function () {
+  // action according to status
+  if ( runner.getStatus() === "ready" ||
+    runner.getStatus() === "done" ||
+    runner.getStatus() === "cancelled" ) {
+    // run
+    runner.run();
   }
-  else if ( dicomDiff.getStatus() === "running" ) {
-    // cancel diff
-    dicomDiff.cancel();
+  else if ( runner.getStatus() === "running" ) {
+    // cancel
+    runner.cancel();
   }
 }
 
+// show/hide an element
 onShowButton = function (id) {
   var element = document.getElementById(id);
   if ( element ) {
@@ -109,13 +117,15 @@ onShowButton = function (id) {
 
 // last minute
 $( document ).ready(function() {
+  // drag and drop
+  setupDragDrop();
+
   // output user agent
   var pAgent = document.createElement("p");
   pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent))
   var resDiv = document.getElementById("browser");
   resDiv.appendChild(pAgent);
 });
-
 </script>
 </head>
 
@@ -125,11 +135,16 @@ $( document ).ready(function() {
 
   <div id="browser"></div>
 
-  <div id="diff-toolbar">
-    <button id="diff-button" onclick="onDiffButton()">Launch</button>
-    <p id="diff-status">Ready</p>
+  <div id="input">
+    <div id="field"><input type="file" multiple="true" onchange="onChangeInput(files)"></div>
+    <div id="text"><p><b>or</b></p></div>
+    <div id="dropbox">Drop files here</div>
   </div>
 
+  <div id="diff-toolbar">
+    <button id="diff-button" onclick="onLaunchButton()">Launch</button>
+    <p id="diff-status">Ready</p>
+  </div>
   <div id="diff-results"></div>
 
 </body>
