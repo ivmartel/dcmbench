@@ -12,12 +12,13 @@
 <script src="../../ext/benchmark/benchmark.js"></script>
 <!-- local -->
 <script src="../../src/dicomBench.js"></script>
+<script src="../../src/dragndrop.js"></script>
 
 <!-- dcmjs -->
 <script src="../../ext/dcmjs/libs/dcmjs-nico.js"></script>
 <script src="../../ext/dcmjs/utils.js"></script>
 <script type="text/javascript">
-parse_0 = function (response) {
+parse_0 = function (buffer) {
   // avoid console log
   var dumpLines = [];
   Module.print = function (s) {
@@ -26,7 +27,7 @@ parse_0 = function (response) {
   // temp file name
   var fileName = 'temp';
   // write to FileSystem
-  var content = new Int8Array(response);
+  var content = new Int8Array(buffer);
   FS.writeFile(fileName, content, {encoding: "binary"});
   // run dcmtk command
   dcmjs.utils.execute('dcmdump', [fileName]);
@@ -40,9 +41,9 @@ var function_0 = {
 <!-- chafey -->
 <script src="../../ext/dicomParser/dicomParser.min.js"></script>
 <script type="text/javascript">
-parse_1 = function (response) {
+parse_1 = function (buffer) {
   // convert to uint
-  var content = new Uint8Array(response);
+  var content = new Uint8Array(buffer);
   // parse
   var dataSet = dicomParser.parseDicom(content);
 };
@@ -55,11 +56,11 @@ var function_1 = {
 <!-- dwv -->
 <script src="../../ext/dwv/dwv-0.10.1.min.js"></script>
 <script type="text/javascript">
-parse_2 = function (response) {
+parse_2 = function (buffer) {
   // setup the dicom parser
   var dwvParser = new dwv.dicom.DicomParser();
   // parse the buffer
-  dwvParser.parse(response);
+  dwvParser.parse(buffer);
 };
 var function_2 = {
   "name": "dwv",
@@ -70,9 +71,9 @@ var function_2 = {
 <!-- daikon -->
 <script src="../../ext/daikon/daikon-min.js"></script>
 <script type="text/javascript">
-parse_3 = function (response) {
+parse_3 = function (buffer) {
     // get data view
-    var data = new DataView(response);
+    var data = new DataView(buffer);
     // parse the data
     var image = daikon.Series.parseImage(data);
 };
@@ -102,29 +103,35 @@ var defaultTestData = [ { "name": "osirix-toutatix-100",
   "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
 ];
 
-// create DicomBench object
-var dicomBench = new DicomBench([
-  function_0, function_1, function_2, function_3
-  ], defaultTestData
-  );
+// create default runner object
+var runner = new DicomBench([function_0, function_1, function_2, function_3]);
+runner.setDataList( defaultTestData );
+
+// called by the drag and drop
+updateDataList = function (datalist) {
+  runner.setDataList(datalist);
+}
 
 // handle launch
-onBenchButton = function () {
-  // run bench
-  if ( dicomBench.getStatus() === "ready" ||
-    dicomBench.getStatus() === "done" ||
-    dicomBench.getStatus() === "cancelled" ) {
-    // run bench
-    dicomBench.run();
+onLaunchButton = function () {
+  // action according to status
+  if ( runner.getStatus() === "ready" ||
+    runner.getStatus() === "done" ||
+    runner.getStatus() === "cancelled" ) {
+    // run
+    runner.run();
   }
-  else if ( dicomBench.getStatus() === "running" ) {
-    // cancel bench
-    dicomBench.cancel();
+  else if ( runner.getStatus() === "running" ) {
+    // cancel
+    runner.cancel();
   }
 }
 
 // last minute
 $( document ).ready(function() {
+  // drag and drop
+  setupDragDrop();
+
   // output user agent
   var pAgent = document.createElement("p");
   pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent))
@@ -135,15 +142,23 @@ $( document ).ready(function() {
 </head>
 
 <body>
+
   <h1>DICOM Javascript parser benchmark</h1>
 
   <div id="browser"></div>
 
+  <div id="input">
+    <div id="field"><input type="file" multiple="true" onchange="onChangeInput(files)"></div>
+    <div id="text"><p><b>or</b></p></div>
+    <div id="dropbox">Drop files here</div>
+  </div>
+
   <div id="bench-toolbar">
-    <button id="bench-button" onclick="onBenchButton()">Launch</button>
+    <button id="bench-button" onclick="onLaunchButton()">Launch</button>
     <p id="bench-status">Ready</p>
   </div>
   <div id="bench-results"></div>
+
 </body>
 
 </html>

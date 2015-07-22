@@ -1,11 +1,14 @@
 // Class to handle dump diff.
 // @param f1 The first function to test.
 // @param f2 The second function to test.
-// @param dataList The list of url to test the functions on.
-DicomDiff = function (f1, f2, dataList) {
+DicomDiff = function (f1, f2) {
 
   // closure to self
   var self = this;
+  // data list
+  var dataList = null;
+  // file or url
+  var isFile = null;
   // current data index
   var dataIndex = 0;
   // run index
@@ -16,6 +19,14 @@ DicomDiff = function (f1, f2, dataList) {
   // get the status
   this.getStatus = function () {
     return status;
+  };
+
+  // set the data list
+  this.setDataList = function (list) {
+    if ( list.length !== 0 ) {
+      dataList = list;
+      isFile = ( typeof list[0].file === "undefined" ) ? false : true;
+    }
   };
 
   // set the statue
@@ -58,35 +69,30 @@ DicomDiff = function (f1, f2, dataList) {
 
     // html display
     var preId = "diff-results" + dataIndex;
-
+    // launch button
     var button = document.createElement("button");
     button.onclick = function() {
       onShowButton(preId);
     };
     button.id = preId + "-show";
     button.appendChild(document.createTextNode(data.name));
-
+    // text display
     var pre = document.createElement("pre");
     pre.id = preId
     pre.style.display = "none";
-
     var div = document.getElementById("diff-results");
+    // append
     div.appendChild(button);
     div.appendChild(pre);
 
-    // real work
-    var request = new XMLHttpRequest();
-    request.open('GET', data.url, true);
-    request.responseType = "arraybuffer";
-    request.onload = function (/*event*/) {
-      // closure to response
-      var response = this.response;
+    // handle loaded data
+    var onloadBuffer = function (buffer) {
       // run dumps
-      dump1 = f1.func(response);
-      dump2 = f2.func(response);
+      dump1 = f1.func(buffer);
+      dump2 = f2.func(buffer);
       // get diff
       var diff = JsDiff.diffChars(dump1, dump2);
-
+      // count
       var nSame = 0;
       var nDiff = 0;
 
@@ -130,8 +136,26 @@ DicomDiff = function (f1, f2, dataList) {
           setStatus("done");
         }
       }
-
     };
-    request.send(null);
+
+    // read according to type
+    if ( isFile ) {
+      // FileReader
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        onloadBuffer(event.target.result);
+      };
+      reader.readAsArrayBuffer(data.file);
+    }
+    else {
+      // XMLHttpRequest
+      var request = new XMLHttpRequest();
+      request.open('GET', data.url, true);
+      request.responseType = "arraybuffer";
+      request.onload = function (/*event*/) {
+        onloadBuffer(this.response);
+      };
+      request.send(null);
+    }
   };
 };
