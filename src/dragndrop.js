@@ -11,7 +11,7 @@ setupDragDrop = function () {
   dropbox.addEventListener("dragover", onDragOver);
   dropbox.addEventListener("dragleave", onDragLeave);
   dropbox.addEventListener("drop", onDrop);
-}
+};
 
 // Handle drag over.
 // Switches the drop box style to 'dropbox hover'.
@@ -22,7 +22,7 @@ onDragOver = function (event) {
   // update box
   var dropbox = document.getElementById("dropbox");
   dropbox.className = 'dropbox hover';
-}
+};
 
 // Handle drag leave.
 // Switches the drop box style to 'dropbox'.
@@ -33,7 +33,7 @@ onDragLeave = function (event) {
   // update box
   var dropbox = document.getElementById("dropbox");
   dropbox.className = 'dropBox';
-}
+};
 
 // Handle drop.
 // - Updates the data list by calling updateDataList.
@@ -59,7 +59,7 @@ onDrop = function (event) {
   // update box
   var dropbox = document.getElementById("dropbox");
   dropbox.innerHTML = filesString;
-}
+};
 
 // Handle change in the input file element.
 // - Updates the data list by calling updateDataList.
@@ -71,4 +71,4 @@ onChangeInput = function (files) {
   }
   // call external function
   updateDataList( inputData );
-}
+};
