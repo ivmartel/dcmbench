@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>DICOM Part06 xml2json</title>
+<meta charset="UTF-8">
+
+<!-- Third party -->
+<script src="../../ext/jquery/jquery-2.1.3.min.js"></script>
+<!-- Local -->
+<script type="text/javascript">
+
+// trim and get rid of zero-width space
+cleanString = function (str) {
+  return str.trim().replace(/\u200B/g,'');
+};
+
+// parse the TBODY part of a DICOM XML tag table.
+parseTagTBody = function () {
+  // dictionnary object
+  var dict = {};
+  // display
+  var div = document.getElementById("dict");
+  var pre = document.createElement("pre");
+  div.appendChild(pre);
+  var tab = "  ";
+  var firstAppend = true;
+
+  $('tr', this).each( function () {
+    var group = null;
+    var element = null;
+    var keyword = null;
+    var vr = null;
+    var vm = null;
+    var retired = false;
+    var count = 0;
+    $('td', this).each( function () {
+      var value = cleanString($('para', this).text());
+      if ( $('emphasis', this).length !== 0 ) {
+        retired = true;
+        value = cleanString($('emphasis', this).text());
+      }
+      // (group,element)
+      if ( count === 0 ) {
+        var split = value.split(',');
+        group = "0x" + split[0].substr(1,4).toString();
+        element = "0x" + split[1].substr(0,4).toString();
+      }
+      // keyword
+      else if ( count === 2 ) {
+        keyword = value;
+      }
+      // vr
+      else if ( count === 3 ) {
+        vr = value;
+        if ( vr.substr(0, 8) === "See Note") {
+          vr = "NONE";
+        }
+        else if ( vr === "OB or OW" ) {
+          vr = "ox";
+        }
+        else if ( vr === "US or SS" ) {
+          vr = "xs";
+        }
+      }
+      // vm
+      else if ( count === 4 ) {
+        vm = value;
+      }
+      // comments
+      else if ( count === 5 ) {
+        if ( value === "RET" && !retired ) {
+          console.error("Expected dataElement to be retired...");
+        }
+      }
+      count++;
+    }); // td
+
+    // add data element to dict and display
+    if ( typeof dict[group] === "undefined" ) {
+      dict[group] = {};
+      if ( !firstAppend ) {
+        pre.appendChild(document.createTextNode(tab + "},\n"));
+      }
+      firstAppend = false;
+      pre.appendChild(document.createTextNode(tab + "'" + group + "': {\n"));
+      if ( group !== "0x0002" ) {
+        pre.appendChild(document.createTextNode(tab + tab + "'0x0000': ['UL', '1', 'GenericGroupLength'],\n"));
+      }
+    }
+    dict[group][element]= [vr, vm, keyword];
+    pre.appendChild(document.createTextNode(tab + tab + "'" + element + "': ['" + vr + "', '" + vm + "', '" + keyword + "'],\n"));
+
+  }); // tr
+
+  pre.appendChild(document.createTextNode(tab + "}\n"));
+
+}; // parseTagTBody
+
+$(document).ready( function () {
+  $.get("part06.xml", function (xmlArray) {
+    var xml = $.parseXML(xmlArray);
+    // 0002: DICOM File Meta Elements
+    $(xml).find("table[label='7-1']").each( function () {
+      $('tbody', this).each( parseTagTBody );
+    });
+    // 0004: DICOM Directory Structuring Elements
+    $(xml).find("table[label='8-1']").each( function () {
+      $('tbody', this).each( parseTagTBody );
+    });
+    // 0008: DICOM Data Elements
+    $(xml).find("table[label='6-1']").each( function () {
+      $('tbody', this).each( parseTagTBody );
+    });
+  });
+});
+
+</script>
+
+</head>
+
+<body>
+
+  <h1>DICOM Part06 xml2json InstitutionName</h1>
+  <div id="dict"></div>
+
+</body>
+
+</html>
