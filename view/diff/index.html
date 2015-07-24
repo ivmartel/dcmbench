@@ -40,13 +40,11 @@ var function_0 = {
 </script>
 
 <!-- dwv -->
-<script src="../../ext/dwv/dwv-0.10.1.min.js"></script>
-<script src="../../ext/dwv/new5/dicomParser.js"></script>
-<script src="../../ext/dwv/new5/dictionary.js"></script>
+<script src="../../ext/dwv/dwv-0.11.0beta.min.js"></script>
 <script type="text/javascript">
 parse_2 = function (buffer) {
   // setup the dicom parser
-  var dwvParser = new dwv5.dicom.DicomParser();
+  var dwvParser = new dwv.dicom.DicomParser();
   // parse the buffer
   dwvParser.parse(buffer);
   // return dump

@@ -68,7 +68,7 @@ DicomDiff = function (f1, f2) {
     setStatus("running");
 
     // html display
-    var preId = "diff-results" + dataIndex;
+    var preId = "diff-results-" + data.name;
     // launch button
     var button = document.createElement("button");
     button.onclick = function() {
@@ -78,7 +78,7 @@ DicomDiff = function (f1, f2) {
     button.appendChild(document.createTextNode(data.name));
     // text display
     var pre = document.createElement("pre");
-    pre.id = preId
+    pre.id = preId;
     pre.style.display = "none";
     var div = document.getElementById("diff-results");
     // append
