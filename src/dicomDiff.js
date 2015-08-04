@@ -43,11 +43,12 @@ DicomDiff = function (f1, f2) {
     if ( self.getStatus() === "ready" ||
       self.getStatus() === "done" ||
       self.getStatus() === "cancelled" ) {
-      // run diff
+      // update button
       button.innerHTML = "Launch";
+      meanDiffPercentage = 0;
     }
     else if ( self.getStatus() === "running" ) {
-      // cancel diff
+      // update button
       button.innerHTML = "Cancel";
     }
     else if ( self.getStatus() === "cancelling" ) {
