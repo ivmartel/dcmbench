@@ -99,7 +99,7 @@ parseTagTBody = function () {
 }; // parseTagTBody
 
 $(document).ready( function () {
-  $.get("part06.xml", function (xmlArray) {
+  $.get("./part06.xml", function (xmlArray) {
     var xml = $.parseXML(xmlArray);
     // 0002: DICOM File Meta Elements
     $(xml).find("table[label='7-1']").each( function () {
