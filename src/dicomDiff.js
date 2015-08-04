@@ -15,6 +15,8 @@ DicomDiff = function (f1, f2) {
   var runIndex = 0;
   // status
   var status = "ready";
+  // mean percentage
+  var meanDiffPercentage = 0;
 
   // get the status
   this.getStatus = function () {
@@ -41,11 +43,12 @@ DicomDiff = function (f1, f2) {
     if ( self.getStatus() === "ready" ||
       self.getStatus() === "done" ||
       self.getStatus() === "cancelled" ) {
-      // run diff
+      // update button
       button.innerHTML = "Launch";
+      meanDiffPercentage = 0;
     }
     else if ( self.getStatus() === "running" ) {
-      // cancel diff
+      // update button
       button.innerHTML = "Cancel";
     }
     else if ( self.getStatus() === "cancelling" ) {
@@ -122,6 +125,7 @@ DicomDiff = function (f1, f2) {
       var diffText = document.createElement("p");
       diffText.appendChild(document.createTextNode(percent.toPrecision(4) + "% similar."));
       div.appendChild(diffText);
+      meanDiffPercentage += percent / dataList.length;
 
       // check status
       if ( self.getStatus() !== "cancelled" ) {
@@ -131,6 +135,11 @@ DicomDiff = function (f1, f2) {
           self.run();
         }
         else {
+          var meanDiffText = document.createElement("p");
+          meanDiffText.className = "diff-mean";
+          meanDiffText.appendChild(document.createTextNode("Mean: " +
+            meanDiffPercentage.toPrecision(4) + "% similar."));
+          div.appendChild(meanDiffText);
           ++runIndex;
           dataIndex = 0;
           setStatus("done");
