@@ -52,3 +52,4 @@ td {
 #diff-results p {
   font-size: 12px;
 }
+.diff-mean { background: #eee; font-weight: bold; }

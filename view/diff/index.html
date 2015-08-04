@@ -22,7 +22,7 @@ parse_0 = function (buffer) {
   var dumpLines = [];
   Module.print = function (s) {
     dumpLines += s + "\n";
-  }
+  };
   // temp file name
   var fileName = 'temp';
   // write to FileSystem
@@ -83,7 +83,7 @@ runner.setDataList( defaultTestData );
 // called by the drag and drop
 updateDataList = function (datalist) {
   runner.setDataList(datalist);
-}
+};
 
 // handle launch
 onLaunchButton = function () {
@@ -98,7 +98,7 @@ onLaunchButton = function () {
     // cancel
     runner.cancel();
   }
-}
+};
 
 // show/hide an element
 onShowButton = function (id) {
@@ -111,7 +111,7 @@ onShowButton = function (id) {
           element.style.display = "none";
       }
   }
-}
+};
 
 // last minute
 $( document ).ready(function() {
@@ -120,7 +120,7 @@ $( document ).ready(function() {
 
   // output user agent
   var pAgent = document.createElement("p");
-  pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent))
+  pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent));
   var resDiv = document.getElementById("browser");
   resDiv.appendChild(pAgent);
 });
