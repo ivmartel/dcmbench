@@ -99,7 +99,7 @@ parseTagTBody = function () {
 }; // parseTagTBody
 
 $(document).ready( function () {
-  $.get("http://ivmartel.github.io/dcmbench/view/part06/part06.xml", function (xmlArray) {
+  $.get("./part06.xml", function (xmlArray) {
     var xml = $.parseXML(xmlArray);
     // 0002: DICOM File Meta Elements
     $(xml).find("table[label='7-1']").each( function () {
@@ -124,7 +124,7 @@ $(document).ready( function () {
 
   <h1>DICOM Part06 xml2json</h1>
   
-  <p>Allow access to local files for this to work...
+  <p>Run this locally and allow access to local files for this to work...
   <br>Source: 2015c <a href="http://medical.nema.org/medical/dicom/current/source/docbook/part06/part06.xml">part06.xml</a> (also see <a href="http://medical.nema.org/medical/dicom/current/output/html/part06.html">part06.html</a>).</p>
   
   <div id="dict"></div>
