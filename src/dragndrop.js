@@ -5,7 +5,7 @@
 * - a function 'updateDataList' to pass the file list
 */
 
-// Setup drag and drop
+// Setup drag and drop.
 setupDragDrop = function () {
   var dropbox = document.getElementById("dropbox");
   dropbox.addEventListener("dragover", onDragOver);
