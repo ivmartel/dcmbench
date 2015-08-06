@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>iframe-dwv-0.10.1</title>
+<meta charset="UTF-8">
+</head>
+
+<script src="dicomParser.min.js"></script>
+<script type="text/javascript">
+parse = function (buffer) {
+  // convert to uint
+  var content = new Uint8Array(buffer);
+  // parse
+  var dataSet = dicomParser.parseDicom(content);
+};
+</script>
+
+</html>

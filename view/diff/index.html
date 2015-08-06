@@ -7,54 +7,16 @@
 <link type="text/css" rel="stylesheet" href="../style.css" />
 
 <!-- Third party -->
-<script src="../../ext/dcmjs/libs/jquery-1.11.0.min.js"></script>
+<script src="../../ext/jquery/jquery-2.1.3.min.js"></script>
 <script src="../../ext/diff/diff.js"></script>
 <!-- local -->
 <script src="../../src/dicomDiff.js"></script>
 <script src="../../src/dragndrop.js"></script>
 
 <!-- dcmjs -->
-<script src="../../ext/dcmjs/libs/dcmjs-nico.js"></script>
-<script src="../../ext/dcmjs/utils.js"></script>
-<script type="text/javascript">
-parse_0 = function (buffer) {
-  // store lines
-  var dumpLines = [];
-  Module.print = function (s) {
-    dumpLines += s + "\n";
-  };
-  // temp file name
-  var fileName = 'temp';
-  // write to FileSystem
-  var content = new Int8Array(buffer);
-  FS.writeFile(fileName, content, {encoding: "binary"});
-  // run dcmtk command
-  dcmjs.utils.execute('dcmdump', [fileName, "-Un"]);
-  // return lines
-  return dumpLines;
-};
-var function_0 = {
-  "name": "dcmjs",
-  "func": parse_0
-};
-</script>
-
-<!-- dwv -->
-<script src="../../ext/dwv/dwv-0.11.0beta.min.js"></script>
-<script type="text/javascript">
-parse_2 = function (buffer) {
-  // setup the dicom parser
-  var dwvParser = new dwv.dicom.DicomParser();
-  // parse the buffer
-  dwvParser.parse(buffer);
-  // return dump
-  return dwvParser.getDicomElements().dump();
-};
-var function_2 = {
-  "name": "dwv",
-  "func": parse_2
-};
-</script>
+<iframe src="../../ext/dcmjs/dcmjs.html" id="if-dcmjs" style="display:none"></iframe>
+<!-- dwv 0.11 -->
+<iframe src="../../ext/dwv/dwv-0.11.0beta.html" id="if-dwv011" style="display:none"></iframe>
 
 <!-- real business -->
 <script type="text/javascript">
@@ -77,7 +39,7 @@ var defaultTestData = [ { "name": "osirix-toutatix-100",
 ];
 
 // create default runner object
-var runner = new DicomDiff( function_0, function_2 );
+var runner = new DicomDiff();
 runner.setDataList( defaultTestData );
 
 // called by the drag and drop
@@ -124,6 +86,19 @@ $( document ).ready(function() {
   var resDiv = document.getElementById("browser");
   resDiv.appendChild(pAgent);
 });
+// iframe content is only available at window.onload time
+window.onload = function () {
+  var function_dcmjs = {
+    "name": "dcmjs",
+    "func": document.getElementById('if-dcmjs').contentWindow.dump
+  };
+  var function_dwv011 = {
+    "name": "dwv011",
+    "func": document.getElementById('if-dwv011').contentWindow.dump
+  };
+  runner.setFunctionPair( function_dcmjs, function_dwv011 );
+};
+
 </script>
 </head>
 

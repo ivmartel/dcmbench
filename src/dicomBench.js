@@ -2,14 +2,14 @@
 var Benchmark = Benchmark || {};
 
 // Class to handle benchmarks.
-// @param funcs The array of {name, func} to test.
-// @param dataList The list of url to test the functions on.
-DicomBench = function (funcs) {
+DicomBench = function () {
 
   // closure to self
   var self = this;
   // data list
   var dataList = null;
+  // function list
+  var funcs = null;
   // file or url
   var isFile = null;
   // current data index
@@ -19,12 +19,12 @@ DicomBench = function (funcs) {
   // status
   var status = "ready";
 
-  // get the status
+  // Get the status.
   this.getStatus = function () {
     return status;
   };
 
-  // set the data list
+  // Set the data list.
   this.setDataList = function (list) {
     if ( list.length !== 0 ) {
       dataList = list;
@@ -32,7 +32,14 @@ DicomBench = function (funcs) {
     }
   };
 
-  // set the statue
+  // Set the function list.
+  this.setFunctionList = function (list) {
+    if ( list.length !== 0 ) {
+      funcs = list;
+    }
+  };
+
+  // Set the status.
   // @private
   setStatus = function (newStatus) {
     status = newStatus;
@@ -57,12 +64,12 @@ DicomBench = function (funcs) {
     }
   };
 
-  // cancel the benchmark(s)
+  // Cancel the process.
   this.cancel = function () {
     setStatus("cancelling");
   };
 
-  // run the benchmark(s)
+  // Run the process.
   this.run = function () {
     var data = dataList[dataIndex];
     // console output
