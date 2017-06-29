@@ -14,28 +14,23 @@
 <script src="../../src/dragndrop.js"></script>
 
 <!-- dcmjs -->
-<iframe src="../../ext/dcmjs/dcmjs.html" id="if-dcmjs" style="display:none"></iframe>
-<!-- dwv 0.11 -->
-<iframe src="../../ext/dwv/dwv-0.11.0beta.html" id="if-dwv011" style="display:none"></iframe>
+<iframe src="../../ext/dcmjs/v0.1.0/dcmjs.html" id="if-dcmjs" style="display:none"></iframe>
+<!-- dwv -->
+<iframe src="../../ext/dwv/v0.20.0/dwv.html" id="if-dwv-0.20.0" style="display:none"></iframe>
 
 <!-- real business -->
 <script type="text/javascript">
 
 // default test data
-var defaultTestData = [ { "name": "osirix-toutatix-100",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
-  { "name": "osirix-goudurix",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
-  { "name": "dicompyler-ct.0",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
-  { "name": "gdcm-CR-MONO1-10-chest",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
-  { "name": "gdcm-CT-MONO2-8-abdo",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
-  { "name": "gdcm-US-RGB-8-epicard",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
-  { "name": "gdcm-US-RGB-8-esopecho",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
+var githubRaw = "https://raw.githubusercontent.com/ivmartel/dcmbench/master/data/";
+var defaultTestData = [
+    { "name": "osirix-toutatix-100", "url": githubRaw + "osirix-toutatix-100.dcm" },
+    { "name": "osirix-goudurix", "url": githubRaw + "osirix-goudurix.dcm" },
+    { "name": "dicompyler-ct.0", "url": githubRaw + "dicompyler-ct.0.dcm" },
+    { "name": "gdcm-CR-MONO1-10-chest", "url": githubRaw + "gdcm-CR-MONO1-10-chest.dcm" },
+    { "name": "gdcm-CT-MONO2-8-abdo", "url": githubRaw + "gdcm-CT-MONO2-8-abdo.dcm" },
+    { "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm" },
+    { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm" }
 ];
 
 // create default runner object
@@ -92,11 +87,11 @@ window.onload = function () {
     "name": "dcmjs",
     "func": document.getElementById('if-dcmjs').contentWindow.dump
   };
-  var function_dwv011 = {
-    "name": "dwv011",
-    "func": document.getElementById('if-dwv011').contentWindow.dump
+  var function_dwv020 = {
+    "name": "dwv020",
+    "func": document.getElementById('if-dwv-0.20.0').contentWindow.dump
   };
-  runner.setFunctionPair( function_dcmjs, function_dwv011 );
+  runner.setFunctionPair( function_dcmjs, function_dwv020 );
 };
 
 </script>

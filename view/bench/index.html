@@ -15,34 +15,31 @@
 <script src="../../src/dragndrop.js"></script>
 
 <!-- dcmjs -->
-<iframe src="../../ext/dcmjs/dcmjs.html" id="if-dcmjs" style="display:none"></iframe>
+<iframe src="../../ext/dcmjs/v0.1.0/dcmjs.html" id="if-dcmjs" style="display:none"></iframe>
 <!-- dicomParser -->
-<iframe src="../../ext/dicomParser/dicomParser.html" id="if-dicomParser" style="display:none"></iframe>
-<!-- dwv 0.10 -->
-<iframe src="../../ext/dwv/dwv-0.10.1.html" id="if-dwv010" style="display:none"></iframe>
-<!-- dwv 0.11 -->
-<iframe src="../../ext/dwv/dwv-0.11.0beta.html" id="if-dwv011" style="display:none"></iframe>
+<iframe src="../../ext/dicomParser/v1.7.5/dicomParser.html" id="if-dicomParser-1.7.5" style="display:none"></iframe>
+<!-- dwv -->
+<iframe src="../../ext/dwv/v0.10.1/dwv.html" id="if-dwv-0.10.1" style="display:none"></iframe>
+<iframe src="../../ext/dwv/v0.11.1/dwv.html" id="if-dwv-0.11.1" style="display:none"></iframe>
+<iframe src="../../ext/dwv/v0.14.0/dwv.html" id="if-dwv-0.14.0" style="display:none"></iframe>
+<iframe src="../../ext/dwv/v0.15.0/dwv.html" id="if-dwv-0.15.0" style="display:none"></iframe>
+<iframe src="../../ext/dwv/v0.20.0/dwv.html" id="if-dwv-0.20.0" style="display:none"></iframe>
 <!-- daikon -->
-<iframe src="../../ext/daikon/daikon.html" id="if-daikon" style="display:none"></iframe>
+<iframe src="../../ext/daikon/v1.2.17/daikon.html" id="if-daikon-1.2.17" style="display:none"></iframe>
 
 <!-- real business -->
 <script type="text/javascript">
 
 // default test data
-var defaultTestData = [ { "name": "osirix-toutatix-100",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
-  { "name": "osirix-goudurix",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
-  { "name": "dicompyler-ct.0",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
-  { "name": "gdcm-CR-MONO1-10-chest",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
-  { "name": "gdcm-CT-MONO2-8-abdo",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
-  { "name": "gdcm-US-RGB-8-epicard",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
-  { "name": "gdcm-US-RGB-8-esopecho",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
+var githubRaw = "https://raw.githubusercontent.com/ivmartel/dcmbench/master/data/";
+var defaultTestData = [
+    { "name": "osirix-toutatix-100", "url": githubRaw + "osirix-toutatix-100.dcm" },
+    { "name": "osirix-goudurix", "url": githubRaw + "osirix-goudurix.dcm" },
+    { "name": "dicompyler-ct.0", "url": githubRaw + "dicompyler-ct.0.dcm" },
+    { "name": "gdcm-CR-MONO1-10-chest", "url": githubRaw + "gdcm-CR-MONO1-10-chest.dcm" },
+    { "name": "gdcm-CT-MONO2-8-abdo", "url": githubRaw + "gdcm-CT-MONO2-8-abdo.dcm" },
+    { "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm" },
+    { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm" }
 ];
 
 // create default runner object
@@ -87,27 +84,38 @@ window.onload = function () {
     "name": "dcmjs",
     "func": document.getElementById('if-dcmjs').contentWindow.parse
   };
-  var function_dicomParser = {
+  var function_dicomParser175 = {
     "name": "dicomParser",
-    "func": document.getElementById('if-dicomParser').contentWindow.parse
+    "func": document.getElementById('if-dicomParser-1.7.5').contentWindow.parse
+  };
+  var function_daikon1217 = {
+    "name": "daikon",
+    "func": document.getElementById('if-daikon-1.2.17').contentWindow.parse
   };
   var function_dwv010 = {
     "name": "dwv010",
-    "func": document.getElementById('if-dwv010').contentWindow.parse
+    "func": document.getElementById('if-dwv-0.10.1').contentWindow.parse
   };
   var function_dwv011 = {
     "name": "dwv011",
-    "func": document.getElementById('if-dwv011').contentWindow.parse
+    "func": document.getElementById('if-dwv-0.11.1').contentWindow.parse
   };
-  var function_daikon = {
-    "name": "daikon",
-    "func": document.getElementById('if-daikon').contentWindow.parse
+  var function_dwv014 = {
+    "name": "dwv014",
+    "func": document.getElementById('if-dwv-0.14.0').contentWindow.parse
+  };
+  var function_dwv015 = {
+    "name": "dwv015",
+    "func": document.getElementById('if-dwv-0.15.0').contentWindow.parse
+  };
+  var function_dwv020 = {
+    "name": "dwv020",
+    "func": document.getElementById('if-dwv-0.20.0').contentWindow.parse
   };
 
   runner.setFunctionList([
-    function_dcmjs, function_dicomParser,
-    function_dwv010, function_dwv011,
-    function_daikon ]);
+    function_dcmjs, function_dicomParser175, function_daikon1217,
+    function_dwv010, function_dwv011, function_dwv014, function_dwv015, function_dwv020 ]);
 };
 </script>
 </head>
