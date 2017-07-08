@@ -24,6 +24,7 @@
 <iframe src="../../ext/dwv/v0.14.0/dwv.html" id="if-dwv-0.14.0" style="display:none"></iframe>
 <iframe src="../../ext/dwv/v0.15.0/dwv.html" id="if-dwv-0.15.0" style="display:none"></iframe>
 <iframe src="../../ext/dwv/v0.20.0/dwv.html" id="if-dwv-0.20.0" style="display:none"></iframe>
+<iframe src="../../ext/dwv/v0.20.1/dwv.html" id="if-dwv-0.20.1" style="display:none"></iframe>
 <!-- daikon -->
 <iframe src="../../ext/daikon/v1.2.17/daikon.html" id="if-daikon-1.2.17" style="display:none"></iframe>
 
@@ -112,10 +113,14 @@ window.onload = function () {
     "name": "dwv020",
     "func": document.getElementById('if-dwv-0.20.0').contentWindow.parse
   };
+  var function_dwv0201 = {
+    "name": "dwv0201",
+    "func": document.getElementById('if-dwv-0.20.1').contentWindow.parse
+  };
 
   runner.setFunctionList([
     function_dcmjs, function_dicomParser175, function_daikon1217,
-    function_dwv010, function_dwv011, function_dwv014, function_dwv015, function_dwv020 ]);
+    function_dwv010, function_dwv011, function_dwv014, function_dwv015, function_dwv020, function_dwv0201 ]);
 };
 </script>
 </head>
