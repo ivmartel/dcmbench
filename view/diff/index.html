@@ -8,7 +8,7 @@
 
 <!-- Third party -->
 <script src="../../ext/jquery/jquery-2.1.3.min.js"></script>
-<script src="../../ext/diff/diff.js"></script>
+<script src="../../ext/diff/diff.min.js"></script>
 <!-- local -->
 <script src="../../src/dicomDiff.js"></script>
 <script src="../../src/dragndrop.js"></script>
@@ -16,7 +16,7 @@
 <!-- dcmjs -->
 <iframe src="../../ext/dcmjs/v0.1.0/dcmjs.html" id="if-dcmjs" style="display:none"></iframe>
 <!-- dwv -->
-<iframe src="../../ext/dwv/v0.20.0/dwv.html" id="if-dwv-0.20.0" style="display:none"></iframe>
+<iframe src="../../ext/dwv/v0.20.1/dwv.html" id="if-dwv-0.20.1" style="display:none"></iframe>
 
 <!-- real business -->
 <script type="text/javascript">
@@ -87,11 +87,11 @@ window.onload = function () {
     "name": "dcmjs",
     "func": document.getElementById('if-dcmjs').contentWindow.dump
   };
-  var function_dwv020 = {
-    "name": "dwv020",
-    "func": document.getElementById('if-dwv-0.20.0').contentWindow.dump
+  var function_dwv0201 = {
+    "name": "dwv0201",
+    "func": document.getElementById('if-dwv-0.20.1').contentWindow.dump
   };
-  runner.setFunctionPair( function_dcmjs, function_dwv020 );
+  runner.setFunctionPair( function_dcmjs, function_dwv0201 );
 };
 
 </script>
