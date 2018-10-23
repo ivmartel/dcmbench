@@ -13,7 +13,7 @@ Parsers:
 # install dependencies
 yarn install
 
-# serve with test hot reload at localhost:8080
+# serve with hot reload at localhost:8080
 yarn run start
 
 ```
