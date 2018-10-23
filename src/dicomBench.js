@@ -1,8 +1,10 @@
+// namespace
+var dcmb = dcmb || {};
 // benchmark.js
 var Benchmark = Benchmark || {};
 
 // Class to handle benchmarks.
-DicomBench = function () {
+dcmb.DicomBench = function () {
 
   // closure to self
   var self = this;
@@ -41,7 +43,7 @@ DicomBench = function () {
 
   // Set the status.
   // @private
-  setStatus = function (newStatus) {
+  var setStatus = function (newStatus) {
     status = newStatus;
     // update gui
     var pStatus = document.getElementById("bench-status");
@@ -78,7 +80,7 @@ DicomBench = function () {
     setStatus("running");
 
     // html display
-    tableId = "bench-table-" + runIndex;
+    var tableId = "bench-table-" + runIndex;
     var table = null;
     if ( dataIndex === 0 ) {
       // table
@@ -101,10 +103,9 @@ DicomBench = function () {
     else {
       table = document.getElementById(tableId);
     }
-    var row = null;
 
     // benchmark suite
-    var suite = new Benchmark.Suite();
+    var suite = new Benchmark.Suite("bench");
     // handle start of benchmark
     suite.on('start', function() {
       // header row
@@ -162,7 +163,7 @@ DicomBench = function () {
       }
     });
     // handle abort
-    suite.on('abort', function(event) {
+    suite.on('abort', function(/*event*/) {
       ++runIndex;
       dataIndex = 0;
       setStatus("cancelled");

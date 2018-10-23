@@ -38,7 +38,7 @@ var runner = new DicomDiff();
 runner.setDataList( defaultTestData );
 
 // called by the drag and drop
-updateDataList = function (datalist) {
+dcmb.updateDataList = function (datalist) {
   runner.setDataList(datalist);
 };
 
@@ -58,7 +58,7 @@ onLaunchButton = function () {
 };
 
 // show/hide an element
-onShowButton = function (id) {
+dcmb.onShowButton = function (id) {
   var element = document.getElementById(id);
   if ( element ) {
       if ( element.style.display === "none" ) {

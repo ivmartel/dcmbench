@@ -1,3 +1,6 @@
+// namespace
+var dcmb = dcmb || {};
+
 /**
 * Drag and drop related code.
 * Expects:
@@ -6,16 +9,16 @@
 */
 
 // Setup drag and drop.
-setupDragDrop = function () {
+dcmb.setupDragDrop = function (callback) {
   var dropbox = document.getElementById("dropbox");
-  dropbox.addEventListener("dragover", onDragOver);
-  dropbox.addEventListener("dragleave", onDragLeave);
-  dropbox.addEventListener("drop", onDrop);
+  dropbox.addEventListener("dragover", dcmb.onDragOver);
+  dropbox.addEventListener("dragleave", dcmb.onDragLeave);
+  dropbox.addEventListener("drop", dcmb.getOnDrop(callback));
 };
 
 // Handle drag over.
 // Switches the drop box style to 'dropbox hover'.
-onDragOver = function (event) {
+dcmb.onDragOver = function (event) {
   // prevent default handling
   event.stopPropagation();
   event.preventDefault();
@@ -26,7 +29,7 @@ onDragOver = function (event) {
 
 // Handle drag leave.
 // Switches the drop box style to 'dropbox'.
-onDragLeave = function (event) {
+dcmb.onDragLeave = function (event) {
   // prevent default handling
   event.stopPropagation();
   event.preventDefault();
@@ -38,37 +41,27 @@ onDragLeave = function (event) {
 // Handle drop.
 // - Updates the data list by calling updateDataList.
 // - Sets the text of the drop box.
-onDrop = function (event) {
-  // prevent default handling
-  event.stopPropagation();
-  event.preventDefault();
-  // update the DicomDiff data
-  var dragData = [];
-  var files = event.dataTransfer.files;
-  var filesString = "";
-  for ( var i = 0; i < files.length; ++i ) {
-    dragData.push( { "name": files[i].name,
-      "file": files[i] } );
-    filesString += files[i].name;
-    if ( i !== files.length - 1 ) {
-      filesString += ", ";
+dcmb.getOnDrop = function(callback) {
+  return function (event) {
+    // prevent default handling
+    event.stopPropagation();
+    event.preventDefault();
+    // update the DicomDiff data
+    var dragData = [];
+    var files = event.dataTransfer.files;
+    var filesString = "";
+    for ( var i = 0; i < files.length; ++i ) {
+      dragData.push( { "name": files[i].name,
+        "file": files[i] } );
+      filesString += files[i].name;
+      if ( i !== files.length - 1 ) {
+        filesString += ", ";
+      }
     }
-  }
-  // call external function
-  updateDataList( dragData );
-  // update box
-  var dropbox = document.getElementById("dropbox");
-  dropbox.innerHTML = filesString;
-};
-
-// Handle change in the input file element.
-// - Updates the data list by calling updateDataList.
-onChangeInput = function (files) {
-  var inputData = [];
-  for ( var i = 0; i < files.length; ++i ) {
-    inputData.push( { "name": files[i].name,
-      "file": files[i] } );
-  }
-  // call external function
-  updateDataList( inputData );
+    // call external function
+    callback(dragData);
+    // update box
+    var dropbox = document.getElementById("dropbox");
+    dropbox.innerHTML = filesString;
+  };
 };

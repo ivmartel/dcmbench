@@ -1,5 +1,14 @@
+// namespace
+var dcmb = dcmb || {};
+// benchmark.js
+var JsDiff = JsDiff || {};
+
+dcmb.onShowButton = function (/*id*/) {
+  // default does nothing
+};
+
 // Class to handle dump diff.
-DicomDiff = function () {
+dcmb.DicomDiff = function () {
 
   // closure to self
   var self = this;
@@ -41,7 +50,7 @@ DicomDiff = function () {
 
   // Set the status.
   // @private
-  setStatus = function (newStatus) {
+  var setStatus = function (newStatus) {
     status = newStatus;
     // update gui
     var pStatus = document.getElementById("diff-status");
@@ -83,7 +92,7 @@ DicomDiff = function () {
     // launch button
     var button = document.createElement("button");
     button.onclick = function() {
-      onShowButton(preId);
+      dcmb.onShowButton(preId);
     };
     button.id = preId + "-show";
     button.appendChild(document.createTextNode(data.name));
@@ -99,8 +108,8 @@ DicomDiff = function () {
     // handle loaded data
     var onloadBuffer = function (buffer) {
       // run dumps
-      dump1 = func1.func(buffer);
-      dump2 = func2.func(buffer);
+      var dump1 = func1.func(buffer);
+      var dump2 = func2.func(buffer);
       // get diff
       var diff = JsDiff.diffChars(dump1, dump2);
       // count
