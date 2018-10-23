@@ -6,3 +6,14 @@ Parsers:
 * [dicomParser](https://github.com/chafey/dicomParser): js parser by [chafey](https://github.com/chafey)
 * [dwv](https://github.com/ivmartel/dwv): js parser by [ivmartel](https://github.com/ivmartel)
 * [daikon](https://github.com/rii-mango/Daikon): js parser of the [rii-mango](https://github.com/rii-mango) project
+
+## Available Scripts
+
+``` bash
+# install dependencies
+yarn install
+
+# serve with test hot reload at localhost:8080
+yarn run start
+
+```
