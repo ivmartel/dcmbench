@@ -7,7 +7,6 @@
 <link type="text/css" rel="stylesheet" href="../style.css" />
 
 <!-- Third party -->
-<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../../node_modules/lodash/lodash.min.js"></script>
 <script src="../../node_modules/benchmark/benchmark.js"></script>
 <!-- local -->
@@ -15,10 +14,10 @@
 <script src="../../src/dragndrop.js"></script>
 
 <!-- iframes -->
+<iframe src="../parsers/daikon.html" id="iframe-daikon" style="display:none"></iframe>
 <iframe src="../parsers/dcmjs.html" id="iframe-dcmjs" style="display:none"></iframe>
 <iframe src="../parsers/dicomParser.html" id="iframe-dicomParser" style="display:none"></iframe>
 <iframe src="../parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
-<iframe src="../parsers/daikon.html" id="iframe-daikon" style="display:none"></iframe>
 
 <!-- real business -->
 <script type="text/javascript">
@@ -40,7 +39,7 @@ var allParserFunctions = [
   { "name": "dicomParser" },
   { "name": "dwv" }
 ];
-var selectedParserFunctions = allParserFunctions.map(a => ({...a}));
+var selectedParserFunctions = null;
 
 // create default runner object
 var runner = new dcmb.DicomBench();
@@ -65,7 +64,6 @@ function onChangeInput(files) {
 
 function onChangeParsers(input) {
   if (input.checked) {
-    console.log("add", input.value);
     var func = null;
     for (var i = 0; i < allParserFunctions.length; ++i) {
       if (allParserFunctions[i].name === input.value) {
@@ -73,20 +71,16 @@ function onChangeParsers(input) {
         break;
       }
     }
-    console.log("func", func);
     if (func) {
-      selectedParserFunctions.push(func)
+      selectedParserFunctions.push(func);
     }
   } else {
-    console.log("remove", input.value);
     for (var j = 0; j < selectedParserFunctions.length; ++j) {
       if (selectedParserFunctions[j].name === input.value) {
-        console.log("j: ", j);
         selectedParserFunctions.splice(j, 1);
       }
     }
   }
-  console.log(selectedParserFunctions);
   runner.setFunctionList(selectedParserFunctions);
 };
 
@@ -106,7 +100,7 @@ function onLaunchButton() {
 };
 
 // last minute
-$( document ).ready( function () {
+document.addEventListener("DOMContentLoaded", function (/*event*/) {
   // drag and drop
   dcmb.setupDragDrop(updateDataList);
 
@@ -128,25 +122,29 @@ window.onload = function () {
   allParserFunctions[3].func =
     document.getElementById('iframe-dwv').contentWindow.parse;
 
-  runner.setFunctionList(allParserFunctions);
+  selectedParserFunctions = allParserFunctions.map(fun => ({...fun}));
+  runner.setFunctionList(selectedParserFunctions);
 };
 </script>
 </head>
 
 <body>
 
-  <h1>DICOM Javascript parser benchmark</h1>
+  <!--<h1>DICOM Javascript parser benchmark</h1>-->
 
   <div id="browser"></div>
 
   <div id="input">
-    <p>Use default data (no CORS) <b>or</b></p>
-    <div id="field"><input type="file" multiple="true" onchange="onChangeInput(files)"></div>
-    <div id="text"><p><b>or</b></p></div>
-    <div id="dropbox">Drop files here</div>
+    <fieldset>
+      <legend>Input</legend>
+      <ul>
+        <li>Use default data (no CORS), number: <input type="number" name="quantity" value="7" min="1" max="7"></li>
+        <li><input type="file" multiple="true" onchange="onChangeInput(files)"></li>
+        <li><div id="dropbox">Drop files here</div></li>
+    </fieldset>
   </div>
 
-  <div id="input">
+  <div id="parsers">
     <fieldset>
       <legend>Parsers</legend>
       <input type="checkbox" id="daikon"

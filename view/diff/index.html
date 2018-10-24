@@ -7,16 +7,15 @@
 <link type="text/css" rel="stylesheet" href="../style.css" />
 
 <!-- Third party -->
-<script src="../../ext/jquery/jquery-2.1.3.min.js"></script>
-<script src="../../ext/diff/diff.min.js"></script>
+<script src="../../node_modules/diff/dist/diff.min.js"></script>
 <!-- local -->
 <script src="../../src/dicomDiff.js"></script>
 <script src="../../src/dragndrop.js"></script>
 
 <!-- dcmjs -->
-<iframe src="../../ext/dcmjs/v0.1.0/dcmjs.html" id="if-dcmjs" style="display:none"></iframe>
+<iframe src="../parsers/dcmjs.html" id="iframe-dcmjs" style="display:none"></iframe>
 <!-- dwv -->
-<iframe src="../../ext/dwv/v0.20.1/dwv.html" id="if-dwv-0.20.1" style="display:none"></iframe>
+<iframe src="../parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
 
 <!-- real business -->
 <script type="text/javascript">
@@ -34,7 +33,7 @@ var defaultTestData = [
 ];
 
 // create default runner object
-var runner = new DicomDiff();
+var runner = new dcmb.DicomDiff();
 runner.setDataList( defaultTestData );
 
 // called by the drag and drop
@@ -43,7 +42,7 @@ dcmb.updateDataList = function (datalist) {
 };
 
 // handle launch
-onLaunchButton = function () {
+function onLaunchButton() {
   // action according to status
   if ( runner.getStatus() === "ready" ||
     runner.getStatus() === "done" ||
@@ -71,9 +70,9 @@ dcmb.onShowButton = function (id) {
 };
 
 // last minute
-$( document ).ready(function() {
+document.addEventListener("DOMContentLoaded", function (/*event*/) {
   // drag and drop
-  setupDragDrop();
+  dcmb.setupDragDrop();
 
   // output user agent
   var pAgent = document.createElement("p");
@@ -81,17 +80,18 @@ $( document ).ready(function() {
   var resDiv = document.getElementById("browser");
   resDiv.appendChild(pAgent);
 });
+
 // iframe content is only available at window.onload time
 window.onload = function () {
   var function_dcmjs = {
     "name": "dcmjs",
-    "func": document.getElementById('if-dcmjs').contentWindow.dump
+    "func": document.getElementById('iframe-dcmjs').contentWindow.dump
   };
-  var function_dwv0201 = {
-    "name": "dwv0201",
-    "func": document.getElementById('if-dwv-0.20.1').contentWindow.dump
+  var function_dwv = {
+    "name": "dwv",
+    "func": document.getElementById('iframe-dwv').contentWindow.dump
   };
-  runner.setFunctionPair( function_dcmjs, function_dwv0201 );
+  runner.setFunctionPair( function_dcmjs, function_dwv );
 };
 
 </script>
@@ -99,15 +99,18 @@ window.onload = function () {
 
 <body>
 
-  <h1>DICOM Javascript parser dump diff</h1>
+  <!--<h1>DICOM Javascript parser dump diff</h1>-->
 
   <div id="browser"></div>
 
   <div id="input">
-    <p>Use default data (no CORS) <b>or</b></p>
-    <div id="field"><input type="file" multiple="true" onchange="onChangeInput(files)"></div>
-    <div id="text"><p><b>or</b></p></div>
-    <div id="dropbox">Drop files here</div>
+    <fieldset>
+      <legend>Input</legend>
+      <ul>
+        <li>Use default data (no CORS), number: <input type="number" name="quantity" value="7" min="1" max="7"></li>
+        <li><input type="file" multiple="true" onchange="onChangeInput(files)"></li>
+        <li><div id="dropbox">Drop files here</div></li>
+    </fieldset>
   </div>
 
   <div id="diff-toolbar">

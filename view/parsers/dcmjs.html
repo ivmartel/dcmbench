@@ -17,7 +17,7 @@ parse = function (buffer) {
         dumpLines.push(s);
     };
     // temp file name
-    var fileName = 'temp';
+    var fileName = 'dcmjs-temp.dcm';
     // write to FileSystem
     var content = new Int8Array(buffer);
     FS.writeFile(fileName, content, {encoding: "binary"});

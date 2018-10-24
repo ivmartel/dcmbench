@@ -20,8 +20,7 @@
     "dcmjs": "~0.2.1",
     "dicom-parser": "~1.8.1",
     "diff": "~3.5.0",
-    "dwv": "~0.25.2",
-    "jquery": "~2.1.3"
+    "dwv": "~0.25.2"
   },
   "devDependencies": {
     "grunt": "~1.0.1",
