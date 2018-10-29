@@ -15,7 +15,7 @@
 
 <!-- iframes -->
 <iframe src="../parsers/daikon.html" id="iframe-daikon" style="display:none"></iframe>
-<iframe src="../parsers/dcmjs.html" id="iframe-dcmjs" style="display:none"></iframe>
+<iframe src="../parsers/ctk-dcmjs.html" id="iframe-ctk-dcmjs" style="display:none"></iframe>
 <iframe src="../parsers/dicomParser.html" id="iframe-dicomParser" style="display:none"></iframe>
 <iframe src="../parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
 
@@ -25,21 +25,20 @@
 // default test data
 var githubRaw = "https://raw.githubusercontent.com/ivmartel/dcmbench/master/data/";
 var defaultTestData = [
-    { "name": "osirix-toutatix-100", "url": githubRaw + "osirix-toutatix-100.dcm" },
-    { "name": "osirix-goudurix", "url": githubRaw + "osirix-goudurix.dcm" },
-    { "name": "dicompyler-ct.0", "url": githubRaw + "dicompyler-ct.0.dcm" },
-    { "name": "gdcm-CR-MONO1-10-chest", "url": githubRaw + "gdcm-CR-MONO1-10-chest.dcm" },
-    { "name": "gdcm-CT-MONO2-8-abdo", "url": githubRaw + "gdcm-CT-MONO2-8-abdo.dcm" },
-    { "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm" },
-    { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm" }
+    { "name": "osirix-toutatix-100", "url": githubRaw + "osirix-toutatix-100.dcm", "selected": true },
+    { "name": "osirix-goudurix", "url": githubRaw + "osirix-goudurix.dcm", "selected": true },
+    { "name": "dicompyler-ct.0", "url": githubRaw + "dicompyler-ct.0.dcm", "selected": true },
+    { "name": "gdcm-CR-MONO1-10-chest", "url": githubRaw + "gdcm-CR-MONO1-10-chest.dcm", "selected": true },
+    { "name": "gdcm-CT-MONO2-8-abdo", "url": githubRaw + "gdcm-CT-MONO2-8-abdo.dcm", "selected": true },
+    { "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm", "selected": true },
+    { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm", "selected": true }
 ];
-var allParserFunctions = [
-  { "name": "daikon" },
-  { "name": "dcmjs" },
-  { "name": "dicomParser" },
-  { "name": "dwv" }
+var parserFunctions = [
+  { "name": "daikon", "selected": true },
+  { "name": "ctk-dcmjs", "selected": true },
+  { "name": "dicomParser", "selected": true },
+  { "name": "dwv", "selected": true }
 ];
-var selectedParserFunctions = null;
 
 // create default runner object
 var runner = new dcmb.DicomBench();
@@ -49,6 +48,10 @@ runner.setDataList( defaultTestData );
 function updateDataList(datalist) {
   runner.setDataList(datalist);
 };
+
+function checkSelected(parser) {
+  return parser.selected === true;
+}
 
 // Handle change in the input file element.
 // - Updates the data list by calling updateDataList.
@@ -62,26 +65,48 @@ function onChangeInput(files) {
   updateDataList( inputData );
 };
 
-function onChangeParsers(input) {
-  if (input.checked) {
-    var func = null;
-    for (var i = 0; i < allParserFunctions.length; ++i) {
-      if (allParserFunctions[i].name === input.value) {
-        func = allParserFunctions[i];
-        break;
-      }
-    }
-    if (func) {
-      selectedParserFunctions.push(func);
-    }
-  } else {
-    for (var j = 0; j < selectedParserFunctions.length; ++j) {
-      if (selectedParserFunctions[j].name === input.value) {
-        selectedParserFunctions.splice(j, 1);
-      }
+function onChangeDefaultDataNumber(input) {
+  for (var i = 0; i < defaultTestData.length; ++i) {
+    if (i < input.value) {
+      defaultTestData[i].selected = true;
+    } else {
+      defaultTestData[i].selected = false;
     }
   }
-  runner.setFunctionList(selectedParserFunctions);
+  runner.setDataList(defaultTestData.filter(checkSelected));
+}
+
+function setupParsers() {
+  var divParsers = document.getElementById("parsers");
+  var fieldsetElem = divParsers.getElementsByTagName("fieldset")[0];
+
+  var parserName = "";
+  for (var i = 0; i < parserFunctions.length; ++i) {
+    parserName = parserFunctions[i].name;
+    var input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "parsers";
+    input.id = parserName;
+    input.value = parserName;
+    input.onclick = function() { onChangeParsers(this); };
+    input.checked = true;
+    var label = document.createElement("label");
+    label.htmlFor = parserName;
+    label.appendChild(document.createTextNode(parserName));
+
+    fieldsetElem.appendChild(input);
+    fieldsetElem.appendChild(label);
+  }
+}
+
+function onChangeParsers(input) {
+  for (var i = 0; i < parserFunctions.length; ++i) {
+    if (parserFunctions[i].name === input.value) {
+      parserFunctions[i].selected = input.checked;
+      break;
+    }
+  }
+  runner.setFunctionList(parserFunctions.filter(checkSelected));
 };
 
 // handle launch
@@ -104,6 +129,9 @@ document.addEventListener("DOMContentLoaded", function (/*event*/) {
   // drag and drop
   dcmb.setupDragDrop(updateDataList);
 
+  // parsers
+  setupParsers();
+
   // output user agent
   var pAgent = document.createElement("p");
   pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent));
@@ -113,24 +141,23 @@ document.addEventListener("DOMContentLoaded", function (/*event*/) {
 
 // iframe content is only available at window.onload time
 window.onload = function () {
-  allParserFunctions[0].func =
-    document.getElementById('iframe-daikon').contentWindow.parse;
-  allParserFunctions[1].func =
-    document.getElementById('iframe-dcmjs').contentWindow.parse;
-  allParserFunctions[2].func =
-    document.getElementById('iframe-dicomParser').contentWindow.parse;
-  allParserFunctions[3].func =
-    document.getElementById('iframe-dwv').contentWindow.parse;
-
-  selectedParserFunctions = allParserFunctions.map(fun => ({...fun}));
-  runner.setFunctionList(selectedParserFunctions);
+  var ifname = '';
+  var func = null;
+  for (var i = 0; i < parserFunctions.length; ++i) {
+    ifname = "iframe-" + parserFunctions[i].name;
+    func = document.getElementById(ifname).contentWindow.parse;
+    if (func) {
+      parserFunctions[i].func = func;
+    }
+  }
+  runner.setFunctionList(parserFunctions.filter(checkSelected));
 };
 </script>
 </head>
 
 <body>
 
-  <!--<h1>DICOM Javascript parser benchmark</h1>-->
+  <h1>DICOM Javascript parser benchmark</h1>
 
   <div id="browser"></div>
 
@@ -138,7 +165,9 @@ window.onload = function () {
     <fieldset>
       <legend>Input</legend>
       <ul>
-        <li>Use default data (no CORS), number: <input type="number" name="quantity" value="7" min="1" max="7"></li>
+        <li>Use default data (no CORS), number:
+          <input type="number" name="quantity" value="7" min="1" max="7"
+            onchange="onChangeDefaultDataNumber(this)"></li>
         <li><input type="file" multiple="true" onchange="onChangeInput(files)"></li>
         <li><div id="dropbox">Drop files here</div></li>
     </fieldset>
@@ -147,18 +176,6 @@ window.onload = function () {
   <div id="parsers">
     <fieldset>
       <legend>Parsers</legend>
-      <input type="checkbox" id="daikon"
-        value="daikon" name="parsers" onclick="onChangeParsers(this);" checked />
-      <label for="daikon">daikon</label>
-      <input type="checkbox" id="dcmjs"
-        value="dcmjs" name="parsers"  onclick="onChangeParsers(this);"checked />
-      <label for="dcmjs">dcmjs</label>
-      <input type="checkbox" id="dicomParser"
-        value="dicomParser" name="parsers"  onclick="onChangeParsers(this);"checked />
-      <label for="dicomParser">dicomParser</label>
-      <input type="checkbox" id="dwv"
-        value="dwv" name="parsers"  onclick="onChangeParsers(this);"checked />
-      <label for="dwv">dwv</label>
     </fieldset>
   </div>
 
