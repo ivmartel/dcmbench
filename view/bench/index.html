@@ -14,8 +14,9 @@
 <script src="../../src/dragndrop.js"></script>
 
 <!-- iframes -->
-<iframe src="../parsers/daikon.html" id="iframe-daikon" style="display:none"></iframe>
 <iframe src="../parsers/ctk-dcmjs.html" id="iframe-ctk-dcmjs" style="display:none"></iframe>
+<iframe src="../parsers/daikon.html" id="iframe-daikon" style="display:none"></iframe>
+<iframe src="../parsers/dcmjs.html" id="iframe-dcmjs" style="display:none"></iframe>
 <iframe src="../parsers/dicomParser.html" id="iframe-dicomParser" style="display:none"></iframe>
 <iframe src="../parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
 
@@ -34,8 +35,9 @@ var defaultTestData = [
     { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm", "selected": true }
 ];
 var parserFunctions = [
-  { "name": "daikon", "selected": true },
   { "name": "ctk-dcmjs", "selected": true },
+  { "name": "daikon", "selected": true },
+  { "name": "dcmjs", "selected": true },
   { "name": "dicomParser", "selected": true },
   { "name": "dwv", "selected": true }
 ];
