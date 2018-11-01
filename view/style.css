@@ -8,7 +8,14 @@ td {
   padding: 0.5em; border: 1px solid #aaa;
 }
 .header-row {
+  font-weight: bolder;
   background: #eee;
+}
+.positive {
+  color: green;
+}
+.negative {
+  color: red;
 }
 
 /* Input data */
@@ -39,6 +46,9 @@ legend {
 }
 #bench-results {
   clear: both;
+}
+.stats {
+  font-size: 12px;
 }
 
 /* Diff status */

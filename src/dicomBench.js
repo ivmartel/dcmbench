@@ -3,6 +3,86 @@ var dcmb = dcmb || {};
 // benchmark.js
 var Benchmark = Benchmark || {};
 
+/**
+ * Get an html span with the difference of the two input values as a percentage.
+ * @param {number} base The base number.
+ * @param {number} current The number to compare to the base.
+ * @returns {Object} A DOM span inculding the percentage text.
+ */
+dcmb.getStatSpan = function (base, current) {
+  var span = document.createElement("span");
+  span.className = "stats";
+  var diff = current - base;
+  var sign = diff >= 0 ? "+" : "";
+  span.className += diff >= 0 ? " positive" : " negative";
+  var percent = Math.round(diff * 100 / base);
+  span.appendChild(document.createTextNode(" (" + sign + percent + "%)"));
+  return span;
+}
+
+/**
+ * Insert a header row in a table with the function names as cell value.
+ * @param {Object} table The DOM table.
+ * @param {Array} funcs The list of functions.
+ */
+dcmb.insertHeadRow = function (table, funcs) {
+  var hrow = table.insertRow();
+  hrow.className = "header-row";
+  var td0 = hrow.insertCell();
+  td0.appendChild(document.createTextNode(""));
+  var td = null;
+  for ( var i = 0; i < funcs.length; ++i ) {
+    td = hrow.insertCell();
+    td.appendChild(document.createTextNode(funcs[i].name));
+  }
+}
+
+/**
+ * Get the mean values of each columns of the input array.
+ * @param {Array} results The value array of arrays.
+ * @returns {Array} A vector with each columns mean.
+ */
+dcmb.getMeans = function (results) {
+  var nrows = results.length;
+  var ncols = results[0].length;
+  // check number of cols
+  for (var i = 0; i < nrows; ++i) {
+    if (results[i].length !== ncols) {
+      throw error("Different number of columns...");
+    }
+  }
+  // sum along columns
+  var means = [];
+  for (var j = 0; j < ncols; ++j) {
+    var sum = 0;
+    for (var k = 0; k < nrows; ++k) {
+      sum += results[k][j];
+    }
+    means.push(sum/nrows);
+  }
+  return means;
+}
+
+/**
+ * Insert a row in a table with the mean values as cell value.
+ * @param {Object} table The DOM table.
+ * @param {Array} means The list of means.
+ */
+dcmb.insertMeanRow = function (table, means) {
+  var hrow = table.insertRow();
+  hrow.className = "header-row";
+  var td0 = hrow.insertCell();
+  td0.appendChild(document.createTextNode("Mean"));
+  var td = null;
+  for ( var i = 0; i < means.length; ++i ) {
+    td = hrow.insertCell();
+    td.appendChild(document.createTextNode(means[i]));
+    if ( i !== 0 ) {
+      td.appendChild(dcmb.getStatSpan(means[0], means[i]));
+    }
+  }
+}
+
 // Class to handle benchmarks.
 dcmb.DicomBench = function () {
 
@@ -20,6 +100,8 @@ dcmb.DicomBench = function () {
   var runIndex = 0;
   // status
   var status = "ready";
+
+  var results = [];
 
   // Get the status.
   this.getStatus = function () {
@@ -87,28 +169,24 @@ dcmb.DicomBench = function () {
       table = document.createElement("table");
       table.id = tableId;
       // thead
-      var hrow = table.insertRow();
-      hrow.className = "header-row";
-      var td0 = hrow.insertCell();
-      var td = null;
-      td0.appendChild(document.createTextNode(""));
-      for ( var i = 0; i < funcs.length; ++i ) {
-        td = hrow.insertCell();
-        td.appendChild(document.createTextNode(funcs[i].name));
-      }
+      dcmb.insertHeadRow(table, funcs);
       // append table to div
       var resDiv = document.getElementById("bench-results");
       resDiv.appendChild(table);
-    }
-    else {
+      // reset results
+      results = [];
+    } else {
       table = document.getElementById(tableId);
     }
+
+    // insert a new results row
+    results.push([]);
 
     // benchmark suite
     var suite = new Benchmark.Suite("bench");
     // handle start of benchmark
     suite.on('start', function() {
-      // header row
+      // result row
       var row = table.insertRow();
       var cell0 = row.insertCell();
       cell0.appendChild(document.createTextNode(data.name));
@@ -122,8 +200,8 @@ dcmb.DicomBench = function () {
       console.log(String(event.target));
       // html output
       var hz = event.target.hz;
-      var opsPerSec = hz.toFixed(hz < 100 ? 2 : 0);
-      var text = String(opsPerSec);
+      var opsPerSecText = hz.toFixed(hz < 100 ? 2 : 0);
+      var opsPerSec = parseInt(opsPerSecText, 10);
       // html
       var tName = event.target.name;
       var index = -1;
@@ -137,9 +215,18 @@ dcmb.DicomBench = function () {
         // exception
         throw new Error("No function found.");
       }
+      // is it the first column
+      var isFirst = results[dataIndex].length === 0;
+      // store results
+      results[dataIndex].push(opsPerSec);
+
+      // add data to the table cell
       var cellId = index + 1;
       var cell = table.rows[dataIndex+1].cells[cellId];
-      cell.appendChild(document.createTextNode(text));
+      cell.appendChild(document.createTextNode(opsPerSecText));
+      if (!isFirst) {
+        cell.appendChild(dcmb.getStatSpan(results[dataIndex][0], opsPerSec));
+      }
 
       // check if cancelling
       if ( self.getStatus() === "cancelling" ) {
@@ -156,6 +243,12 @@ dcmb.DicomBench = function () {
           self.run();
         }
         else {
+          // insert a mean row if more than one data
+          if ( dataList.length > 1 ) {
+            var means = dcmb.getMeans(results);
+            dcmb.insertMeanRow(table, means);
+          }
+
           ++runIndex;
           dataIndex = 0;
           setStatus("done");
