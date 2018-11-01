@@ -18,6 +18,7 @@
 <iframe src="../parsers/daikon.html" id="iframe-daikon" style="display:none"></iframe>
 <iframe src="../parsers/dcmjs.html" id="iframe-dcmjs" style="display:none"></iframe>
 <iframe src="../parsers/dicomParser.html" id="iframe-dicomParser" style="display:none"></iframe>
+<iframe src="../parsers/dwv-previous.html" id="iframe-dwv-previous" style="display:none"></iframe>
 <iframe src="../parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
 
 <!-- real business -->
@@ -39,6 +40,7 @@ var parserFunctions = [
   { "name": "daikon", "selected": true },
   { "name": "dcmjs", "selected": true },
   { "name": "dicomParser", "selected": true },
+  { "name": "dwv-previous", "selected": true },
   { "name": "dwv", "selected": true }
 ];
 
@@ -161,7 +163,7 @@ window.onload = function () {
 
   <h1>Javascript DICOM parsers benchmark</h1>
 
-  <p>The table values are operation per seconds as output by the <a href="https://github.com/bestiejs/benchmark.js">benchmark.js</a> library. The more, the better!</p>
+  <p>The table values are operation per seconds as output by the <a href="https://github.com/bestiejs/benchmark.js">benchmark.js</a> library. The more, the better! Percentages are relative to the values of the first column.</p>
 
   <div id="browser"></div>
 
