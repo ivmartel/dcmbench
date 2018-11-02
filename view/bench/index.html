@@ -32,7 +32,7 @@ var defaultTestData = [
     { "name": "dicompyler-ct.0", "url": githubRaw + "dicompyler-ct.0.dcm", "selected": true },
     { "name": "gdcm-CR-MONO1-10-chest", "url": githubRaw + "gdcm-CR-MONO1-10-chest.dcm", "selected": true },
     { "name": "gdcm-CT-MONO2-8-abdo", "url": githubRaw + "gdcm-CT-MONO2-8-abdo.dcm", "selected": true },
-    { "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm", "selected": true },
+    //{ "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm", "selected": true },
     { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm", "selected": true }
 ];
 var parserFunctions = [
@@ -141,6 +141,11 @@ document.addEventListener("DOMContentLoaded", function (/*event*/) {
   pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent));
   var resDiv = document.getElementById("browser");
   resDiv.appendChild(pAgent);
+
+  // data number input
+  var inputDataQuantity = document.getElementById("data-quantity");
+  inputDataQuantity.value = defaultTestData.length;
+  inputDataQuantity.max = defaultTestData.length;
 });
 
 // iframe content is only available at window.onload time
@@ -161,9 +166,12 @@ window.onload = function () {
 
 <body>
 
-  <h1>Javascript DICOM parsers benchmark</h1>
+  <!--<h1>Javascript DICOM parsers benchmark</h1>-->
 
-  <p>The table values are operation per seconds as output by the <a href="https://github.com/bestiejs/benchmark.js">benchmark.js</a> library. The more, the better! Percentages are relative to the values of the first column.</p>
+  <p>The table values are: Operations per seconds &plusmn; Root Mean Error (RME) and
+    the difference in percentage to the first column (as output by the
+    <a href="https://github.com/bestiejs/benchmark.js">benchmark.js</a> library).
+    The more ops/sec, the better, but with a low RME... </p>
 
   <div id="browser"></div>
 
@@ -172,7 +180,7 @@ window.onload = function () {
       <legend>Input</legend>
       <ul>
         <li>Use default data (no CORS), number:
-          <input type="number" name="quantity" value="7" min="1" max="7"
+          <input type="number" name="quantity" id="data-quantity" min="1"
             onchange="onChangeDefaultDataNumber(this)"></li>
         <li><input type="file" multiple="true" onchange="onChangeInput(files)"></li>
         <li><div id="dropbox">Drop files here</div></li>

@@ -11,10 +11,10 @@ td {
   font-weight: bolder;
   background: #eee;
 }
-.positive {
+.green {
   color: green;
 }
-.negative {
+.red {
   color: red;
 }
 
