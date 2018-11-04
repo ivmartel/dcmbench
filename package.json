@@ -30,6 +30,7 @@
     "grunt-contrib-watch": "~1.1.0"
   },
   "scripts": {
-    "start": "grunt start"
+    "start": "grunt start",
+    "lint": "grunt lint"
   }
 }

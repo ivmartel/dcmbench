@@ -1,0 +1,10 @@
+# not using sudo
+sudo: false
+
+language: node_js
+node_js:
+- 'lts/*'
+
+# main
+script:
+- yarn run lint
