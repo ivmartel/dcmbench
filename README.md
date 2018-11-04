@@ -17,4 +17,6 @@ yarn install
 # serve with hot reload at localhost:8080
 yarn run start
 
+# lint files
+yarn run lint
 ```
