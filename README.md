@@ -1,4 +1,7 @@
 # dcmbench
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/ivmartel/dcmbench.svg)](https://greenkeeper.io/)
+
 Javascript DICOM parser benchmark, try it [here](http://ivmartel.github.io/dcmbench).
 
 Parsers:
