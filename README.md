@@ -1,6 +1,6 @@
 # dcmbench
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/ivmartel/dcmbench.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/ivmartel/dcmbench.svg?branch=master)](https://travis-ci.org/ivmartel/dcmbench)
 
 Javascript DICOM parser benchmark, try it [here](http://ivmartel.github.io/dcmbench).
 
