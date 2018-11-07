@@ -4,19 +4,33 @@
 <head>
 <title>DICOM Bench</title>
 <meta charset="UTF-8">
-<link type="text/css" rel="stylesheet" href="view/style.css" />
-
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<script>
+function onMenuSelect(elem) {
+  // reset nav links
+  var list = document.getElementById("navlinks");
+  var listItems = list.children;
+  for (var i = 0; i < listItems.length; ++i) {
+    listItems[i].getElementsByTagName("a")[0].className = "";
+  }
+  // set as active
+  elem.className='active';
+}
+</script>
 </head>
 
 <body>
 
-  <h1>DICOM Javascript benchmark</h1>
+  <nav>
+    <h1>DICOM Javascript benchmark tools</h1>
+    <ul id="navlinks">
+      <li><a href="view/bench/index.html" target="ifcontent" class="active" onclick="onMenuSelect(this)">bench</a></li>
+      <li><a href="view/diff/index.html" target="ifcontent" onclick="onMenuSelect(this)">diff</a></li>
+      <li><a href="view/part06/index.html" target="ifcontent" onclick="onMenuSelect(this)">part06</a></li>
+    </ul>
+  </nav>
 
-  <ul>
-    <li><a href="view/bench/index.html">bench</a></li>
-    <li><a href="view/diff/index.html">diff</a></li>
-    <li><a href="view/part06/index.html">part06</a></li>
-  </ul>
+  <iframe name="ifcontent" src="view/bench/index.html"></iframe>
 
 </body>
 
