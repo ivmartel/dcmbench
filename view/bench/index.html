@@ -4,7 +4,7 @@
 <head>
 <title>DICOM Parser Benchmark</title>
 <meta charset="UTF-8">
-<link type="text/css" rel="stylesheet" href="../style.css" />
+<link type="text/css" rel="stylesheet" href="../../css/style.css" />
 
 <!-- Third party -->
 <script src="../../node_modules/lodash/lodash.min.js"></script>
@@ -12,6 +12,7 @@
 <!-- local -->
 <script src="../../src/dicomBench.js"></script>
 <script src="../../src/dragndrop.js"></script>
+<script src="../../src/gui.js"></script>
 
 <!-- iframes -->
 <iframe src="../parsers/ctk-dcmjs.html" id="iframe-ctk-dcmjs" style="display:none"></iframe>
@@ -137,10 +138,11 @@ document.addEventListener("DOMContentLoaded", function (/*event*/) {
   setupParsers();
 
   // output user agent
-  var pAgent = document.createElement("p");
-  pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent));
-  var resDiv = document.getElementById("browser");
-  resDiv.appendChild(pAgent);
+  var preAgent = document.createElement("pre");
+  preAgent.appendChild(document.createTextNode("User agent: "));
+  preAgent.appendChild(document.createTextNode(navigator.userAgent));
+  var broDiv = document.getElementById("browser");
+  broDiv.appendChild(preAgent);
 
   // data number input
   var inputDataQuantity = document.getElementById("data-quantity");
@@ -166,11 +168,12 @@ window.onload = function () {
 
 <body>
 
-  <!--<h1>Javascript DICOM parsers benchmark</h1>-->
+  <h2>Speed benchmark</h2>
 
-  <p>The table values are: Operations per seconds &plusmn; Root Mean Error (RME) and
-    the difference in percentage to the first column (as output by the
-    <a href="https://github.com/bestiejs/benchmark.js">benchmark.js</a> library).
+  <p>The table values are: Operations per seconds &plusmn; Root Mean Error (RME)
+    (as output by the
+    <a href="https://github.com/bestiejs/benchmark.js">benchmark.js</a> library)
+    and the difference in percentage to the first column.
     The more ops/sec, the better, but with a low RME... </p>
 
   <div id="browser"></div>
@@ -179,7 +182,7 @@ window.onload = function () {
     <fieldset>
       <legend>Input</legend>
       <ul>
-        <li>Use default data (no CORS), number:
+        <li>Use default data, number:
           <input type="number" name="quantity" id="data-quantity" min="1"
             onchange="onChangeDefaultDataNumber(this)"></li>
         <li><input type="file" multiple="true" onchange="onChangeInput(files)"></li>
