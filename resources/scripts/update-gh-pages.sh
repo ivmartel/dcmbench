@@ -15,7 +15,7 @@ rm -Rf $HOME/gh-pages/*
 # copy current repo in gh-pages
 cp -Rf $HOME/build/ivmartel/dcmbench/* $HOME/gh-pages/
 # add nojekyll file
-touch $HOME/build/ivmartel/dcmbench/.nojekyll
+touch $HOME/gh-pages/.nojekyll
 # move back to root of repo
 cd $HOME/gh-pages
 # add, commit and push files
