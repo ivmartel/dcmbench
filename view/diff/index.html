@@ -4,7 +4,7 @@
 <head>
 <title>DICOM Parser Diff</title>
 <meta charset="UTF-8">
-<link type="text/css" rel="stylesheet" href="../style.css" />
+<link type="text/css" rel="stylesheet" href="../../css/style.css" />
 
 <!-- Third party -->
 <script src="../../node_modules/diff/dist/diff.min.js"></script>
@@ -22,13 +22,13 @@
 // default test data
 var githubRaw = "https://raw.githubusercontent.com/ivmartel/dcmbench/master/data/";
 var defaultTestData = [
-    { "name": "osirix-toutatix-100", "url": githubRaw + "osirix-toutatix-100.dcm" },
-    { "name": "osirix-goudurix", "url": githubRaw + "osirix-goudurix.dcm" },
-    { "name": "dicompyler-ct.0", "url": githubRaw + "dicompyler-ct.0.dcm" },
-    { "name": "gdcm-CR-MONO1-10-chest", "url": githubRaw + "gdcm-CR-MONO1-10-chest.dcm" },
-    { "name": "gdcm-CT-MONO2-8-abdo", "url": githubRaw + "gdcm-CT-MONO2-8-abdo.dcm" },
-    { "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm" },
-    { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm" }
+    { "name": "osirix-toutatix-100", "url": githubRaw + "osirix-toutatix-100.dcm", "selected": true },
+    { "name": "osirix-goudurix", "url": githubRaw + "osirix-goudurix.dcm", "selected": true },
+    { "name": "dicompyler-ct.0", "url": githubRaw + "dicompyler-ct.0.dcm", "selected": true },
+    { "name": "gdcm-CR-MONO1-10-chest", "url": githubRaw + "gdcm-CR-MONO1-10-chest.dcm", "selected": true },
+    { "name": "gdcm-CT-MONO2-8-abdo", "url": githubRaw + "gdcm-CT-MONO2-8-abdo.dcm", "selected": true },
+    //{ "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm", "selected": true },
+    { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm", "selected": true }
 ];
 
 // create default runner object
@@ -36,9 +36,36 @@ var runner = new dcmb.DicomDiff();
 runner.setDataList( defaultTestData );
 
 // called by the drag and drop
-dcmb.updateDataList = function (datalist) {
+function updateDataList(datalist) {
   runner.setDataList(datalist);
 };
+
+function checkSelected(parser) {
+  return parser.selected === true;
+}
+
+// Handle change in the input file element.
+// - Updates the data list by calling updateDataList.
+function onChangeInput(files) {
+  var inputData = [];
+  for ( var i = 0; i < files.length; ++i ) {
+    inputData.push( { "name": files[i].name,
+      "file": files[i] } );
+  }
+  // call external function
+  updateDataList( inputData );
+};
+
+function onChangeDefaultDataNumber(input) {
+  for (var i = 0; i < defaultTestData.length; ++i) {
+    if (i < input.value) {
+      defaultTestData[i].selected = true;
+    } else {
+      defaultTestData[i].selected = false;
+    }
+  }
+  runner.setDataList(defaultTestData.filter(checkSelected));
+}
 
 // handle launch
 function onLaunchButton() {
@@ -74,10 +101,16 @@ document.addEventListener("DOMContentLoaded", function (/*event*/) {
   dcmb.setupDragDrop();
 
   // output user agent
-  var pAgent = document.createElement("p");
-  pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent));
-  var resDiv = document.getElementById("browser");
-  resDiv.appendChild(pAgent);
+  var preAgent = document.createElement("pre");
+  preAgent.appendChild(document.createTextNode("User agent: "));
+  preAgent.appendChild(document.createTextNode(navigator.userAgent));
+  var broDiv = document.getElementById("browser");
+  broDiv.appendChild(preAgent);
+
+  // data number input
+  var inputDataQuantity = document.getElementById("data-quantity");
+  inputDataQuantity.value = defaultTestData.length;
+  inputDataQuantity.max = defaultTestData.length;
 });
 
 // iframe content is only available at window.onload time
@@ -98,7 +131,9 @@ window.onload = function () {
 
 <body>
 
-  <h1>DICOM Javascript parser dump diff</h1>
+  <h2>DICOM dump diff</h2>
+
+  <p>Show differences between DICOM dump from ctk-dcmjs and dwv.</p>
 
   <div id="browser"></div>
 
@@ -106,7 +141,9 @@ window.onload = function () {
     <fieldset>
       <legend>Input</legend>
       <ul>
-        <li>Use default data</li>
+        <li>Use default data, number:
+          <input type="number" name="quantity" id="data-quantity" min="1"
+            onchange="onChangeDefaultDataNumber(this)"></li>
         <li><input type="file" multiple="true" onchange="onChangeInput(files)"></li>
         <li><div id="dropbox">Drop files here</div></li>
     </fieldset>
