@@ -4,6 +4,9 @@ sudo: false
 language: node_js
 node_js:
 - 'lts/*'
+env:
+  global:
+  - secure: H7vHH+7JrURCbmGC7jGBHRdigJSIKAh9cAZ3XDnamOkuymiXLpFLaizIJQlJvwGHVoyphDeEMvQKhNGW3JCRYfbXOsjyleKE7Nq6vXMhx2iXP76x0F1F57kKTRoLEEQFCd0Y65TZU2lzBsmAVdCXaHDlJXhpNKXmDoyp3FZpDF746yaSCrq9EN1UX763k9yeC4Ym31b+0To1khoWsvAs3LL5fWLFADTLCAIZbtRdNVJONASTykT3YlOyma4PaIDnmMBBsNenxvRz7Zh2xqZvRmwE4Is0QNkWv5xXzYrgyr5obqoXNxXM+h70WPMkO3tWYXC8Jt3yswsAkJ5Sg3M7K5kpsi0UP4DTfX+QD5CCyP/14nLVUXtqH4d2/6yFoDOQkmzJd/tdBDIDnKLMNx2EkUpUx3ZlNbgFG02pOLcO+x752OjjMG3o+AFsAzBCxnDkTqFGSDp8R7jG+Z6tntXntDlHwvi+eCmb28/wTcGO3Z3uCJIsO47ISUfDcCyN8qeCibea4LlNgnDpYOjSx2p7YAlcVNcYg4mReVXo/HGLape/owJlkyX7Dxj9WM402QqmxbGLhCHDn0pH2fBR0rJQef1Z/sxTrS001Sxvr9hQ3OBZUke6U407tM1pt3oX1ct9AzB+0lygVq/SabSL2g16ebqCEE86879PpQR1f5+YegQ=
 
 # greenkeeper lock file
 before_install: yarn global add greenkeeper-lockfile@1
@@ -13,3 +16,9 @@ after_script: greenkeeper-lockfile-upload
 # main
 script:
 - yarn run lint
+
+after_success:
+# update gh-page only for master and not pull requests
+- if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    chmod +x ./resources/scripts/update-gh-pages.sh; "./resources/scripts/update-gh-pages.sh";
+  else echo "Not deploying artifacts for $TRAVIS_BRANCH"; fi
