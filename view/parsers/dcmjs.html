@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>iframe-dcmjs</title>
+<meta charset="UTF-8">
+</head>
+
+<script src="../../node_modules/dcmjs/build/dcmjs.js"></script>
+
+<script type="text/javascript">
+// Parse a DICOM buffer.
+parse = function (buffer) {
+  // parse data
+  var dicomData = dcmjs.data.DicomMessage.readFile(buffer);
+
+  var dataset = dcmjs.data.DicomMetaDictionary.naturalizeDataset(dicomData.dict);
+};
+</script>
+
+</html>

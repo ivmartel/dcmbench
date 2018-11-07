@@ -1,56 +1,37 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Dcmbench : Javascript DICOM parser benchmark.">
+<head>
+<title>DICOM Bench</title>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+<script>
+function onMenuSelect(elem) {
+  // reset nav links
+  var list = document.getElementById("navlinks");
+  var listItems = list.children;
+  for (var i = 0; i < listItems.length; ++i) {
+    listItems[i].getElementsByTagName("a")[0].className = "";
+  }
+  // set as active
+  elem.className='active';
+}
+</script>
+</head>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<body>
 
-    <title>Dcmbench</title>
+  <nav>
+    <h1>DICOM Javascript benchmark tools</h1>
+    <ul id="navlinks">
+      <li><a href="view/bench/index.html" target="ifcontent" class="active" onclick="onMenuSelect(this)">bench</a></li>
+      <li><a href="view/diff/index.html" target="ifcontent" onclick="onMenuSelect(this)">diff</a></li>
+      <li><a href="view/part06/index.html" target="ifcontent" onclick="onMenuSelect(this)">part06</a></li>
+    </ul>
+  </nav>
 
-  </head>
+  <iframe name="ifcontent" src="view/bench/index.html"></iframe>
 
-  <body>
+</body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/ivmartel/dcmbench">View on GitHub</a>
-
-          <h1 id="project_title">Dcmbench</h1>
-          <h2 id="project_tagline">Javascript DICOM parser benchmark.</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/ivmartel/dcmbench/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/ivmartel/dcmbench/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-
-      <p>Note: default DICOM data is provided with this repository and linked in the tests
-      but it can only work with Google Chrome launched with <code>--disable-web-security</code>.</p>
-
-      <ul>
-        <li>Speed <a href="./view/bench/index.html">benchmark</a></li/>
-        <li>DICOM dump <a href="./view/diff/index.html">diff</a></li/>
-      </ul>
-      
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Dcmbench maintained by <a href="https://github.com/ivmartel">ivmartel</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-  </body>
 </html>

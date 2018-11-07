@@ -1,12 +1,23 @@
+// namespace
+var dcmb = dcmb || {};
+// benchmark.js
+var JsDiff = JsDiff || {};
+
+dcmb.onShowButton = function (/*id*/) {
+  // default does nothing
+};
+
 // Class to handle dump diff.
-// @param f1 The first function to test.
-// @param f2 The second function to test.
-DicomDiff = function (f1, f2) {
+dcmb.DicomDiff = function () {
 
   // closure to self
   var self = this;
   // data list
   var dataList = null;
+  // first function
+  var func1 = null;
+  // second function
+  var func2 = null;
   // file or url
   var isFile = null;
   // current data index
@@ -18,12 +29,12 @@ DicomDiff = function (f1, f2) {
   // mean percentage
   var meanDiffPercentage = 0;
 
-  // get the status
+  // Get the status.
   this.getStatus = function () {
     return status;
   };
 
-  // set the data list
+  // Set the data list.
   this.setDataList = function (list) {
     if ( list.length !== 0 ) {
       dataList = list;
@@ -31,9 +42,15 @@ DicomDiff = function (f1, f2) {
     }
   };
 
-  // set the statue
+  // Set the function pair.
+  this.setFunctionPair = function (f1, f2) {
+    func1 = f1;
+    func2 = f2;
+  };
+
+  // Set the status.
   // @private
-  setStatus = function (newStatus) {
+  var setStatus = function (newStatus) {
     status = newStatus;
     // update gui
     var pStatus = document.getElementById("diff-status");
@@ -57,12 +74,12 @@ DicomDiff = function (f1, f2) {
     }
   };
 
-  // cancel the diffs
+  // Cancel the process.
   this.cancel = function () {
     setStatus("cancelling");
   };
 
-  // run the diffs
+  // Run the process.
   this.run = function () {
     var data = dataList[dataIndex];
     // console output
@@ -75,7 +92,7 @@ DicomDiff = function (f1, f2) {
     // launch button
     var button = document.createElement("button");
     button.onclick = function() {
-      onShowButton(preId);
+      dcmb.onShowButton(preId);
     };
     button.id = preId + "-show";
     button.appendChild(document.createTextNode(data.name));
@@ -91,8 +108,8 @@ DicomDiff = function (f1, f2) {
     // handle loaded data
     var onloadBuffer = function (buffer) {
       // run dumps
-      dump1 = f1.func(buffer);
-      dump2 = f2.func(buffer);
+      var dump1 = func1.func(buffer);
+      var dump2 = func2.func(buffer);
       // get diff
       var diff = JsDiff.diffChars(dump1, dump2);
       // count

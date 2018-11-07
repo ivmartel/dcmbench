@@ -1,0 +1,131 @@
+body {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow: auto;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+iframe {
+  display: block;
+  border: none;
+  height: 87vh;
+  width: 99vw;
+  margin: 10px;
+  overflow: hidden;
+}
+
+/* Menu */
+nav h1 {
+  background-color: #333;
+  color: white;
+  font-size: 100%;
+  padding: 10px;
+  margin: 0;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+
+nav li a.active {
+  background-color: #4CAF50;
+}
+
+nav li a:hover:not(.active) {
+    background-color: #111;
+}
+
+/* Result table */
+table {
+  border-spacing: 0px; margin: 0.5em;
+}
+td {
+  padding: 0.5em; border: 1px solid #aaa;
+}
+.header-row {
+  font-weight: bolder;
+  background: #eee;
+}
+.green {
+  color: green;
+}
+.red {
+  color: red;
+}
+
+/* Input data */
+legend {
+  font-size: 80%;
+}
+#input ul {
+  margin: 0;
+  padding-inline-start: 0.75em;
+}
+#input li {
+  margin: 5px;
+}
+#dropbox { height: 20px; width: 400px;
+  border: 2px dashed #999; padding-left: 0.2em;
+ }
+#dropbox.hover { border: 2px dashed orange; }
+#text p { margin: 0; text-align: center; }
+
+/* Bench */
+#bench-button {
+  float: left; margin-right: 0.5em;
+}
+#bench-status {
+  background: #eee; padding: 0.4em;
+  font-family: Courier, sans-serif;
+  font-size: 12px;
+}
+#bench-results {
+  clear: both;
+}
+.stats {
+  font-size: 12px;
+}
+
+/* Diff */
+#diff-button {
+  float: left; margin-right: 0.5em;
+}
+#diff-status {
+  background: #eee; padding: 0.4em;
+  font-family: Courier, sans-serif;
+  font-size: 12px;
+}
+#diff-results {
+  clear: both;
+}
+#diff-results p {
+  font-size: 12px;
+}
+.diff-mean { background: #eee; font-weight: bold; }

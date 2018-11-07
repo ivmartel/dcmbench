@@ -4,89 +4,71 @@
 <head>
 <title>DICOM Parser Diff</title>
 <meta charset="UTF-8">
-<link type="text/css" rel="stylesheet" href="../style.css" />
+<link type="text/css" rel="stylesheet" href="../../css/style.css" />
 
 <!-- Third party -->
-<script src="../../ext/dcmjs/libs/jquery-1.11.0.min.js"></script>
-<script src="../../ext/diff/diff.js"></script>
+<script src="../../node_modules/diff/dist/diff.min.js"></script>
 <!-- local -->
 <script src="../../src/dicomDiff.js"></script>
 <script src="../../src/dragndrop.js"></script>
 
-<!-- dcmjs -->
-<script src="../../ext/dcmjs/libs/dcmjs-nico.js"></script>
-<script src="../../ext/dcmjs/utils.js"></script>
-<script type="text/javascript">
-parse_0 = function (buffer) {
-  // store lines
-  var dumpLines = [];
-  Module.print = function (s) {
-    dumpLines += s + "\n";
-  };
-  // temp file name
-  var fileName = 'temp';
-  // write to FileSystem
-  var content = new Int8Array(buffer);
-  FS.writeFile(fileName, content, {encoding: "binary"});
-  // run dcmtk command
-  dcmjs.utils.execute('dcmdump', [fileName, "-Un"]);
-  // return lines
-  return dumpLines;
-};
-var function_0 = {
-  "name": "dcmjs",
-  "func": parse_0
-};
-</script>
-
-<!-- dwv -->
-<script src="../../ext/dwv/dwv-0.11.0beta.min.js"></script>
-<script type="text/javascript">
-parse_2 = function (buffer) {
-  // setup the dicom parser
-  var dwvParser = new dwv.dicom.DicomParser();
-  // parse the buffer
-  dwvParser.parse(buffer);
-  // return dump
-  return dwvParser.getDicomElements().dump();
-};
-var function_2 = {
-  "name": "dwv",
-  "func": parse_2
-};
-</script>
+<!-- iframes -->
+<iframe src="../parsers/ctk-dcmjs.html" id="iframe-ctk-dcmjs" style="display:none"></iframe>
+<iframe src="../parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
 
 <!-- real business -->
 <script type="text/javascript">
 
 // default test data
-var defaultTestData = [ { "name": "osirix-toutatix-100",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
-  { "name": "osirix-goudurix",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
-  { "name": "dicompyler-ct.0",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
-  { "name": "gdcm-CR-MONO1-10-chest",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
-  { "name": "gdcm-CT-MONO2-8-abdo",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
-  { "name": "gdcm-US-RGB-8-epicard",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
-  { "name": "gdcm-US-RGB-8-esopecho",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
+var githubRaw = "https://raw.githubusercontent.com/ivmartel/dcmbench/master/data/";
+var defaultTestData = [
+    { "name": "osirix-toutatix-100", "url": githubRaw + "osirix-toutatix-100.dcm", "selected": true },
+    { "name": "osirix-goudurix", "url": githubRaw + "osirix-goudurix.dcm", "selected": true },
+    { "name": "dicompyler-ct.0", "url": githubRaw + "dicompyler-ct.0.dcm", "selected": true },
+    { "name": "gdcm-CR-MONO1-10-chest", "url": githubRaw + "gdcm-CR-MONO1-10-chest.dcm", "selected": true },
+    { "name": "gdcm-CT-MONO2-8-abdo", "url": githubRaw + "gdcm-CT-MONO2-8-abdo.dcm", "selected": true },
+    //{ "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm", "selected": true },
+    { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm", "selected": true }
 ];
 
 // create default runner object
-var runner = new DicomDiff( function_0, function_2 );
+var runner = new dcmb.DicomDiff();
 runner.setDataList( defaultTestData );
 
 // called by the drag and drop
-updateDataList = function (datalist) {
+function updateDataList(datalist) {
   runner.setDataList(datalist);
 };
 
+function checkSelected(parser) {
+  return parser.selected === true;
+}
+
+// Handle change in the input file element.
+// - Updates the data list by calling updateDataList.
+function onChangeInput(files) {
+  var inputData = [];
+  for ( var i = 0; i < files.length; ++i ) {
+    inputData.push( { "name": files[i].name,
+      "file": files[i] } );
+  }
+  // call external function
+  updateDataList( inputData );
+};
+
+function onChangeDefaultDataNumber(input) {
+  for (var i = 0; i < defaultTestData.length; ++i) {
+    if (i < input.value) {
+      defaultTestData[i].selected = true;
+    } else {
+      defaultTestData[i].selected = false;
+    }
+  }
+  runner.setDataList(defaultTestData.filter(checkSelected));
+}
+
 // handle launch
-onLaunchButton = function () {
+function onLaunchButton() {
   // action according to status
   if ( runner.getStatus() === "ready" ||
     runner.getStatus() === "done" ||
@@ -101,7 +83,7 @@ onLaunchButton = function () {
 };
 
 // show/hide an element
-onShowButton = function (id) {
+dcmb.onShowButton = function (id) {
   var element = document.getElementById(id);
   if ( element ) {
       if ( element.style.display === "none" ) {
@@ -114,30 +96,57 @@ onShowButton = function (id) {
 };
 
 // last minute
-$( document ).ready(function() {
+document.addEventListener("DOMContentLoaded", function (/*event*/) {
   // drag and drop
-  setupDragDrop();
+  dcmb.setupDragDrop();
 
   // output user agent
-  var pAgent = document.createElement("p");
-  pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent));
-  var resDiv = document.getElementById("browser");
-  resDiv.appendChild(pAgent);
+  var preAgent = document.createElement("pre");
+  preAgent.appendChild(document.createTextNode("User agent: "));
+  preAgent.appendChild(document.createTextNode(navigator.userAgent));
+  var broDiv = document.getElementById("browser");
+  broDiv.appendChild(preAgent);
+
+  // data number input
+  var inputDataQuantity = document.getElementById("data-quantity");
+  inputDataQuantity.value = defaultTestData.length;
+  inputDataQuantity.max = defaultTestData.length;
 });
+
+// iframe content is only available at window.onload time
+window.onload = function () {
+  var function_dcmjs = {
+    "name": "ctk-dcmjs",
+    "func": document.getElementById('iframe-ctk-dcmjs').contentWindow.dump
+  };
+  var function_dwv = {
+    "name": "dwv",
+    "func": document.getElementById('iframe-dwv').contentWindow.dump
+  };
+  runner.setFunctionPair( function_dcmjs, function_dwv );
+};
+
 </script>
 </head>
 
 <body>
 
-  <h1>DICOM Javascript parser dump diff</h1>
+  <h2>DICOM dump diff</h2>
+
+  <p>Show differences between DICOM dump from ctk-dcmjs and dwv.</p>
 
   <div id="browser"></div>
 
   <div id="input">
-    <p>Use default data (no CORS) <b>or</b></p>
-    <div id="field"><input type="file" multiple="true" onchange="onChangeInput(files)"></div>
-    <div id="text"><p><b>or</b></p></div>
-    <div id="dropbox">Drop files here</div>
+    <fieldset>
+      <legend>Input</legend>
+      <ul>
+        <li>Use default data, number:
+          <input type="number" name="quantity" id="data-quantity" min="1"
+            onchange="onChangeDefaultDataNumber(this)"></li>
+        <li><input type="file" multiple="true" onchange="onChangeInput(files)"></li>
+        <li><div id="dropbox">Drop files here</div></li>
+    </fieldset>
   </div>
 
   <div id="diff-toolbar">

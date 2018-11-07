@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>iframe-daikon</title>
+<meta charset="UTF-8">
+</head>
+
+<script src="../../node_modules/daikon/release/current/daikon-min.js"></script>
+
+<script type="text/javascript">
+parse = function (buffer) {
+    // get data view
+    var data = new DataView(buffer);
+    // parse the data
+    var image = daikon.Series.parseImage(data);
+};
+</script>
+
+</html>

@@ -4,116 +4,118 @@
 <head>
 <title>DICOM Parser Benchmark</title>
 <meta charset="UTF-8">
-<link type="text/css" rel="stylesheet" href="../style.css" />
+<link type="text/css" rel="stylesheet" href="../../css/style.css" />
 
 <!-- Third party -->
-<script src="../../ext/dcmjs/libs/jquery-1.11.0.min.js"></script>
-<script src="../../ext/benchmark/lodash.js"></script>
-<script src="../../ext/benchmark/benchmark.js"></script>
+<script src="../../node_modules/lodash/lodash.min.js"></script>
+<script src="../../node_modules/benchmark/benchmark.js"></script>
 <!-- local -->
 <script src="../../src/dicomBench.js"></script>
 <script src="../../src/dragndrop.js"></script>
+<script src="../../src/gui.js"></script>
 
-<!-- dcmjs -->
-<script src="../../ext/dcmjs/libs/dcmjs-nico.js"></script>
-<script src="../../ext/dcmjs/utils.js"></script>
-<script type="text/javascript">
-parse_0 = function (buffer) {
-  // avoid console log
-  var dumpLines = [];
-  Module.print = function (s) {
-    dumpLines.push(s);
-  };
-  // temp file name
-  var fileName = 'temp';
-  // write to FileSystem
-  var content = new Int8Array(buffer);
-  FS.writeFile(fileName, content, {encoding: "binary"});
-  // run dcmtk command
-  dcmjs.utils.execute('dcmdump', [fileName]);
-};
-var function_0 = {
-  "name": "dcmjs",
-  "func": parse_0
-};
-</script>
-
-<!-- chafey -->
-<script src="../../ext/dicomParser/dicomParser.min.js"></script>
-<script type="text/javascript">
-parse_1 = function (buffer) {
-  // convert to uint
-  var content = new Uint8Array(buffer);
-  // parse
-  var dataSet = dicomParser.parseDicom(content);
-};
-var function_1 = {
-  "name": "dicomParser",
-  "func": parse_1
-};
-</script>
-
-<!-- dwv -->
-<script src="../../ext/dwv/dwv-0.10.1.min.js"></script>
-<script type="text/javascript">
-parse_2 = function (buffer) {
-  // setup the dicom parser
-  var dwvParser = new dwv.dicom.DicomParser();
-  // parse the buffer
-  dwvParser.parse(buffer);
-};
-var function_2 = {
-  "name": "dwv",
-  "func": parse_2
-};
-</script>
-
-<!-- daikon -->
-<script src="../../ext/daikon/daikon-min.js"></script>
-<script type="text/javascript">
-parse_3 = function (buffer) {
-    // get data view
-    var data = new DataView(buffer);
-    // parse the data
-    var image = daikon.Series.parseImage(data);
-};
-var function_3 = {
-  "name": "daikon",
-  "func": parse_3
-};
-</script>
+<!-- iframes -->
+<iframe src="../parsers/ctk-dcmjs.html" id="iframe-ctk-dcmjs" style="display:none"></iframe>
+<iframe src="../parsers/daikon.html" id="iframe-daikon" style="display:none"></iframe>
+<iframe src="../parsers/dcmjs.html" id="iframe-dcmjs" style="display:none"></iframe>
+<iframe src="../parsers/dicomParser.html" id="iframe-dicomParser" style="display:none"></iframe>
+<iframe src="../parsers/dwv-previous.html" id="iframe-dwv-previous" style="display:none"></iframe>
+<iframe src="../parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
 
 <!-- real business -->
 <script type="text/javascript">
 
 // default test data
-var defaultTestData = [ { "name": "osirix-toutatix-100",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-toutatix-100.dcm?raw=true" },
-  { "name": "osirix-goudurix",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/osirix-goudurix.dcm?raw=true" },
-  { "name": "dicompyler-ct.0",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/dicompyler-ct.0.dcm?raw=true" },
-  { "name": "gdcm-CR-MONO1-10-chest",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CR-MONO1-10-chest.dcm?raw=true" },
-  { "name": "gdcm-CT-MONO2-8-abdo",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-CT-MONO2-8-abdo.dcm?raw=true" },
-  { "name": "gdcm-US-RGB-8-epicard",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-epicard.dcm?raw=true" },
-  { "name": "gdcm-US-RGB-8-esopecho",
-  "url": "https://github.com/ivmartel/dcmbench/blob/master/data/gdcm-US-RGB-8-esopecho.dcm?raw=true" }
+var githubRaw = "https://raw.githubusercontent.com/ivmartel/dcmbench/master/data/";
+var defaultTestData = [
+    { "name": "osirix-toutatix-100", "url": githubRaw + "osirix-toutatix-100.dcm", "selected": true },
+    { "name": "osirix-goudurix", "url": githubRaw + "osirix-goudurix.dcm", "selected": true },
+    { "name": "dicompyler-ct.0", "url": githubRaw + "dicompyler-ct.0.dcm", "selected": true },
+    { "name": "gdcm-CR-MONO1-10-chest", "url": githubRaw + "gdcm-CR-MONO1-10-chest.dcm", "selected": true },
+    { "name": "gdcm-CT-MONO2-8-abdo", "url": githubRaw + "gdcm-CT-MONO2-8-abdo.dcm", "selected": true },
+    //{ "name": "gdcm-US-RGB-8-epicard", "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm", "selected": true },
+    { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm", "selected": true }
+];
+var parserFunctions = [
+  { "name": "ctk-dcmjs", "selected": true },
+  { "name": "daikon", "selected": true },
+  { "name": "dcmjs", "selected": true },
+  { "name": "dicomParser", "selected": true },
+  { "name": "dwv-previous", "selected": true },
+  { "name": "dwv", "selected": true }
 ];
 
 // create default runner object
-var runner = new DicomBench([function_0, function_1, function_2, function_3]);
+var runner = new dcmb.DicomBench();
 runner.setDataList( defaultTestData );
 
 // called by the drag and drop
-updateDataList = function (datalist) {
+function updateDataList(datalist) {
   runner.setDataList(datalist);
 };
 
+function checkSelected(parser) {
+  return parser.selected === true;
+}
+
+// Handle change in the input file element.
+// - Updates the data list by calling updateDataList.
+function onChangeInput(files) {
+  var inputData = [];
+  for ( var i = 0; i < files.length; ++i ) {
+    inputData.push( { "name": files[i].name,
+      "file": files[i] } );
+  }
+  // call external function
+  updateDataList( inputData );
+};
+
+function onChangeDefaultDataNumber(input) {
+  for (var i = 0; i < defaultTestData.length; ++i) {
+    if (i < input.value) {
+      defaultTestData[i].selected = true;
+    } else {
+      defaultTestData[i].selected = false;
+    }
+  }
+  runner.setDataList(defaultTestData.filter(checkSelected));
+}
+
+function setupParsers() {
+  var divParsers = document.getElementById("parsers");
+  var fieldsetElem = divParsers.getElementsByTagName("fieldset")[0];
+
+  var parserName = "";
+  for (var i = 0; i < parserFunctions.length; ++i) {
+    parserName = parserFunctions[i].name;
+    var input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "parsers";
+    input.id = parserName;
+    input.value = parserName;
+    input.onclick = function() { onChangeParsers(this); };
+    input.checked = true;
+    var label = document.createElement("label");
+    label.htmlFor = parserName;
+    label.appendChild(document.createTextNode(parserName));
+
+    fieldsetElem.appendChild(input);
+    fieldsetElem.appendChild(label);
+  }
+}
+
+function onChangeParsers(input) {
+  for (var i = 0; i < parserFunctions.length; ++i) {
+    if (parserFunctions[i].name === input.value) {
+      parserFunctions[i].selected = input.checked;
+      break;
+    }
+  }
+  runner.setFunctionList(parserFunctions.filter(checkSelected));
+};
+
 // handle launch
-onLaunchButton = function () {
+function onLaunchButton() {
   // action according to status
   if ( runner.getStatus() === "ready" ||
     runner.getStatus() === "done" ||
@@ -128,30 +130,70 @@ onLaunchButton = function () {
 };
 
 // last minute
-$( document ).ready(function() {
+document.addEventListener("DOMContentLoaded", function (/*event*/) {
   // drag and drop
-  setupDragDrop();
+  dcmb.setupDragDrop(updateDataList);
+
+  // parsers
+  setupParsers();
 
   // output user agent
-  var pAgent = document.createElement("p");
-  pAgent.appendChild(document.createTextNode("User agent: " + navigator.userAgent));
-  var resDiv = document.getElementById("browser");
-  resDiv.appendChild(pAgent);
+  var preAgent = document.createElement("pre");
+  preAgent.appendChild(document.createTextNode("User agent: "));
+  preAgent.appendChild(document.createTextNode(navigator.userAgent));
+  var broDiv = document.getElementById("browser");
+  broDiv.appendChild(preAgent);
+
+  // data number input
+  var inputDataQuantity = document.getElementById("data-quantity");
+  inputDataQuantity.value = defaultTestData.length;
+  inputDataQuantity.max = defaultTestData.length;
 });
+
+// iframe content is only available at window.onload time
+window.onload = function () {
+  var ifname = '';
+  var func = null;
+  for (var i = 0; i < parserFunctions.length; ++i) {
+    ifname = "iframe-" + parserFunctions[i].name;
+    func = document.getElementById(ifname).contentWindow.parse;
+    if (func) {
+      parserFunctions[i].func = func;
+    }
+  }
+  runner.setFunctionList(parserFunctions.filter(checkSelected));
+};
 </script>
 </head>
 
 <body>
 
-  <h1>DICOM Javascript parser benchmark</h1>
+  <h2>Speed benchmark</h2>
+
+  <p>The table values are: Operations per seconds &plusmn; Root Mean Error (RME)
+    (as output by the
+    <a href="https://github.com/bestiejs/benchmark.js">benchmark.js</a> library)
+    and the difference in percentage to the first column.
+    The more ops/sec, the better, but with a low RME... </p>
 
   <div id="browser"></div>
 
   <div id="input">
-    <p>Use default data (no CORS) <b>or</b></p>
-    <div id="field"><input type="file" multiple="true" onchange="onChangeInput(files)"></div>
-    <div id="text"><p><b>or</b></p></div>
-    <div id="dropbox">Drop files here</div>
+    <fieldset>
+      <legend>Input</legend>
+      <ul>
+        <li>Use default data, number:
+          <input type="number" name="quantity" id="data-quantity" min="1"
+            onchange="onChangeDefaultDataNumber(this)"></li>
+        <li><input type="file" multiple="true" onchange="onChangeInput(files)"></li>
+        <li><div id="dropbox">Drop files here</div></li>
+    </fieldset>
+  </div>
+
+  <div id="parsers">
+    <fieldset>
+      <legend>Parsers</legend>
+    </fieldset>
   </div>
 
   <div id="bench-toolbar">

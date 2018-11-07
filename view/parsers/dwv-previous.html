@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>iframe-dwv</title>
+<meta charset="UTF-8">
+</head>
+
+<script src="../../ext/dwv-previous/dwv.min.js"></script>
+
+<script type="text/javascript">
+// Parse a DICOM buffer.
+parse = function (buffer) {
+  // setup the dicom parser
+  var dwvParser = new dwv.dicom.DicomParser();
+  // parse the buffer
+  dwvParser.parse(buffer);
+};
+</script>
+
+</html>

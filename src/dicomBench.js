@@ -1,15 +1,17 @@
+// namespace
+var dcmb = dcmb || {};
 // benchmark.js
 var Benchmark = Benchmark || {};
 
 // Class to handle benchmarks.
-// @param funcs The array of {name, func} to test.
-// @param dataList The list of url to test the functions on.
-DicomBench = function (funcs) {
+dcmb.DicomBench = function () {
 
   // closure to self
   var self = this;
   // data list
   var dataList = null;
+  // function list
+  var funcs = null;
   // file or url
   var isFile = null;
   // current data index
@@ -19,12 +21,14 @@ DicomBench = function (funcs) {
   // status
   var status = "ready";
 
-  // get the status
+  var results = [];
+
+  // Get the status.
   this.getStatus = function () {
     return status;
   };
 
-  // set the data list
+  // Set the data list.
   this.setDataList = function (list) {
     if ( list.length !== 0 ) {
       dataList = list;
@@ -32,9 +36,16 @@ DicomBench = function (funcs) {
     }
   };
 
-  // set the statue
+  // Set the function list.
+  this.setFunctionList = function (list) {
+    if ( list.length !== 0 ) {
+      funcs = list;
+    }
+  };
+
+  // Set the status.
   // @private
-  setStatus = function (newStatus) {
+  var setStatus = function (newStatus) {
     status = newStatus;
     // update gui
     var pStatus = document.getElementById("bench-status");
@@ -57,12 +68,12 @@ DicomBench = function (funcs) {
     }
   };
 
-  // cancel the benchmark(s)
+  // Cancel the process.
   this.cancel = function () {
     setStatus("cancelling");
   };
 
-  // run the benchmark(s)
+  // Run the process.
   this.run = function () {
     var data = dataList[dataIndex];
     // console output
@@ -71,36 +82,31 @@ DicomBench = function (funcs) {
     setStatus("running");
 
     // html display
-    tableId = "bench-table-" + runIndex;
+    var tableId = "bench-table-" + runIndex;
     var table = null;
     if ( dataIndex === 0 ) {
       // table
       table = document.createElement("table");
       table.id = tableId;
       // thead
-      var hrow = table.insertRow();
-      hrow.className = "header-row";
-      var td0 = hrow.insertCell();
-      var td = null;
-      td0.appendChild(document.createTextNode(""));
-      for ( var i = 0; i < funcs.length; ++i ) {
-        td = hrow.insertCell();
-        td.appendChild(document.createTextNode(funcs[i].name));
-      }
+      dcmb.insertHeadRow(table, funcs);
       // append table to div
       var resDiv = document.getElementById("bench-results");
       resDiv.appendChild(table);
-    }
-    else {
+      // reset results
+      results = [];
+    } else {
       table = document.getElementById(tableId);
     }
-    var row = null;
+
+    // insert a new results row
+    results.push([]);
 
     // benchmark suite
-    var suite = new Benchmark.Suite();
+    var suite = new Benchmark.Suite("bench");
     // handle start of benchmark
     suite.on('start', function() {
-      // header row
+      // result row
       var row = table.insertRow();
       var cell0 = row.insertCell();
       cell0.appendChild(document.createTextNode(data.name));
@@ -113,9 +119,9 @@ DicomBench = function (funcs) {
       // console output
       console.log(String(event.target));
       // html output
-      var hz = event.target.hz;
-      var opsPerSec = hz.toFixed(hz < 100 ? 2 : 0);
-      var text = String(opsPerSec);
+      var opsPerSec = event.target.hz;
+      var opsPerSecText = opsPerSec.toFixed(opsPerSec < 100 ? 2 : 0);
+      var rme = event.target.stats.rme;
       // html
       var tName = event.target.name;
       var index = -1;
@@ -129,9 +135,20 @@ DicomBench = function (funcs) {
         // exception
         throw new Error("No function found.");
       }
+      // is it the first column
+      var isFirst = results[dataIndex].length === 0;
+      // store results
+      results[dataIndex].push(opsPerSec);
+
+      // add data to the table cell
       var cellId = index + 1;
       var cell = table.rows[dataIndex+1].cells[cellId];
-      cell.appendChild(document.createTextNode(text));
+      cell.appendChild(document.createTextNode(opsPerSecText + " "));
+      cell.appendChild(dcmb.getRmeSpan(rme));
+      if (!isFirst) {
+        cell.appendChild(document.createTextNode(" "));
+        cell.appendChild(dcmb.getDiffSpan(results[dataIndex][0], opsPerSec));
+      }
 
       // check if cancelling
       if ( self.getStatus() === "cancelling" ) {
@@ -148,6 +165,12 @@ DicomBench = function (funcs) {
           self.run();
         }
         else {
+          // insert a mean row if more than one data
+          if ( dataList.length > 1 ) {
+            var means = dcmb.getMeans(results);
+            dcmb.insertMeanRow(table, means);
+          }
+
           ++runIndex;
           dataIndex = 0;
           setStatus("done");
@@ -155,7 +178,7 @@ DicomBench = function (funcs) {
       }
     });
     // handle abort
-    suite.on('abort', function(event) {
+    suite.on('abort', function(/*event*/) {
       ++runIndex;
       dataIndex = 0;
       setStatus("cancelled");
