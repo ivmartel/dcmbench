@@ -2,64 +2,13 @@ body {
   font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  overflow: auto;
-}
-
 pre {
   white-space: pre-wrap;
+  background: #efefef;
 }
 
-iframe {
-  display: block;
-  border: none;
-  height: 87vh;
-  width: 99vw;
-  margin: 10px;
-  overflow: hidden;
-}
-
-/* Menu */
-nav h1 {
-  background-color: #333;
-  color: white;
-  font-size: 100%;
-  padding: 10px;
-  margin: 0;
-}
-
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
-
-nav li {
-  float: left;
-}
-
-nav li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 10px 16px;
-  text-decoration: none;
-}
-
-nav li a.active {
-  background-color: #4CAF50;
-}
-
-nav li a:hover:not(.active) {
-    background-color: #111;
+input[type="file"] {
+  background: #efefef;
 }
 
 /* Result table */
