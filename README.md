@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ivmartel/dcmbench.svg?branch=master)](https://travis-ci.org/ivmartel/dcmbench)
 
-Javascript DICOM parser benchmark, try it [here](http://ivmartel.github.io/dcmbench).
+Javascript DICOM parser benchmark tools, see the [live demo](http://ivmartel.github.io/dcmbench).
 
 Parsers:
 * [ctk-dcmjs](https://github.com/commontk/dcmjs): c++ parser ([dcmtk](http://dicom.offis.de/dcmtk.php.en)) compiled to js
