@@ -77,4 +77,7 @@ legend {
 #diff-results p {
   font-size: 12px;
 }
+#diff-results pre {
+  background: #fff;
+}
 .diff-mean { background: #eee; font-weight: bold; }
