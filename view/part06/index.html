@@ -6,136 +6,252 @@
 <meta charset="UTF-8">
 <link type="text/css" rel="stylesheet" href="../../css/style.css" />
 
-<!-- Third party -->
-<script src="../../ext/jquery/jquery-2.1.3.min.js"></script>
 <!-- Local -->
 <script type="text/javascript">
 
 // trim and get rid of zero-width space
-cleanString = function (str) {
+function cleanString(str) {
   return str.trim().replace(/\u200B/g,'');
 };
 
-// parse the TBODY part of a DICOM XML tag table.
-parseTagTBody = function () {
-  // dictionnary object
-  var dict = {};
-  // display
-  var div = document.getElementById("dict");
-  var pre = document.createElement("pre");
-  div.appendChild(pre);
+/**
+ * Parse a tag row and return a tag object.
+ * @param {Array} A tag row (length=6).
+ * @return {Object} A tag object: {group, element, keyword, vr, vm}.
+ */
+function parseRow(row) {
+  if (row.length !== 6) {
+    throw new Error("Not the expected tag row size.");
+  }
+  // split (group,element)
+  var geSplit = row[0].split(',');
+  // not replacing 'x' (elemNum.replace(/x/g, '0'))
+  var group = "0x" + geSplit[0].substr(1,4).toString();
+  var element = "0x" + geSplit[1].substr(0,4).toString();
+  // vr
+  var vr = row[3];
+  if (typeof vr !== "undefined") {
+    // #modif "See Note" -> "NONE"
+    if ( vr.substr(0, 8) === "See Note") {
+      vr = "NONE";
+    }
+    // #modif "OB or OW" -> "ox"
+    else if ( vr === "OB or OW" ) {
+      vr = "ox";
+    }
+    // #modif "US or SS" -> "xs"
+    else if ( vr === "US or SS" ) {
+      vr = "xs";
+    }
+  } else {
+    vr = "";
+  }
+  // return
+  return {
+    group: group,
+    element: element,
+    keyword: typeof row[2] === "undefined" ? "" : row[2],
+    vr: vr,
+    vm: typeof row[4] === "undefined" ? "" : row[4]
+  };
+}
+
+/**
+ * Parse a DICOM part06 xml.
+ * @param {Node} node A DOM node.
+ * @return {Array} The corresponding tags array.
+ */
+function parsePart06Node(part06Node) {
+  var tags = [];
+  var tableCallback = function (node) {
+    tags = tags.concat(parseTableNode(node));
+  };
+
+  // 0002: DICOM File Meta Elements
+  part06Node.querySelectorAll("table[label='7-1']").forEach(tableCallback);
+  // 0004: DICOM Directory Structuring Elements
+  part06Node.querySelectorAll("table[label='8-1']").forEach(tableCallback);
+  // 0008: DICOM Data Elements
+  part06Node.querySelectorAll("table[label='6-1']").forEach(tableCallback);
+
+  return tags;
+}
+
+/**
+ * Parse a part06 XML table node.
+ * @param {Node} tableNode A DOM node.
+ * @return {Array} The cresponding list of tags.
+ */
+function parseTableNode(tableNode) {
+  var tags = [];
+  tableNode.querySelectorAll("tr").forEach(function (node) {
+    var tag = parseTrNode(node);
+    if (typeof tag !== "undefined") {
+      tags.push(tag);
+    }
+  });
+  // return
+  return tags;
+};
+
+/**
+ * Parse a part06 XML table row node.
+ * @param {Node} trNode A DOM node.
+ * @return {Object} The cresponding tag.
+ */
+function parseTrNode(trNode) {
+  // table cell values
+  var values = [];
+  trNode.querySelectorAll("td").forEach(function (node) {
+    values.push(parseTdNode(node));
+  });
+  // create tag from values
+  var tag;
+  if (values.length !== 0) {
+    tag = parseRow(values)
+  }
+  // return
+  return tag;
+}
+
+/**
+ * Parse a part06 XML table row cell node.
+ * @param {Node} tdNode A DOM node.
+ * @return {string} The tag property value.
+ *
+ * Examples:
+ *
+ * <para>(0004,1410)</para>
+ *
+ * <para>
+ *   <emphasis role="italic">(0004,1600)</emphasis>
+ * </para>
+ */
+function parseTdNode(tdNode) {
+  var value;
+  // expect one 'para' eñement
+  var paras = tdNode.getElementsByTagName("para");
+  if (paras.length !== 1) {
+    throw new Error("Not the expected 'para' elements length.");
+  }
+  var para = paras[0];
+  // parse childs
+  if (para.childNodes.length !== 0) {
+    // if the para contains an emphasis child, use its content
+    var emphases = para.getElementsByTagName("emphasis");
+    if (emphases.length !== 0) {
+      if (emphases.length !== 1) {
+        throw new Error("Not the expected 'emphasis' elements length.");
+      }
+      value = emphases[0].innerHTML;
+    } else {
+      value = para.childNodes[0].nodeValue;
+    }
+    value = cleanString(value);
+  }
+  // return
+  return value;
+};
+
+/**
+ * Format tags into a html element and append it to the 'output' div.
+ * @param {Array} An array of DICOM tags.
+ */
+function showTags(tags) {
+  // tabulation
   var tab = "    ";
-  var firstAppend = true;
+  // result text
+  var text = "";
 
-  $('tr', this).each( function () {
-    var group = null;
-    var element = null;
-    var keyword = null;
-    var vr = null;
-    var vm = null;
-    var retired = false;
-    var count = 0;
-    $('td', this).each( function () {
-      var value = cleanString($('para', this).text());
-      if ( $('emphasis', this).length !== 0 ) {
-        retired = true;
-        value = cleanString($('emphasis', this).text());
+  var group = "";
+  for (var i = 0; i < tags.length; ++i) {
+    var tag = tags[i];
+    var isFirstOfgroup = false;
+    // start group section
+    if (tag.group !== group) {
+      isFirstOfgroup = true;
+      // close previous
+      if (i !== 0) {
+        text += "\n" + tab + "},\n";
       }
-      // (group,element)
-      if ( count === 0 ) {
-        var split = value.split(',');
-        group = "0x" + split[0].substr(1,4).toString();
-        element = "0x" + split[1].substr(0,4).toString();
-      }
-      // keyword
-      else if ( count === 2 ) {
-        keyword = value;
-      }
-      // vr
-      else if ( count === 3 ) {
-        vr = value;
-        // #modif "See Note" -> "NONE"
-        if ( vr.substr(0, 8) === "See Note") {
-          vr = "NONE";
-        }
-        // #modif "OB or OW" -> "ox"
-        else if ( vr === "OB or OW" ) {
-          vr = "ox";
-        }
-        // #modif "US or SS" -> "xs"
-        else if ( vr === "US or SS" ) {
-          vr = "xs";
-        }
-      }
-      // vm
-      else if ( count === 4 ) {
-        vm = value;
-      }
-      // comments
-      else if ( count === 5 ) {
-        if ( value === "RET" && !retired ) {
-          console.error("Expected dataElement to be retired...");
-        }
-      }
-      count++;
-    }); // td
-
-    // add data element to dict and display
-    if ( typeof dict[group] === "undefined" ) {
-      dict[group] = {};
-      if ( !firstAppend ) {
-        pre.appendChild(document.createTextNode(tab + "},\n"));
-      }
-      firstAppend = false;
-      pre.appendChild(document.createTextNode(tab + "'" + group + "': {\n"));
-      // #modif adding "GenericGroupLength"
+      // start new
+      group = tag.group;
+      text += tab + "'" + tag.group + "': {\n";
+      // #modif add "GenericGroupLength"
       if ( group !== "0x0002" ) {
-        pre.appendChild(document.createTextNode(tab + tab +
-          "'0x0000': ['UL', '1', 'GenericGroupLength'],\n"));
+        text += tab + tab +
+          "'0x0000': ['UL', '1', 'GenericGroupLength'],\n";
       }
     }
-    dict[group][element]= [vr, vm, keyword];
-    pre.appendChild(document.createTextNode(tab + tab +
-      "'" + element + "': ['" + vr + "', '" + vm + "', '" + keyword + "'],\n"));
 
-  }); // tr
+    // tag
+    var tagText = isFirstOfgroup ? "" : ",\n";
+    tagText += tab + tab +
+      "'" + tag.element + "': ['" + tag.vr +
+      "', '" + tag.vm +
+      "', '" + tag.keyword + "']";
+    text += tagText;
+  }
 
-  pre.appendChild(document.createTextNode(tab + "}\n"));
+  // last line
+  text += "\n" + tab + "}\n";
 
-}; // parseTagTBody
+  // append to page
+  var area = document.createElement("textarea");
+  area.appendChild(document.createTextNode(text));
+  area.style = "width: 99%; margin-top: 10px;";
+  area.rows = 35;
+  area.spellcheck = false;
 
-$(document).ready( function () {
-  $.get("part06.xml", function (xmlArray) {
-    var xml = $.parseXML(xmlArray);
-    // 0002: DICOM File Meta Elements
-    $(xml).find("table[label='7-1']").each( function () {
-      $('tbody', this).each( parseTagTBody );
-    });
-    // 0004: DICOM Directory Structuring Elements
-    $(xml).find("table[label='8-1']").each( function () {
-      $('tbody', this).each( parseTagTBody );
-    });
-    // 0008: DICOM Data Elements
-    $(xml).find("table[label='6-1']").each( function () {
-      $('tbody', this).each( parseTagTBody );
-    });
-  });
-});
+  var div = document.getElementById("output");
+  div.appendChild(area);
+}
+
+// load select file or default one.
+function onParseButton() {
+  var fileInputElement = document.getElementById("fileupload");
+  if (fileInputElement.files.length === 1) {
+    // a file has been selected
+    var file = fileInputElement.files[0];
+    var reader = new FileReader();
+    reader.onload = function (event) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(event.target.result, "application/xml");
+      showTags(parsePart06Node(doc));
+    };
+    reader.readAsText(file);
+  } else {
+    // default
+    var url = "./part06.xml";
+    var request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.onload = function () {
+      showTags(parsePart06Node(request.responseXML));
+    };
+    request.send();
+  }
+};
 
 </script>
-
 </head>
 
 <body>
 
   <h2>DICOM Part06 xml2json</h2>
 
-  <p>Run this locally and allow access to local files for this to work...
-  <br>Source: 2015c
-  <a href="http://medical.nema.org/medical/dicom/current/source/docbook/part06/part06.xml">part06.xml</a>
-  (also see <a href="http://medical.nema.org/medical/dicom/current/output/html/part06.html">part06.html</a>).</p>
+  <p>
+    DICOM versions: <a href="http://dicom.nema.org/medical/dicom/">dicom.nema.org/medical/dicom/</a>
+    <br>Example source file: 2015c
+    <a href="http://medical.nema.org/medical/dicom/2015c/source/docbook/part06/part06.xml">part06.xml</a>
+    (also see <a href="http://medical.nema.org/medical/dicom/2015c/output/html/part06.html">part06.html</a>).
+  </p>
 
-  <div id="dict"></div>
+  <label for="fileupload">File to parse: </label>
+  <input id="fileupload" type="file">
+  (default to local 2015c part06.xml)
+  <button onclick="onParseButton()">Parse</button>
+
+  <div id="output"></div>
 
 </body>
 
