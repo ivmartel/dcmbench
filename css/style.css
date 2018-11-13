@@ -81,3 +81,13 @@ legend {
   background: #fff;
 }
 .diff-mean { background: #eee; font-weight: bold; }
+
+/* All */
+#button {
+  float: left; margin-right: 0.5em;
+}
+#status {
+  background: #eee; padding: 0.4em;
+  font-family: Courier, sans-serif;
+  font-size: 12px;
+}
