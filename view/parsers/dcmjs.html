@@ -13,8 +13,17 @@
 parse = function (buffer) {
   // parse data
   var dicomData = dcmjs.data.DicomMessage.readFile(buffer);
-
+  // interpret data
   var dataset = dcmjs.data.DicomMetaDictionary.naturalizeDataset(dicomData.dict);
+};
+// Parse a DICOM buffer and return the memory.
+parse2 = function (buffer) {
+  // parse data
+  var dicomData = dcmjs.data.DicomMessage.readFile(buffer);
+  // interpret data
+  var dataset = dcmjs.data.DicomMetaDictionary.naturalizeDataset(dicomData.dict);
+  // return the memory state
+  return performance.memory;
 };
 </script>
 

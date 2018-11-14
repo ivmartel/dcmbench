@@ -4,34 +4,55 @@ var dcmb = dcmb || {};
 // Class to handle running functions.
 dcmb.Memory = function () {
 
+  if( !performance.memory ){
+      console.warn('performance.memory is only available in Chrome.');
+  }
+
   var functions = null;
 
+  /**
+   * Set the runner functions.
+   * @param {Array} funcs An array of functions in the form:
+   * {name: string, func: Object}
+   */
   this.setFunctions = function (funcs) {
     functions = funcs;
   };
 
-  // handle loaded data
+  /**
+   * Run the memory measures
+   * @param {Object} buffer The data buffer.
+   * @return {Array} An array of memory measures in the form:
+   * {count: number, added: boolean, removed: boolean, value: string}
+   */
   this.run = function (buffer) {
-    console.log(buffer);
+    // initial measure
+    var previousMemory = performance.memory;
 
-    var mem0 = performance.memory;
-    console.log("0", mem0);
+    var measures = [];
+    for (var i = 0; i < functions.length; ++i) {
+      // run the function
+      var mem2 = functions[i].func(buffer);
+      // measure
+      var mem = performance.memory;
+      measures.push(mem.usedJSHeapSize - previousMemory.usedJSHeapSize);
+      measures.push(mem2.usedJSHeapSize - previousMemory.usedJSHeapSize);
+      previousMemory = mem;
+    }
+    return measures;
+  };
 
-    functions[0].func(buffer);
-
-    var mem1 = performance.memory;
-    console.log("1", mem1);
-    var diff1 = mem1.usedJSHeapSize - mem0.usedJSHeapSize;
-    console.log(diff1);
-
-    functions[1].func(buffer);
-
-    var mem2 = performance.memory;
-    console.log("2", mem2);
-    var diff2 = mem2.usedJSHeapSize - mem1.usedJSHeapSize;
-    console.log(diff2);
-
-    return [["mem1", "mem2"], [diff1, diff2]];
+  /**
+   * Get a header row to result data.
+   * @return {Array} An array representing a header row to the result data.
+   */
+  this.getHeader = function () {
+    var header = [];
+    for (var i = 0; i < functions.length; ++i) {
+      header.push(functions[i].name + ' mem-out');
+      header.push(functions[i].name + ' mem-in');
+    }
+    return header;
   };
 
 };
