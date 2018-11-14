@@ -10,7 +10,7 @@
 <script src="../node_modules/diff/dist/diff.min.js"></script>
 <!-- local -->
 <script src="../src/listen.js"></script>
-<script src="../src/runner.js"></script>
+<script src="../src/dataRunner.js"></script>
 <script src="../src/diff.js"></script>
 <script src="../src/dragndrop.js"></script>
 
@@ -34,13 +34,13 @@ var defaultTestData = [
 ];
 
 // create runner objects
-var runner = new dcmb.Runner();
-runner.setDataList( defaultTestData );
+var dataRunner = new dcmb.DataRunner();
+dataRunner.setDataList( defaultTestData );
 var diffRunner = new dcmb.DicomDiff();
-runner.setFunctionRunner(diffRunner);
+dataRunner.setFunctionRunner(diffRunner);
 
 // listen to status changes
-runner.addEventListener("status-change", function (event) {
+dataRunner.addEventListener("status-change", function (event) {
   var newStatus = event.value;
 
   // update gui
@@ -63,7 +63,7 @@ runner.addEventListener("status-change", function (event) {
 
   if (newStatus === "done") {
     var meanDiffPercentage = 0;
-    var results = runner.getResults();
+    var results = dataRunner.getResults();
     for (var i = 0; i < results.length; ++i) {
 
       var dataName = results[i][0];
@@ -121,7 +121,7 @@ runner.addEventListener("status-change", function (event) {
 
 // called by the drag and drop
 function updateDataList(datalist) {
-  runner.setDataList(datalist);
+  dataRunner.setDataList(datalist);
 };
 
 function checkSelected(parser) {
@@ -133,8 +133,10 @@ function checkSelected(parser) {
 function onChangeInput(files) {
   var inputData = [];
   for ( var i = 0; i < files.length; ++i ) {
-    inputData.push( { "name": files[i].name,
-      "file": files[i] } );
+    inputData.push({
+      "name": files[i].name,
+      "file": files[i]
+    });
   }
   // call external function
   updateDataList( inputData );
@@ -148,21 +150,21 @@ function onChangeDefaultDataNumber(input) {
       defaultTestData[i].selected = false;
     }
   }
-  runner.setDataList(defaultTestData.filter(checkSelected));
+  dataRunner.setDataList(defaultTestData.filter(checkSelected));
 }
 
 // handle launch
 function onLaunchButton() {
   // action according to status
-  if ( runner.getStatus() === "ready" ||
-    runner.getStatus() === "done" ||
-    runner.getStatus() === "cancelled" ) {
+  vaar status = dataRunner.getStatus();
+  if ( status === "ready" ||
+    status === "done" ||
+    status === "cancelled" ) {
     // run
-    runner.run();
-  }
-  else if ( runner.getStatus() === "running" ) {
+    dataRunner.run();
+  } else if ( status === "running" ) {
     // cancel
-    runner.cancel();
+    dataRunner.cancel();
   }
 };
 
@@ -170,12 +172,11 @@ function onLaunchButton() {
 dcmb.onShowButton = function (id) {
   var element = document.getElementById(id);
   if ( element ) {
-      if ( element.style.display === "none" ) {
-          element.style.display = '';
-      }
-      else {
-          element.style.display = "none";
-      }
+    if ( element.style.display === "none" ) {
+      element.style.display = '';
+    } else {
+      element.style.display = "none";
+    }
   }
 };
 
