@@ -3,7 +3,7 @@ var dcmb = dcmb || {};
 dcmb.utils = dcmb.utils || {};
 
 // Class to handle running functions.
-dcmb.Runner = function () {
+dcmb.DataRunner = function () {
 
   // closure to self
   var self = this;
@@ -62,7 +62,9 @@ dcmb.Runner = function () {
     setStatus("cancelling");
   };
 
-  // Run the process.
+  /**
+   * Run the process: load the data and pass it to the function runner.
+   */
   this.run = function () {
     // reset results
     if (dataIndex === 0) {
@@ -73,7 +75,9 @@ dcmb.Runner = function () {
       }
     }
 
+    // current data
     var data = dataList[dataIndex];
+
     // console output
     console.log("Launch with: '" + data.name + "'");
     // status
@@ -100,11 +104,16 @@ dcmb.Runner = function () {
     }
   };
 
-  // handle loaded data
+  /**
+   * Handle loaded data. Once done call another run or stop.
+   * @param {Object} buffer The data buffer.
+   */
   function onloadBuffer(buffer) {
 
     // call the function runner
     var result = functionRunner.run(buffer);
+
+    // store the results
     var name = dataList[dataIndex].name;
     var array = [name];
     results.push(array.concat(result));
