@@ -10,14 +10,14 @@ dcmb.Runner = function () {
 
   // data list
   var dataList = null;
-  // callback
-  var callback = null;
+  // function runner
+  var functionRunner = null;
 
   // current data index
   var dataIndex = 0;
 
   // result array
-  var result = [];
+  var results = null;
 
   // status
   var status = "ready";
@@ -32,9 +32,9 @@ dcmb.Runner = function () {
     return status;
   };
 
-  // Get the result.
-  this.getResult = function () {
-    return result;
+  // Get the results.
+  this.getResults = function () {
+    return results;
   };
 
   // Set the data list.
@@ -45,9 +45,9 @@ dcmb.Runner = function () {
     dataList = list;
   };
 
-  // Set the callback.
-  this.setCallback = function (func) {
-    callback = func;
+  // Set the function runner.
+  this.setFunctionRunner = function (runner) {
+    functionRunner = runner;
   };
 
   // Set the status.
@@ -64,6 +64,15 @@ dcmb.Runner = function () {
 
   // Run the process.
   this.run = function () {
+    // reset results
+    if (dataIndex === 0) {
+      results = [];
+      if (typeof functionRunner.getHeader !== "undefined") {
+        var array = ['data'];
+        results.push( array.concat(functionRunner.getHeader()) );
+      }
+    }
+
     var data = dataList[dataIndex];
     // console output
     console.log("Launch with: '" + data.name + "'");
@@ -94,8 +103,11 @@ dcmb.Runner = function () {
   // handle loaded data
   function onloadBuffer(buffer) {
 
-    // callback and add result
-    result.push({name: dataList[dataIndex].name, value: callback.run(buffer)});
+    // call the function runner
+    var result = functionRunner.run(buffer);
+    var name = dataList[dataIndex].name;
+    var array = [name];
+    results.push(array.concat(result));
 
     // check status
     if ( self.getStatus() !== "cancelled" ) {

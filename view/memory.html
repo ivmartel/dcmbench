@@ -11,6 +11,7 @@
 <script src="../src/runner.js"></script>
 <script src="../src/memory.js"></script>
 <script src="../src/dragndrop.js"></script>
+<script src="../src/gui.js"></script>
 
 <!-- iframes -->
 <iframe src="parsers/dcmjs.html" id="iframe-dcmjs" style="display:none"></iframe>
@@ -31,10 +32,13 @@ var defaultTestData = [
     { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm", "selected": true }
 ];
 
-// create runner object
+// create runner objects
 var runner = new dcmb.Runner();
 runner.setDataList( defaultTestData );
+var memoryRunner = new dcmb.Memory();
+runner.setFunctionRunner(memoryRunner);
 
+// listen to status changes
 runner.addEventListener("status-change", function (event) {
   var newStatus = event.value;
 
@@ -59,17 +63,10 @@ runner.addEventListener("status-change", function (event) {
 
   if (newStatus === "done") {
     var div = document.getElementById("results");
-    var result = runner.getResult();
-    for (var i = 0; i < result.length; ++i) {
-      div.appendChild(document.createTextNode(result[i].name + ": "));
-      div.appendChild(document.createTextNode(result[i].value));
-      div.appendChild(document.createElement("br"));
-    }
+    var results = runner.getResults();
+    div.appendChild(dcmb.createTable(results));
   }
 });
-
-var memory = new dcmb.Memory();
-runner.setCallback(memory);
 
 // called by the drag and drop
 function updateDataList(datalist) {
@@ -152,13 +149,13 @@ document.addEventListener("DOMContentLoaded", function (/*event*/) {
 window.onload = function () {
   var function_dcmjs = {
     "name": "dcmjs",
-    "func": document.getElementById('iframe-dcmjs').contentWindow.parse
+    "func": document.getElementById('iframe-dcmjs').contentWindow.parse2
   };
   var function_dwv = {
     "name": "dwv",
-    "func": document.getElementById('iframe-dwv').contentWindow.parse
+    "func": document.getElementById('iframe-dwv').contentWindow.parse2
   };
-  memory.setFunctions( [function_dcmjs, function_dwv] );
+  memoryRunner.setFunctions( [function_dcmjs, function_dwv] );
 };
 
 </script>

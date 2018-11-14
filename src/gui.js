@@ -106,3 +106,31 @@ dcmb.insertMeanRow = function (table, means) {
     }
   }
 };
+
+dcmb.createTable = function (arrayData) {
+  var table = document.createElement('table');
+
+  var tableHead = document.createElement('thead');
+  var tableBody = document.createElement('tbody');
+
+  for (var i = 0; i < arrayData.length; ++i) {
+    var rowData = arrayData[i];
+    var row = document.createElement('tr');
+
+    for (var j = 0; j < rowData.length; ++j) {
+      var cell = document.createElement('td');
+      cell.appendChild(document.createTextNode(rowData[j]));
+      row.appendChild(cell);
+    }
+
+    if (i === 0) {
+      tableHead.appendChild(row);
+    } else {
+      tableBody.appendChild(row);
+    }
+  }
+
+  table.appendChild(tableHead);
+  table.appendChild(tableBody);
+  return table;
+};

@@ -18,6 +18,10 @@ table {
 td {
   padding: 0.5em; border: 1px solid #aaa;
 }
+thead {
+  font-weight: bolder;
+  background: #eae;
+}
 .header-row {
   font-weight: bolder;
   background: #eee;
@@ -63,23 +67,6 @@ legend {
 }
 
 /* Diff */
-#diff-button {
-  float: left; margin-right: 0.5em;
-}
-#diff-status {
-  background: #eee; padding: 0.4em;
-  font-family: Courier, sans-serif;
-  font-size: 12px;
-}
-#diff-results {
-  clear: both;
-}
-#diff-results p {
-  font-size: 12px;
-}
-#diff-results pre {
-  background: #fff;
-}
 .diff-mean { background: #eee; font-weight: bold; }
 
 /* All */
@@ -90,4 +77,13 @@ legend {
   background: #eee; padding: 0.4em;
   font-family: Courier, sans-serif;
   font-size: 12px;
+}
+#results {
+  clear: both;
+}
+#results p {
+  font-size: 12px;
+}
+#results pre {
+  background: #fff;
 }

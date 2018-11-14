@@ -9,6 +9,8 @@
 <!-- Third party -->
 <script src="../node_modules/diff/dist/diff.min.js"></script>
 <!-- local -->
+<script src="../src/listen.js"></script>
+<script src="../src/runner.js"></script>
 <script src="../src/diff.js"></script>
 <script src="../src/dragndrop.js"></script>
 
@@ -31,9 +33,91 @@ var defaultTestData = [
     { "name": "gdcm-US-RGB-8-esopecho", "url": githubRaw + "gdcm-US-RGB-8-esopecho.dcm", "selected": true }
 ];
 
-// create default runner object
-var runner = new dcmb.DicomDiff();
+// create runner objects
+var runner = new dcmb.Runner();
 runner.setDataList( defaultTestData );
+var diffRunner = new dcmb.DicomDiff();
+runner.setFunctionRunner(diffRunner);
+
+// listen to status changes
+runner.addEventListener("status-change", function (event) {
+  var newStatus = event.value;
+
+  // update gui
+  var pStatus = document.getElementById("status");
+  pStatus.innerHTML = newStatus;
+  var button = document.getElementById("button");
+  button.disabled = false;
+  if ( newStatus === "ready" ||
+    newStatus === "done" ||
+    newStatus === "cancelled" ) {
+    // update button
+    button.innerHTML = "Launch";
+  } else if ( newStatus === "running" ) {
+    // update button
+    button.innerHTML = "Cancel";
+  } else if ( newStatus === "cancelling" ) {
+    // disable button
+    button.disabled = true;
+  }
+
+  if (newStatus === "done") {
+    var meanDiffPercentage = 0;
+    var results = runner.getResults();
+    for (var i = 0; i < results.length; ++i) {
+
+      var dataName = results[i][0];
+      var diff = results[i].slice(1);
+
+      // html display
+      var preId = "results-" + dataName;
+      // diff button
+      var button = document.createElement("button");
+      button.onclick = function() {
+        dcmb.onShowButton(preId);
+      };
+      button.id = preId + "-show";
+      button.appendChild(document.createTextNode(dataName));
+      // text display
+      var pre = document.createElement("pre");
+      pre.id = preId;
+      pre.style.display = "none";
+      // append
+      var div = document.getElementById("results");
+      div.appendChild(button);
+      div.appendChild(pre);
+
+      diff.forEach( function (part) {
+        // limegreen for additions, crimson for deletions
+        // grey for common parts
+        var color = part.added ? 'white' :
+          part.removed ? 'white' : 'grey';
+        var bgcolor = part.added ? 'limegreen' :
+          part.removed ? 'crimson' : 'white';
+
+        var span = document.createElement('span');
+        span.style.color = color;
+        span.style.background = bgcolor;
+        span.appendChild( document.createTextNode(part.value) );
+        pre.appendChild(span);
+      });
+
+      // similarity percentage
+      var percent = diffRunner.getSimiarityPercent(diff);
+      meanDiffPercentage += percent / results.length;
+
+      var diffText = document.createElement("p");
+      diffText.appendChild(document.createTextNode(percent.toPrecision(4) + "% similar."));
+      div.appendChild(diffText);
+    }
+
+    var meanDiffText = document.createElement("p");
+    meanDiffText.className = "diff-mean";
+    meanDiffText.appendChild(document.createTextNode("Mean: " +
+      meanDiffPercentage.toPrecision(4) + "% similar."));
+    div.appendChild(meanDiffText);
+  }
+});
 
 // called by the drag and drop
 function updateDataList(datalist) {
@@ -115,15 +199,16 @@ document.addEventListener("DOMContentLoaded", function (/*event*/) {
 
 // iframe content is only available at window.onload time
 window.onload = function () {
-  var function_dcmjs = {
-    "name": "ctk-dcmjs",
-    "func": document.getElementById('iframe-ctk-dcmjs').contentWindow.dump
-  };
-  var function_dwv = {
-    "name": "dwv",
-    "func": document.getElementById('iframe-dwv').contentWindow.dump
-  };
-  runner.setFunctionPair( function_dcmjs, function_dwv );
+  diffRunner.setFunctions([
+    {
+      "name": "ctk-dcmjs",
+      "func": document.getElementById('iframe-ctk-dcmjs').contentWindow.dump
+    },
+    {
+      "name": "dwv",
+      "func": document.getElementById('iframe-dwv').contentWindow.dump
+    }
+  ]);
 };
 
 </script>
@@ -149,11 +234,12 @@ window.onload = function () {
     </fieldset>
   </div>
 
-  <div id="diff-toolbar">
-    <button id="diff-button" onclick="onLaunchButton()">Launch</button>
-    <p id="diff-status">Ready</p>
+  <div id="toolbar">
+    <button id="button" onclick="onLaunchButton()">Launch</button>
+    <p id="status">Ready</p>
   </div>
-  <div id="diff-results"></div>
+
+  <div id="results"></div>
 
 </body>
 
