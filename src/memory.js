@@ -32,11 +32,9 @@ dcmb.Memory = function () {
     var measures = [];
     for (var i = 0; i < functions.length; ++i) {
       // run the function
-      var mem2 = functions[i].func(buffer);
-      // measure
-      var mem = performance.memory;
+      var mem = functions[i].func(buffer);
+      // add to measure
       measures.push(mem.usedJSHeapSize - previousMemory.usedJSHeapSize);
-      measures.push(mem2.usedJSHeapSize - previousMemory.usedJSHeapSize);
       previousMemory = mem;
     }
     return measures;
@@ -46,11 +44,10 @@ dcmb.Memory = function () {
    * Get a header row to result data.
    * @return {Array} An array representing a header row to the result data.
    */
-  this.getHeader = function () {
+  this.getFunctionHeader = function () {
     var header = [];
     for (var i = 0; i < functions.length; ++i) {
-      header.push(functions[i].name + ' mem-out');
-      header.push(functions[i].name + ' mem-in');
+      header.push(functions[i].name);
     }
     return header;
   };

@@ -63,11 +63,12 @@ dataRunner.addEventListener("status-change", function (event) {
 
   if (newStatus === "done") {
     var meanDiffPercentage = 0;
+    var dataHeader = dataRunner.getDataHeader();
     var results = dataRunner.getResults();
     for (var i = 0; i < results.length; ++i) {
 
-      var dataName = results[i][0];
-      var diff = results[i].slice(1);
+      var dataName = dataHeader[i];
+      var diff = results[i];
 
       // html display
       var preId = "results-" + dataName;
@@ -156,7 +157,7 @@ function onChangeDefaultDataNumber(input) {
 // handle launch
 function onLaunchButton() {
   // action according to status
-  vaar status = dataRunner.getStatus();
+  var status = dataRunner.getStatus();
   if ( status === "ready" ||
     status === "done" ||
     status === "cancelled" ) {

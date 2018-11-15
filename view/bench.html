@@ -10,6 +10,8 @@
 <script src="../node_modules/lodash/lodash.min.js"></script>
 <script src="../node_modules/benchmark/benchmark.js"></script>
 <!-- local -->
+<script src="../src/listen.js"></script>
+<script src="../src/dataRunner.js"></script>
 <script src="../src/bench.js"></script>
 <script src="../src/dragndrop.js"></script>
 <script src="../src/gui.js"></script>
@@ -46,12 +48,52 @@ var parserFunctions = [
 ];
 
 // create default runner object
-var runner = new dcmb.DicomBench();
-runner.setDataList( defaultTestData );
+var dataRunner = new dcmb.DataRunner();
+dataRunner.setDataList( defaultTestData );
+var benchRunner = new dcmb.DicomBench();
+dataRunner.setFunctionRunner(benchRunner);
+
+// listen to status changes
+dataRunner.addEventListener("status-change", function (event) {
+  var newStatus = event.value;
+
+  // status text
+  var pStatus = document.getElementById("status");
+  pStatus.innerHTML = newStatus;
+  // main button
+  var button = document.getElementById("button");
+  button.disabled = false;
+  if ( newStatus === "ready" ||
+    newStatus === "done" ||
+    newStatus === "cancelled" ) {
+    // update button
+    button.innerHTML = "Launch";
+  } else if ( newStatus === "running" ) {
+    // update button
+    button.innerHTML = "Cancel";
+  } else if ( newStatus === "cancelling" ) {
+    // disable button
+    button.disabled = true;
+  }
+
+  if (newStatus === "done") {
+    var div = document.getElementById("results");
+    var dataHeader = dataRunner.getDataHeader();
+    var results = dataRunner.getResults();
+    // add means to results
+    var means = dcmb.getMeans(results);
+    dataHeader.push(['Mean']);
+    results.push(means);
+    // add to result div
+    div.appendChild(dcmb.createTable(
+      benchRunner.getFunctionHeader(), dataHeader, results
+    ));
+  }
+});
 
 // called by the drag and drop
 function updateDataList(datalist) {
-  runner.setDataList(datalist);
+  dataRunner.setDataList(datalist);
 };
 
 function checkSelected(parser) {
@@ -78,7 +120,7 @@ function onChangeDefaultDataNumber(input) {
       defaultTestData[i].selected = false;
     }
   }
-  runner.setDataList(defaultTestData.filter(checkSelected));
+  dataRunner.setDataList(defaultTestData.filter(checkSelected));
 }
 
 function setupParsers() {
@@ -111,21 +153,22 @@ function onChangeParsers(input) {
       break;
     }
   }
-  runner.setFunctionList(parserFunctions.filter(checkSelected));
+  benchRunner.setFunctions(parserFunctions.filter(checkSelected));
 };
 
 // handle launch
 function onLaunchButton() {
   // action according to status
-  if ( runner.getStatus() === "ready" ||
-    runner.getStatus() === "done" ||
-    runner.getStatus() === "cancelled" ) {
+  var status = dataRunner.getStatus();
+  if ( status === "ready" ||
+    status === "done" ||
+    status === "cancelled" ) {
     // run
-    runner.run();
+    dataRunner.run();
   }
-  else if ( runner.getStatus() === "running" ) {
+  else if ( status === "running" ) {
     // cancel
-    runner.cancel();
+    dataRunner.cancel();
   }
 };
 
@@ -161,7 +204,7 @@ window.onload = function () {
       parserFunctions[i].func = func;
     }
   }
-  runner.setFunctionList(parserFunctions.filter(checkSelected));
+  benchRunner.setFunctions(parserFunctions.filter(checkSelected));
 };
 </script>
 </head>
@@ -196,11 +239,12 @@ window.onload = function () {
     </fieldset>
   </div>
 
-  <div id="bench-toolbar">
-    <button id="bench-button" onclick="onLaunchButton()">Launch</button>
-    <p id="bench-status">Ready</p>
+  <div id="toolbar">
+    <button id="button" onclick="onLaunchButton()">Launch</button>
+    <p id="status">Ready</p>
   </div>
-  <div id="bench-results"></div>
+
+  <div id="results"></div>
 
 </body>
 
