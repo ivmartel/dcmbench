@@ -16,6 +16,15 @@ parse = function (buffer) {
   // parse the buffer
   dwvParser.parse(buffer);
 };
+// Parse a DICOM buffer and return the memory.
+parse2 = function (buffer) {
+  // setup the dicom parser
+  var dwvParser = new dwv.dicom.DicomParser();
+  // parse the buffer
+  dwvParser.parse(buffer);
+  // return the memory state
+  return performance.memory;
+};
 </script>
 
 </html>
