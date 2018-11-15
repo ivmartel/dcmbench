@@ -37,6 +37,15 @@ dcmb.DataRunner = function () {
     return results;
   };
 
+  // Get the data header.
+  this.getDataHeader = function () {
+    var header = [];
+    for (var i = 0; i < dataList.length; ++i) {
+      header.push(dataList[i].name);
+    }
+    return header;
+  };
+
   // Set the data list.
   this.setDataList = function (list) {
     if ( list.length === 0 ) {
@@ -69,10 +78,6 @@ dcmb.DataRunner = function () {
     // reset results
     if (dataIndex === 0) {
       results = [];
-      if (typeof functionRunner.getHeader !== "undefined") {
-        var array = ['data'];
-        results.push( array.concat(functionRunner.getHeader()) );
-      }
     }
 
     // current data
@@ -110,13 +115,8 @@ dcmb.DataRunner = function () {
    */
   function onloadBuffer(buffer) {
 
-    // call the function runner
-    var result = functionRunner.run(buffer);
-
-    // store the results
-    var name = dataList[dataIndex].name;
-    var array = [name];
-    results.push(array.concat(result));
+    // call the runner and store the results
+    results.push(functionRunner.run(buffer));
 
     // check status
     if ( self.getStatus() !== "cancelled" ) {

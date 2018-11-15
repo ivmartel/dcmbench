@@ -79,9 +79,9 @@ dcmb.getMeans = function (results) {
   for (var j = 0; j < ncols; ++j) {
     var sum = 0;
     for (var k = 0; k < nrows; ++k) {
-      sum += results[k][j];
+      sum += dcmb.parseData(results[k][j]).value;
     }
-    means.push(Math.round(sum/nrows));
+    means.push(sum/nrows);
   }
   return means;
 };
@@ -107,27 +107,67 @@ dcmb.insertMeanRow = function (table, means) {
   }
 };
 
-dcmb.createTable = function (arrayData) {
+dcmb.parseData = function (data) {
+  var value = data;
+  var extra = '';
+  if (typeof data === "string") {
+    var split = data.split(' ');
+    value = parseFloat(split.splice(0, 1));
+    extra = ' ' + split.join(' ');
+  }
+  return {value: value, extra: extra};
+};
+
+dcmb.toFixed = function (value) {
+  return value.toFixed(value < 100 ? 2 : 0);
+};
+
+dcmb.createTable = function (colHeader, dataHeader, bodyData) {
+  var row;
+  var cell;
+
   var table = document.createElement('table');
 
+  // head
   var tableHead = document.createElement('thead');
+  row = document.createElement('tr');
+  // empty first cell
+  cell = document.createElement('td');
+  cell.appendChild(document.createTextNode(''));
+  row.appendChild(cell);
+  tableHead.appendChild(row);
+  // column headers
+  for (var k = 0; k < colHeader.length; ++k) {
+    cell = document.createElement('td');
+    cell.appendChild(document.createTextNode(colHeader[k]));
+    row.appendChild(cell);
+    tableHead.appendChild(row);
+  }
+
+  // body
   var tableBody = document.createElement('tbody');
-
-  for (var i = 0; i < arrayData.length; ++i) {
-    var rowData = arrayData[i];
-    var row = document.createElement('tr');
-
+  for (var i = 0; i < bodyData.length; ++i) {
+    row = document.createElement('tr');
+    // data header
+    cell = document.createElement('td');
+    cell.appendChild(document.createTextNode(dataHeader[i]));
+    row.appendChild(cell);
+    tableBody.appendChild(row);
+    // body data
+    var rowData = bodyData[i];
     for (var j = 0; j < rowData.length; ++j) {
-      var cell = document.createElement('td');
-      cell.appendChild(document.createTextNode(rowData[j]));
+      cell = document.createElement('td');
+      var pData = dcmb.parseData(rowData[j]);
+      cell.appendChild(document.createTextNode(dcmb.toFixed(pData.value)));
+      cell.appendChild(document.createTextNode(pData.extra));
+      if (j > 0) {
+        cell.appendChild(document.createTextNode(' '));
+        var v0 = dcmb.parseData(rowData[0]).value;
+        cell.appendChild(dcmb.getDiffSpan(v0, pData.value));
+      }
       row.appendChild(cell);
     }
-
-    if (i === 0) {
-      tableHead.appendChild(row);
-    } else {
-      tableBody.appendChild(row);
-    }
+    tableBody.appendChild(row);
   }
 
   table.appendChild(tableHead);
