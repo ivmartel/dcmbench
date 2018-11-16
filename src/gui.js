@@ -44,23 +44,6 @@ dcmb.getRmeSpan = function (rme) {
 };
 
 /**
- * Insert a header row in a table with the function names as cell value.
- * @param {Object} table The DOM table.
- * @param {Array} funcs The list of functions.
- */
-dcmb.insertHeadRow = function (table, funcs) {
-  var hrow = table.insertRow();
-  hrow.className = "header-row";
-  var td0 = hrow.insertCell();
-  td0.appendChild(document.createTextNode(""));
-  var td = null;
-  for ( var i = 0; i < funcs.length; ++i ) {
-    td = hrow.insertCell();
-    td.appendChild(document.createTextNode(funcs[i].name));
-  }
-};
-
-/**
  * Get the mean values of each columns of the input array.
  * @param {Array} results The value array of arrays.
  * @returns {Array} A vector with each columns mean.
@@ -87,26 +70,8 @@ dcmb.getMeans = function (results) {
 };
 
 /**
- * Insert a row in a table with the mean values as cell value.
- * @param {Object} table The DOM table.
- * @param {Array} means The list of means.
+ * Parse result data: if string anything before sapce is the value.
  */
-dcmb.insertMeanRow = function (table, means) {
-  var hrow = table.insertRow();
-  hrow.className = "header-row";
-  var td0 = hrow.insertCell();
-  td0.appendChild(document.createTextNode("Mean"));
-  var td = null;
-  for ( var i = 0; i < means.length; ++i ) {
-    td = hrow.insertCell();
-    td.appendChild(document.createTextNode(means[i]));
-    if ( i !== 0 ) {
-      td.appendChild(document.createTextNode(" "));
-      td.appendChild(dcmb.getDiffSpan(means[0], means[i]));
-    }
-  }
-};
-
 dcmb.parseData = function (data) {
   var value = data;
   var extra = '';
@@ -118,11 +83,21 @@ dcmb.parseData = function (data) {
   return {value: value, extra: extra};
 };
 
+/**
+ * To fixed for display.
+ */
 dcmb.toFixed = function (value) {
   return value.toFixed(value < 100 ? 2 : 0);
 };
 
-dcmb.createTable = function (colHeader, dataHeader, bodyData) {
+/**
+ * Create a HTML table from result data.
+ * @param {Array} colHeader The column header data.
+ * @param {Array} dataHeader The data header, ie row header data.
+ * @param {Array} bodyData The result 'raw' data.
+ * @param {Array} footData Some foot data.
+ */
+dcmb.createTable = function (colHeader, dataHeader, bodyData, footData) {
   var row;
   var cell;
 
@@ -170,7 +145,27 @@ dcmb.createTable = function (colHeader, dataHeader, bodyData) {
     tableBody.appendChild(row);
   }
 
+  // head
+  var tableFoot = document.createElement('tfoot');
+  row = document.createElement('tr');
+  // column headers
+  for (var l = 0; l < footData.length; ++l) {
+    cell = document.createElement('td');
+    var value = footData[l];
+    if (l !== 0) {
+      value = dcmb.toFixed(value);
+    }
+    cell.appendChild(document.createTextNode(value));
+    if (l > 1) {
+      cell.appendChild(document.createTextNode(' '));
+      cell.appendChild(dcmb.getDiffSpan(footData[1], footData[l]));
+    }
+    row.appendChild(cell);
+    tableFoot.appendChild(row);
+  }
+
   table.appendChild(tableHead);
   table.appendChild(tableBody);
+  table.appendChild(tableFoot);
   return table;
 };
