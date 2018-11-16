@@ -80,13 +80,12 @@ dataRunner.addEventListener("status-change", function (event) {
     var div = document.getElementById("results");
     var dataHeader = dataRunner.getDataHeader();
     var results = dataRunner.getResults();
-    // add means to results
-    var means = dcmb.getMeans(results);
-    dataHeader.push(['Mean']);
-    results.push(means);
+    // use means as table foot
+    var means = ['Mean'];
+    means = means.concat(dcmb.getMeans(results));
     // add to result div
     div.appendChild(dcmb.createTable(
-      benchRunner.getFunctionHeader(), dataHeader, results
+      benchRunner.getFunctionHeader(), dataHeader, results, means
     ));
   }
 });

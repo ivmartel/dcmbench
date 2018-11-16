@@ -22,6 +22,10 @@ thead {
   font-weight: bolder;
   background: #eee;
 }
+tfoot {
+  background: #eee;
+}
+
 .header-row {
   font-weight: bolder;
   background: #eee;
