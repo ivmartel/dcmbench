@@ -8,6 +8,7 @@ dcmb.Memory = function () {
       console.warn('performance.memory is only available in Chrome.');
   }
 
+  // the functions to run
   var functions = null;
 
   /**
