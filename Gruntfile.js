@@ -9,6 +9,12 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc'
             }
         },
+        qunit: {
+            all: ['tests/index.html'],
+            options: {
+                '--web-security': 'no'
+            }
+        },
         watch: {
             main: {
                 files: ['**/*.js', '!**/node_modules/**'],
@@ -32,9 +38,11 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // tasks
     grunt.registerTask('lint', ['jshint']);
     grunt.registerTask('start', ['connect', 'watch']);
+    grunt.registerTask('test', ['qunit']);
 };
