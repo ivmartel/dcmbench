@@ -29,7 +29,7 @@
     "grunt-contrib-jshint": "~2.0.0",
     "grunt-contrib-qunit": "~3.0.1",
     "grunt-contrib-watch": "~1.1.0",
-    "qunit": "~2.8.0"
+    "qunit": "~2.9.1"
   },
   "scripts": {
     "start": "grunt start",
