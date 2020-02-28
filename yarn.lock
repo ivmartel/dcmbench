@@ -344,10 +344,10 @@ dateformat@~1.0.12:
     get-stdin "^4.0.1"
     meow "^3.3.0"
 
-dcmjs@~0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.8.1.tgz#bc38b9ee608705b52eb6f96617bec38f0638839e"
-  integrity sha512-QkORPsfqSvnGS2EvbxnveOna+MOVo6oWCV7D9759fLnysRd4feXRSkSw7tdmGrfpB1Gw26x7ssFOk83q8VRhQQ==
+dcmjs@~0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.9.0.tgz#831c036a83ba292bf8ec51a8613ac9d6e00a79f7"
+  integrity sha512-Z88BoaUP8yMrB2IDmcfJPgUpiOMWuFIzDZZuCG1z7VlpzDAjw6G2Urylak6eGbr+fqlClWI/Wr3ILmzLrNIbfw==
   dependencies:
     "@babel/polyfill" "^7.6.0"
     "@babel/runtime" "^7.6.3"
