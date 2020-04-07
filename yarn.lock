@@ -328,9 +328,10 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-daikon@~1.2.36:
-  version "1.2.36"
-  resolved "https://registry.yarnpkg.com/daikon/-/daikon-1.2.36.tgz#e3ec1a3311e916593f33b4db52f371dbf405f646"
+daikon@~1.2.42:
+  version "1.2.42"
+  resolved "https://registry.yarnpkg.com/daikon/-/daikon-1.2.42.tgz#7239d66b5f9638006f0674f86514b1fdaca33e7c"
+  integrity sha512-uEJKRNpJo6lWCMr1UehBJLCnpsmoY4cmaedjL03UCeUmyoV2SsCYiEo8I+rhfuoj2FHqtDJFRGfZAW729berww==
   dependencies:
     jpeg-lossless-decoder-js "git+https://github.com/rii-mango/JPEGLosslessDecoderJS.git"
     pako "^1.0.6"
