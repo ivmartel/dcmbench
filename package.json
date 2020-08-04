@@ -20,7 +20,8 @@
     "dcmjs": "~0.13.0",
     "dicom-parser": "~1.8.5",
     "diff": "~4.0.2",
-    "dwv": "~0.27.0"
+    "dwv": "~0.27.0",
+    "snyk": "^1.369.3"
   },
   "devDependencies": {
     "grunt": "~1.2.1",
@@ -34,6 +35,9 @@
   "scripts": {
     "start": "grunt start",
     "lint": "grunt lint",
-    "test": "grunt test"
-  }
+    "test": "grunt test",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
+  },
+  "snyk": true
 }
