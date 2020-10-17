@@ -341,13 +341,14 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.13.0.tgz#16310a137a0fe800ccb2d4751a28cf023765f347"
-  integrity sha512-U+qGwlnkG8vwDKB4R7ryqQUtWQM1JHMKMBw5+Oy8wcPxS+vDmaRTqIcAItMh1DcZ0ia8RN0VI5TBVCOJl7GVhA==
+dcmjs@~0.16.5:
+  version "0.16.5"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.16.5.tgz#05aa0c8d539a4d5777f996b9b796932d1f848993"
+  integrity sha512-Y92KAx4JSfev79xjYhaukQZjWgyJlaHnXSTdbtkGkJAHERjIakgHcCIPmACuVmtW/nHViTu04zIGAB0pmZ4GaA==
   dependencies:
     "@babel/polyfill" "^7.8.3"
     "@babel/runtime" "^7.8.4"
+    gl-matrix "^3.1.0"
     loglevelnext "^3.0.1"
     ndarray "^1.0.19"
 
@@ -701,6 +702,11 @@ get-value@^2.0.3, get-value@^2.0.6:
 getobject@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/getobject/-/getobject-0.1.0.tgz#047a449789fa160d018f5486ed91320b6ec7885c"
+
+gl-matrix@^3.1.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/gl-matrix/-/gl-matrix-3.3.0.tgz#232eef60b1c8b30a28cbbe75b2caf6c48fd6358b"
+  integrity sha512-COb7LDz+SXaHtl/h4LeaFcNdJdAQSDeVqjiIihSXNrkWObZLhDI4hIkZC11Aeqp7bcE72clzB0BnDXr2SmslRA==
 
 glob@^7.0.5, glob@^7.1.1, glob@~7.1.1:
   version "7.1.3"
