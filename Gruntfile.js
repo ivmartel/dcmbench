@@ -14,7 +14,7 @@ module.exports = function (grunt) {
     watch: {
       main: {
         files: ['**/*.js', '!**/node_modules/**'],
-        tasks: ['jshint'],
+        tasks: ['eslint'],
         options: {
           spawn: false,
           livereload: true
