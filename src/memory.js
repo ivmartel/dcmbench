@@ -4,8 +4,8 @@ var dcmb = dcmb || {};
 // Class to handle running functions.
 dcmb.Memory = function () {
 
-  if( !performance.memory ){
-      console.warn('performance.memory is only available in Chrome.');
+  if (!performance.memory) {
+    console.warn('performance.memory is only available in Chrome.');
   }
 
   // the functions to run

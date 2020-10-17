@@ -4,7 +4,8 @@ var dcmb = dcmb || {};
 var JsDiff = JsDiff || {};
 
 /**
- * Diff runner: evaluate the difference between the text results of two functions.
+ * Diff runner: evaluate the difference between the text results
+ *   of two functions.
  */
 dcmb.DicomDiff = function () {
 
@@ -43,8 +44,8 @@ dcmb.DicomDiff = function () {
     // count similar and total
     var nSame = 0;
     var total = 0;
-    diff.forEach( function (part) {
-      if ( !part.added && !part.removed ) {
+    diff.forEach(function (part) {
+      if (!part.added && !part.removed) {
         nSame += part.value.length;
       }
       total += part.value.length;

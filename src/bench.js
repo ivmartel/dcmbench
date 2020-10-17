@@ -28,29 +28,31 @@ dcmb.DicomBench = function () {
     var results = [];
 
     // benchmark suite
-    var suite = new Benchmark.Suite("bench");
+    var suite = new Benchmark.Suite('bench');
     // handle end of cycle
-    suite.on('cycle', function(event) {
+    suite.on('cycle', function (event) {
       // console output
       console.log(String(event.target));
       // store results
       var opsPerSec = event.target.hz;
       var rme = event.target.stats.rme;
       var rmeTxt = rme.toFixed(rme < 100 ? 2 : 0);
-      var text = opsPerSec + " \u00B1" + rmeTxt + "%";
+      var text = opsPerSec + ' \u00B1' + rmeTxt + '%';
       results.push(text);
     });
 
     // avoid creating functions in loops
     var getFunc = function (f, a) {
-      return function () { f(a); };
+      return function () {
+        f(a);
+      };
     };
     // add parsers to suite
-    for ( var i = 0; i < functions.length; ++i ) {
-      suite.add(functions[i].name, getFunc(functions[i].func, buffer) );
+    for (var i = 0; i < functions.length; ++i) {
+      suite.add(functions[i].name, getFunc(functions[i].func, buffer));
     }
     // run async
-    suite.run({ 'async': false });
+    suite.run({'async': false});
 
     return results;
   };

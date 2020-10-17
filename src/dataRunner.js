@@ -20,7 +20,7 @@ dcmb.DataRunner = function () {
   var results = null;
 
   // status
-  var status = "ready";
+  var status = 'ready';
   /**
    * Listener handler.
    * @type Object
@@ -48,8 +48,8 @@ dcmb.DataRunner = function () {
 
   // Set the data list.
   this.setDataList = function (list) {
-    if ( list.length === 0 ) {
-      throw new Error("Empty list provided.");
+    if (list.length === 0) {
+      throw new Error('Empty list provided.');
     }
     dataList = list;
   };
@@ -63,12 +63,12 @@ dcmb.DataRunner = function () {
   // @private
   function setStatus(newStatus) {
     status = newStatus;
-    fireEvent({type: "status-change", value: status});
+    fireEvent({type: 'status-change', value: status});
   }
 
   // Cancel the process.
   this.cancel = function () {
-    setStatus("cancelling");
+    setStatus('cancelling');
   };
 
   /**
@@ -84,22 +84,21 @@ dcmb.DataRunner = function () {
     var data = dataList[dataIndex];
 
     // console output
-    console.log("Launch with: '" + data.name + "'");
+    console.log('Launch with: \'' + data.name + '\'');
     // status
-    setStatus("running");
+    setStatus('running');
 
     // read according to type
-    if ( typeof data.file === "undefined" ) {
+    if (typeof data.file === 'undefined') {
       // XMLHttpRequest
       var request = new XMLHttpRequest();
       request.open('GET', data.url, true);
-      request.responseType = "arraybuffer";
+      request.responseType = 'arraybuffer';
       request.onload = function (/*event*/) {
         onloadBuffer(this.response);
       };
       request.send(null);
-    }
-    else {
+    } else {
       // FileReader
       var reader = new FileReader();
       reader.onload = function (event) {
@@ -119,15 +118,14 @@ dcmb.DataRunner = function () {
     results.push(functionRunner.run(buffer));
 
     // check status
-    if ( self.getStatus() !== "cancelled" ) {
+    if (self.getStatus() !== 'cancelled') {
       // launch next
       ++dataIndex;
-      if ( dataIndex < dataList.length ) {
+      if (dataIndex < dataList.length) {
         self.run();
-      }
-      else {
+      } else {
         dataIndex = 0;
-        setStatus("done");
+        setStatus('done');
       }
     }
   }
@@ -135,27 +133,28 @@ dcmb.DataRunner = function () {
   /**
    * Add an event listener to this class.
    * @param {String} type The event type.
-   * @param {Object} callback The method associated with the provided event type,
-   *    will be called with the fired event.
+   * @param {Object} callback The method associated with the provided
+   *   event type, will be called with the fired event.
    */
   this.addEventListener = function (type, callback) {
-      listenerHandler.add(type, callback);
+    listenerHandler.add(type, callback);
   };
   /**
    * Remove an event listener from this class.
    * @param {String} type The event type.
-   * @param {Object} callback The method associated with the provided event type.
+   * @param {Object} callback The method associated with the provided
+   *   event type.
    */
   this.removeEventListener = function (type, callback) {
-      listenerHandler.remove(type, callback);
+    listenerHandler.remove(type, callback);
   };
   /**
    * Fire an event: call all associated listeners with the input event object.
    * @param {Object} event The event to fire.
    * @private
    */
-  function fireEvent (event) {
-      listenerHandler.fireEvent(event);
+  function fireEvent(event) {
+    listenerHandler.fireEvent(event);
   }
 
 };

@@ -7,7 +7,7 @@ var dcmb = dcmb || {};
  * @returns {Object} A DOM span.
  */
 dcmb.getDomSpan = function (text) {
-  var span = document.createElement("span");
+  var span = document.createElement('span');
   span.appendChild(document.createTextNode(text));
   return span;
 };
@@ -20,13 +20,13 @@ dcmb.getDomSpan = function (text) {
  */
 dcmb.getDiffSpan = function (base, current) {
   var diff = current - base;
-  var sign = diff >= 0 ? "+" : "";
+  var sign = diff >= 0 ? '+' : '';
   var percent = diff * 100 / base;
   var percentTxt = percent.toFixed(percent < 100 ? 2 : 0);
 
-  var span = dcmb.getDomSpan("(" + sign + percentTxt + "%)");
-  span.className = "stats";
-  span.className += diff >= 0 ? " green" : " red";
+  var span = dcmb.getDomSpan('(' + sign + percentTxt + '%)');
+  span.className = 'stats';
+  span.className += diff >= 0 ? ' green' : ' red';
   return span;
 };
 
@@ -37,9 +37,9 @@ dcmb.getDiffSpan = function (base, current) {
  */
 dcmb.getRmeSpan = function (rme) {
   var rmeTxt = rme.toFixed(rme < 100 ? 2 : 0);
-  var span = dcmb.getDomSpan("\u00B1" + rmeTxt + "%");
-  span.className = "stats";
-  span.className += Math.abs(rme) >= 10 ? " red" : " green";
+  var span = dcmb.getDomSpan('\u00B1' + rmeTxt + '%');
+  span.className = 'stats';
+  span.className += Math.abs(rme) >= 10 ? ' red' : ' green';
   return span;
 };
 
@@ -54,7 +54,7 @@ dcmb.getMeans = function (results) {
   // check number of cols
   for (var i = 0; i < nrows; ++i) {
     if (results[i].length !== ncols) {
-      throw new Error("Different number of columns...");
+      throw new Error('Different number of columns...');
     }
   }
   // sum along columns
@@ -64,7 +64,7 @@ dcmb.getMeans = function (results) {
     for (var k = 0; k < nrows; ++k) {
       sum += dcmb.parseData(results[k][j]).value;
     }
-    means.push(sum/nrows);
+    means.push(sum / nrows);
   }
   return means;
 };
@@ -75,7 +75,7 @@ dcmb.getMeans = function (results) {
 dcmb.parseData = function (data) {
   var value = data;
   var extra = '';
-  if (typeof data === "string") {
+  if (typeof data === 'string') {
     var split = data.split(' ');
     value = parseFloat(split.splice(0, 1));
     extra = ' ' + split.join(' ');
@@ -97,6 +97,7 @@ dcmb.toFixed = function (value) {
  * @param {Array} bodyData The result 'raw' data.
  * @param {Array} footData Some foot data.
  */
+
 dcmb.createTable = function (colHeader, dataHeader, bodyData, footData) {
   var row;
   var cell;
