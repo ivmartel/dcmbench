@@ -3,8 +3,11 @@ var dcmb = dcmb || {};
 // benchmark.js
 var Benchmark = Benchmark || {};
 
-// Class to handle benchmarks.
-dcmb.DicomBench = function () {
+/**
+ * Function runner for benchmarks.
+ * Launch functions within benchmark.js to evaluate their speed.
+ */
+dcmb.BenchFunctionRunner = function () {
 
   // the functions to run
   var functions = null;
@@ -19,7 +22,7 @@ dcmb.DicomBench = function () {
   };
 
   /**
-   * Run the memory measures
+   * Run the functions and store benchmark results.
    * @param {Object} buffer The data buffer.
    * @return {Array} An array of memory measures in the form:
    * {count: number, added: boolean, removed: boolean, value: string}

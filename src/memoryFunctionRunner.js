@@ -1,8 +1,11 @@
 // namespace
 var dcmb = dcmb || {};
 
-// Class to handle running functions.
-dcmb.Memory = function () {
+/**
+ * Memory function runner.
+ * Compare the memory allocation of two functions run.
+ */
+dcmb.MemoryFunctionRunner = function () {
 
   if (!performance.memory) {
     console.warn('performance.memory is only available in Chrome.');
@@ -21,7 +24,7 @@ dcmb.Memory = function () {
   };
 
   /**
-   * Run the memory measures
+   * Run the functions and store their memory usage.
    * @param {Object} buffer The data buffer.
    * @return {Array} An array of memory measures in the form:
    * {count: number, added: boolean, removed: boolean, value: string}

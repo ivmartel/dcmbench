@@ -1,13 +1,13 @@
 // namespace
 var dcmb = dcmb || {};
 // diff lib
-var JsDiff = JsDiff || {};
+var Diff = Diff || {};
 
 /**
- * Diff runner: evaluate the difference between the text results
- *   of two functions.
+ * Diff function runner
+ * Get the difference between the text outputs of two functions.
  */
-dcmb.DicomDiff = function () {
+dcmb.DiffFunctionRunner = function () {
 
   // the functions to run
   var functions = null;
@@ -22,7 +22,7 @@ dcmb.DicomDiff = function () {
   };
 
   /**
-   * Run the diff tool
+   * Run functions and diff their output.
    * @param {Object} buffer The data buffer.
    * @return {Array} An array of dump differences in the form:
    * {count: number, added: boolean, removed: boolean, value: string}
@@ -32,7 +32,7 @@ dcmb.DicomDiff = function () {
     var dump0 = functions[0].func(buffer);
     var dump1 = functions[1].func(buffer);
     // get diff
-    return JsDiff.diffChars(dump0, dump1);
+    return Diff.diffChars(dump0, dump1);
   };
 
   /**

@@ -1,17 +1,17 @@
 /* global QUnit, dcmb */
 /**
- * Tests for the 'bench.js' file.
+ * Tests for the 'benchFunctionRunner.js' file.
  */
 /** @module tests/bench */
 // Do not warn if these variables were not defined before.
 QUnit.module('bench');
 
 /**
- * Tests for {@link dcmb.bench}.
+ * Tests for {@link dcmb.BenchFunctionRunner}.
  * @function module:tests/bench
  */
-QUnit.test('Test bench.', function (assert) {
-  var bench = new dcmb.DicomBench();
+QUnit.test('Test bench fucntion runner.', function (assert) {
+  var bench = new dcmb.BenchFunctionRunner();
   bench.setFunctions([
     {name: 'String#indexOf',
       func: function () {
