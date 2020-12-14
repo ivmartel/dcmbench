@@ -444,14 +444,15 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.16.5:
-  version "0.16.5"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.16.5.tgz#05aa0c8d539a4d5777f996b9b796932d1f848993"
-  integrity sha512-Y92KAx4JSfev79xjYhaukQZjWgyJlaHnXSTdbtkGkJAHERjIakgHcCIPmACuVmtW/nHViTu04zIGAB0pmZ4GaA==
+dcmjs@~0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.17.0.tgz#dbfd6db3efd2936f9bead9c902b7db396f64e9f5"
+  integrity sha512-7JnNqNWXqjGyspLRwKM4nn+TU/+w3iMl9boU4eHrr831M4crMWWIiSQDejpOnfDT9+opqyeaYcNkiekr7p6TFg==
   dependencies:
     "@babel/polyfill" "^7.8.3"
     "@babel/runtime" "^7.8.4"
     gl-matrix "^3.1.0"
+    lodash.clonedeep "^4.5.0"
     loglevelnext "^3.0.1"
     ndarray "^1.0.19"
 
@@ -1547,6 +1548,11 @@ liftoff@~2.5.0:
 livereload-js@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/livereload-js/-/livereload-js-2.3.0.tgz#c3ab22e8aaf5bf3505d80d098cbad67726548c9a"
+
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
 
 lodash.isfinite@^3.3.2:
   version "3.3.2"
