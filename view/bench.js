@@ -5,29 +5,29 @@ var dcmb = dcmb || {};
 var githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/master/data/';
 var defaultTestData = [
   {
-    'name': 'osirix-toutatix-100',
-    'url': githubRaw + 'osirix-toutatix-100.dcm',
-    'selected': true
+    name: 'osirix-toutatix-100',
+    url: githubRaw + 'osirix-toutatix-100.dcm',
+    selected: true
   },
   {
-    'name': 'osirix-goudurix',
-    'url': githubRaw + 'osirix-goudurix.dcm',
-    'selected': true
+    name: 'osirix-goudurix',
+    url: githubRaw + 'osirix-goudurix.dcm',
+    selected: true
   },
   {
-    'name': 'dicompyler-ct.0',
-    'url': githubRaw + 'dicompyler-ct.0.dcm',
-    'selected': true
+    name: 'dicompyler-ct.0',
+    url: githubRaw + 'dicompyler-ct.0.dcm',
+    selected: true
   },
   {
-    'name': 'gdcm-CR-MONO1-10-chest',
-    'url': githubRaw + 'gdcm-CR-MONO1-10-chest.dcm',
-    'selected': true
+    name: 'gdcm-CR-MONO1-10-chest',
+    url: githubRaw + 'gdcm-CR-MONO1-10-chest.dcm',
+    selected: true
   },
   {
-    'name': 'gdcm-CT-MONO2-8-abdo',
-    'url': githubRaw + 'gdcm-CT-MONO2-8-abdo.dcm',
-    'selected': true
+    name: 'gdcm-CT-MONO2-8-abdo',
+    url: githubRaw + 'gdcm-CT-MONO2-8-abdo.dcm',
+    selected: true
   },
   //{
   //  "name": "gdcm-US-RGB-8-epicard",
@@ -35,18 +35,18 @@ var defaultTestData = [
   //  "selected": true
   //},
   {
-    'name': 'gdcm-US-RGB-8-esopecho',
-    'url': githubRaw + 'gdcm-US-RGB-8-esopecho.dcm',
-    'selected': true
+    name: 'gdcm-US-RGB-8-esopecho',
+    url: githubRaw + 'gdcm-US-RGB-8-esopecho.dcm',
+    selected: true
   }
 ];
 var parserFunctions = [
-  {'name': 'ctk-dcmjs', 'selected': true},
-  {'name': 'daikon', 'selected': true},
-  {'name': 'dcmjs', 'selected': true},
-  {'name': 'dicomParser', 'selected': true},
-  {'name': 'dwv-previous', 'selected': true},
-  {'name': 'dwv', 'selected': true}
+  {name: 'ctk-dcmjs', selected: true},
+  {name: 'daikon', selected: true},
+  {name: 'dcmjs', selected: true},
+  {name: 'dicomParser', selected: true},
+  {name: 'dwv-previous', selected: true},
+  {name: 'dwv', selected: true}
 ];
 
 // create default runner object
@@ -141,12 +141,12 @@ function onChangeParsers(input) {
 dcmb.onChangeInput = function (files) {
   var inputData = [];
   for (var i = 0; i < files.length; ++i) {
-    inputData.push({'name': files[i].name,
-      'file': files[i]});
+    inputData.push({name: files[i].name,
+      file: files[i]});
   }
   // call external function
   updateDataList(inputData);
-}
+};
 
 dcmb.onChangeDefaultDataNumber = function (input) {
   for (var i = 0; i < defaultTestData.length; ++i) {
@@ -157,7 +157,7 @@ dcmb.onChangeDefaultDataNumber = function (input) {
     }
   }
   dataRunner.setDataList(defaultTestData.filter(checkSelected));
-}
+};
 
 // handle launch
 dcmb.onLaunchButton = function () {
@@ -172,7 +172,7 @@ dcmb.onLaunchButton = function () {
     // cancel
     dataRunner.cancel();
   }
-}
+};
 
 // last minute
 document.addEventListener('DOMContentLoaded', function (/*event*/) {

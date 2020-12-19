@@ -3,7 +3,12 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     eslint: {
-      files: ['Gruntfile.js', 'src/**/*.js']
+      files: [
+        'Gruntfile.js',
+        'src/**/*.js',
+        'view/**/*.js',
+        'tests/**/*.js'
+      ]
     },
     qunit: {
       all: ['tests/index.html'],

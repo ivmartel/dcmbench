@@ -51,8 +51,8 @@ dcmb.getOnDrop = function (callback) {
     var files = event.dataTransfer.files;
     var filesString = '';
     for (var i = 0; i < files.length; ++i) {
-      dragData.push({'name': files[i].name,
-        'file': files[i]});
+      dragData.push({name: files[i].name,
+        file: files[i]});
       filesString += files[i].name;
       if (i !== files.length - 1) {
         filesString += ', ';

@@ -55,7 +55,7 @@ dcmb.BenchFunctionRunner = function () {
       suite.add(functions[i].name, getFunc(functions[i].func, buffer));
     }
     // run async
-    suite.run({'async': false});
+    suite.run({async: false});
 
     return results;
   };

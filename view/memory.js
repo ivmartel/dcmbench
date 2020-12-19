@@ -5,29 +5,29 @@ var dcmb = dcmb || {};
 var githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/master/data/';
 var defaultTestData = [
   {
-    'name': 'osirix-toutatix-100',
-    'url': githubRaw + 'osirix-toutatix-100.dcm',
-    'selected': true
+    name: 'osirix-toutatix-100',
+    url: githubRaw + 'osirix-toutatix-100.dcm',
+    selected: true
   },
   {
-    'name': 'osirix-goudurix',
-    'url': githubRaw + 'osirix-goudurix.dcm',
-    'selected': true
+    name: 'osirix-goudurix',
+    url: githubRaw + 'osirix-goudurix.dcm',
+    selected: true
   },
   {
-    'name': 'dicompyler-ct.0',
-    'url': githubRaw + 'dicompyler-ct.0.dcm',
-    'selected': true
+    name: 'dicompyler-ct.0',
+    url: githubRaw + 'dicompyler-ct.0.dcm',
+    selected: true
   },
   {
-    'name': 'gdcm-CR-MONO1-10-chest',
-    'url': githubRaw + 'gdcm-CR-MONO1-10-chest.dcm',
-    'selected': true
+    name: 'gdcm-CR-MONO1-10-chest',
+    url: githubRaw + 'gdcm-CR-MONO1-10-chest.dcm',
+    selected: true
   },
   {
-    'name': 'gdcm-CT-MONO2-8-abdo',
-    'url': githubRaw + 'gdcm-CT-MONO2-8-abdo.dcm',
-    'selected': true
+    name: 'gdcm-CT-MONO2-8-abdo',
+    url: githubRaw + 'gdcm-CT-MONO2-8-abdo.dcm',
+    selected: true
   },
   //{
   //  "name": "gdcm-US-RGB-8-epicard",
@@ -35,9 +35,9 @@ var defaultTestData = [
   //  "selected": true
   //},
   {
-    'name': 'gdcm-US-RGB-8-esopecho',
-    'url': githubRaw + 'gdcm-US-RGB-8-esopecho.dcm',
-    'selected': true
+    name: 'gdcm-US-RGB-8-esopecho',
+    url: githubRaw + 'gdcm-US-RGB-8-esopecho.dcm',
+    selected: true
   }
 ];
 
@@ -99,13 +99,13 @@ dcmb.onChangeInput = function (files) {
   var inputData = [];
   for (var i = 0; i < files.length; ++i) {
     inputData.push({
-      'name': files[i].name,
-      'file': files[i]
+      name: files[i].name,
+      file: files[i]
     });
   }
   // call external function
   updateDataList(inputData);
-}
+};
 
 dcmb.onChangeDefaultDataNumber = function (input) {
   for (var i = 0; i < defaultTestData.length; ++i) {
@@ -116,7 +116,7 @@ dcmb.onChangeDefaultDataNumber = function (input) {
     }
   }
   dataRunner.setDataList(defaultTestData.filter(checkSelected));
-}
+};
 
 // handle launch
 dcmb.onLaunchButton = function () {
@@ -131,7 +131,7 @@ dcmb.onLaunchButton = function () {
     // cancel
     dataRunner.cancel();
   }
-}
+};
 
 // show/hide an element
 dcmb.onShowButton = function (id) {
@@ -171,13 +171,13 @@ window.onload = function () {
       "func": document.getElementById('iframe-dcmjs').contentWindow.parse2
     },*/
     {
-      'name': 'dwv-previous',
-      'func':
+      name: 'dwv-previous',
+      func:
         document.getElementById('iframe-dwv-previous').contentWindow.parse2
     },
     {
-      'name': 'dwv',
-      'func': document.getElementById('iframe-dwv').contentWindow.parse2
+      name: 'dwv',
+      func: document.getElementById('iframe-dwv').contentWindow.parse2
     }
   ]);
 };
