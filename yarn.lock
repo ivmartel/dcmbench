@@ -31,6 +31,13 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.12.0", "@babel/runtime@^7.5.5":
+  version "7.12.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
+  integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.8.4":
   version "7.9.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.2.tgz#d90df0583a3a252f09aaa619665367bae518db06"
@@ -561,17 +568,17 @@ duplexify@^3.5.1:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-dwv@~0.27.1:
-  version "0.27.1"
-  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.27.1.tgz#1075312ed2ed611bfb672b8e98767bc010088cd2"
-  integrity sha512-HwqoyizxXeIVgeX7bhyQjXLY8Ez+h8Qe03rfsTevYSM+RMPWOOoykxKXMVtRrUX+sXUamXNN4Xhs0MhqRz3wOg==
+dwv@~0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.28.0.tgz#7c7d1fc08bf3df8e49e5b0c4f674ec109a5655dc"
+  integrity sha512-JUGq3M0flMh+6ILZcEqbEpB/6y5hmN/vV0Rtkwzd/o/XIzRrZRZSa3drnuZ33Yw0du7nHN0fyaD67n77uuxqfQ==
   dependencies:
-    i18next "~12.1.0"
-    i18next-browser-languagedetector "~3.0.0"
-    i18next-xhr-backend "~2.0.0"
-    jszip "~3.2.0"
-    konva "~2.6.0"
-    magic-wand-js "~1.0.0"
+    i18next "~19.8.3"
+    i18next-browser-languagedetector "~6.0.1"
+    i18next-xhr-backend "~3.2.2"
+    jszip "~3.5.0"
+    konva "~7.2.2"
+    magic-wand-tool "~1.1.7"
 
 ee-first@1.1.1:
   version "1.1.1"
@@ -1245,20 +1252,26 @@ https-proxy-agent@^4.0.0:
     agent-base "5"
     debug "4"
 
-i18next-browser-languagedetector@~3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-3.0.1.tgz#a47c43176e8412c91e808afb7c6eb5367649aa8e"
-  integrity sha512-WFjPLNPWl62uu07AHY2g+KsC9qz0tyMq+OZEB/H7N58YKL/JLiCz9U709gaR20Mule/Ppn+uyfVx5REJJjn1HA==
+i18next-browser-languagedetector@~6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-6.0.1.tgz#83654bc87302be2a6a5a75146ffea97b4ca268cf"
+  integrity sha512-3H+OsNQn3FciomUU0d4zPFHsvJv4X66lBelXk9hnIDYDsveIgT7dWZ3/VvcSlpKk9lvCK770blRZ/CwHMXZqWw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
 
-i18next-xhr-backend@~2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/i18next-xhr-backend/-/i18next-xhr-backend-2.0.1.tgz#7af735ee1b0c6d4ce49fa5756591040a0fba6db7"
-  integrity sha512-CP0XPjJsTE4hY1rM1KXFYo63Ib61EBLEcTvMDyJwr0vs9p/UTuA3ENCmzSs9+ghZgWSjdOigc0oUERHaxctbsQ==
+i18next-xhr-backend@~3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/i18next-xhr-backend/-/i18next-xhr-backend-3.2.2.tgz#769124441461b085291f539d91864e3691199178"
+  integrity sha512-OtRf2Vo3IqAxsttQbpjYnmMML12IMB5e0fc5B7qKJFLScitYaXa1OhMX0n0X/3vrfFlpHL9Ro/H+ps4Ej2j7QQ==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
 
-i18next@~12.1.0:
-  version "12.1.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-12.1.0.tgz#387bf4b94d05b0160b6a41d001a6b360e384bdb1"
-  integrity sha512-AexmwGkKxwKfo5fGeXTWEY4xqzRPigQ1S/0InOUUVziGO54cd4fKyYK8ED1Thx9fd+WA3fRSZ+1iekvFQMbsFw==
+i18next@~19.8.3:
+  version "19.8.5"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.8.5.tgz#8275c98ab98faffa348de2c34c2fd80ffeadb999"
+  integrity sha512-mDuH/mvnNXZmvqxl3akSZuJtbX7ou7M66kzfXQTfRngTZ9cAjktlx4yVzA+gS9VPZp51eZOQAGfEDbFcnyvliw==
+  dependencies:
+    "@babel/runtime" "^7.12.0"
 
 iconv-lite@~0.4.13:
   version "0.4.24"
@@ -1502,10 +1515,10 @@ json-stable-stringify-without-jsonify@^1.0.1:
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
   integrity sha1-nbe1lJatPzz+8wp1FC0tkwrXJlE=
 
-jszip@~3.2.0:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/jszip/-/jszip-3.2.1.tgz#c5d32df7274042282b157efb16e522b43435e01a"
-  integrity sha512-iCMBbo4eE5rb1VCpm5qXOAaUiRKRUKiItn8ah2YQQx9qymmSAY98eyQfioChEYcVQLh0zxJ3wS4A0mh90AVPvw==
+jszip@~3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/jszip/-/jszip-3.5.0.tgz#b4fd1f368245346658e781fec9675802489e15f6"
+  integrity sha512-WRtu7TPCmYePR1nazfrtuF216cIVon/3GWOvHS9QR5bIwSbnxtdpma6un3jyGGNhHsKCSzn5Ypk+EkDRvTGiFA==
   dependencies:
     lie "~3.3.0"
     pako "~1.0.2"
@@ -1532,10 +1545,10 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-konva@~2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-2.6.0.tgz#43165b95e32a4378ce532d9113c914f4998409c3"
-  integrity sha512-LCOoavICTD9PYoAqtWo8sbxYtCiXdgEeY7vj/Sq8b2bwFmrQr9Ak0RkD4/jxAf5fcUQRL5e1zPLyfRpVndp20A==
+konva@~7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-7.2.2.tgz#e46598850d864b0dca68c82013f1e436b1eef55d"
+  integrity sha512-3vtCLFV8S9ooMEC/ELMoHJLWK3YtVUIx44FZFdM1FUBZi88qF4ctdzeII5hfT9Lx6ulVlhC0a6cRdP0uRWjMmw==
 
 levn@^0.4.1:
   version "0.4.1"
@@ -1593,9 +1606,10 @@ loglevelnext@^3.0.1:
   resolved "https://registry.yarnpkg.com/loglevelnext/-/loglevelnext-3.0.1.tgz#e3e4659c4061c09264f6812c33586dc55a009a04"
   integrity sha512-JpjaJhIN1reaSb26SIxDGtE0uc67gPl19OMVHrr+Ggt6b/Vy60jmCtKgQBrygAH0bhRA2nkxgDvM+8QvR8r0YA==
 
-magic-wand-js@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/magic-wand-js/-/magic-wand-js-1.0.0.tgz#fe3bb6f7392ab1dd3aab231dfc1e010ad65a0061"
+magic-wand-tool@~1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/magic-wand-tool/-/magic-wand-tool-1.1.7.tgz#c1d49c5f26307bec06eb8c6ac51e03fff5b9d61b"
+  integrity sha512-S4rHzCs/bAp7nhQGKeg+McWuqrdyZKpnu8Ahd8AU7NzuLTm/Hh8tkpv1tW91Kmm59foIrXzip1d+P9NDoyxrZA==
 
 make-iterator@^1.0.0:
   version "1.0.1"
