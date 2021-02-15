@@ -1,4 +1,9 @@
 module.exports = function (grunt) {
+  // karma ci test coverage
+  var karmaCiReporters = ['progress'];
+  if (grunt.option('coverage')) {
+    karmaCiReporters.push('coverage');
+  }
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -10,10 +15,20 @@ module.exports = function (grunt) {
         'tests/**/*.js'
       ]
     },
-    qunit: {
-      all: ['tests/index.html'],
-      options: {
-        '--web-security': 'no'
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js',
+        client: {
+          qunit: {
+            filter: grunt.option('filter')
+          }
+        }
+      },
+      ci: {
+        configFile: 'karma.conf.js',
+        browsers: ['ChromeHeadless'],
+        reporters: karmaCiReporters,
+        singleRun: true
       }
     },
     watch: {
@@ -38,12 +53,13 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-eslint');
+  grunt.loadNpmTasks('grunt-karma');
 
   // tasks
   grunt.registerTask('lint', ['eslint']);
   grunt.registerTask('start', ['connect', 'watch']);
-  grunt.registerTask('test', ['qunit']);
+  grunt.registerTask('test-ci', ['karma:ci']);
+  grunt.registerTask('test', ['karma']);
 };
