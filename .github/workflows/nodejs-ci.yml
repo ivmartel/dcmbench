@@ -22,10 +22,10 @@ jobs:
       run: yarn run lint
     - name: Build (if master branch)
       if: github.ref == 'refs/heads/master'
-      run: |
       # prod causes problem with loadash... 
       # rm -Rf ./node_modules/*
       # yarn install --prod
+      run: |
         mkdir build
         cp -Rf *.* ./build
         cp -Rf css data ext node_modules src view ./build
