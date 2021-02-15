@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>DICOM Parser Diff</title>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="../css/style.css" />
+
+<!-- Third party -->
+<script src="../node_modules/diff/dist/diff.js"></script>
+<!-- local -->
+<script src="../src/listen.js"></script>
+<script src="../src/dataRunner.js"></script>
+<script src="../src/diffFunctionRunner.js"></script>
+<script src="../src/dragndrop.js"></script>
+<script src="./diff.js"></script>
+
+<!-- iframes -->
+<iframe src="./parsers/ctk-dcmjs.html" id="iframe-ctk-dcmjs" style="display:none"></iframe>
+<iframe src="./parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
+
+</head>
+
+<body>
+
+  <h2>DICOM dump diff</h2>
+
+  <p>Show differences between DICOM dump from ctk-dcmjs and dwv.</p>
+
+  <div id="browser"></div>
+
+  <div id="input">
+    <fieldset>
+      <legend>Input</legend>
+      <ul>
+        <li>Use default data, number:
+          <input type="number" name="quantity" id="data-quantity" min="1"
+            onchange="dcmb.onChangeDefaultDataNumber(this)"></li>
+        <li><input type="file" multiple="true" onchange="dcmb.onChangeInput(files)"></li>
+        <li><div id="dropbox">Drop files here</div></li>
+    </fieldset>
+  </div>
+
+  <div id="toolbar">
+    <button id="button" onclick="dcmb.onLaunchButton()">Launch</button>
+    <p id="status">Ready</p>
+  </div>
+
+  <div id="results"></div>
+
+</body>
+
+</html>

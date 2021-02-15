@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>iframe-dicomParser</title>
+<meta charset="UTF-8">
+</head>
+
+<script src="../../node_modules/dicom-parser/dist/dicomParser.min.js"></script>
+
+<script type="text/javascript">
+parse = function (buffer) {
+  // convert to uint
+  var content = new Uint8Array(buffer);
+  // parse
+  var dataSet = dicomParser.parseDicom(content);
+};
+</script>
+
+</html>
