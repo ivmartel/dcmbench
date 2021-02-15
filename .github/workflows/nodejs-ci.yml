@@ -28,15 +28,14 @@ jobs:
         mkdir build
         cp -Rf *.* ./build
         cp -Rf css data ext node_modules src view ./build
-        touch ./build/.nojekyll
     - name: Push to gh-pages (if master branch)
       if: github.ref == 'refs/heads/master'
       run: |
         git config user.email github-actions@github.com
         git config user.name github-actions
         git checkout gh-pages
-        rm -Rf ./*
-        cp -Rf ./build/* ./
-        git add ./*
+        rm -Rf ./demo/trunk*
+        cp -Rf ./build/* ./demo/trunk
+        git add ./demo/trunk/*
         git diff-index --quiet HEAD || git commit -m "CI run ${{ github.run_number }} pushed to gh-pages"
         git push -fq origin gh-pages
