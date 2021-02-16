@@ -23,7 +23,6 @@
     "dwv": "~0.27.1"
   },
   "devDependencies": {
-    "eslint": "~7.18.0",
     "grunt": "~1.3.0",
     "grunt-cli": "~1.3.2",
     "grunt-contrib-connect": "~3.0.0",
