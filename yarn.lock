@@ -1310,10 +1310,10 @@ grunt-eslint@~23.0.0:
     chalk "^4.0.0"
     eslint "^7.0.0"
 
-grunt-karma@~4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/grunt-karma/-/grunt-karma-4.0.0.tgz#faaeaff37ee71ebd75313da4cec1268500d51190"
-  integrity sha512-L3YpIAW6NB5tQ3cb6VoJCCCWfIJ0nqeyxs/SF6N385sMSadZ6RjBllP2kOUE2plkT8T8DR3bGVqzgH+vUDTsuQ==
+grunt-karma@~4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/grunt-karma/-/grunt-karma-4.0.2.tgz#9a8b7b4ea4b0b537c1412d51477181d55bf96f09"
+  integrity sha512-4+iBBkXZjHHMDAG5kpHCdDUqlSEBJ6sqouLMRf0p+QB8wGMs300DtaCQphHqd7pM3gpXoGVT3yRRsT7KOZpJMA==
   dependencies:
     lodash "^4.17.10"
 
@@ -1878,17 +1878,7 @@ lodash.isfinite@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/lodash.isfinite/-/lodash.isfinite-3.3.2.tgz#fb89b65a9a80281833f0b7478b3a5104f898ebb3"
 
-lodash@^4.17.10, lodash@^4.17.4, lodash@~4.17.10:
-  version "4.17.19"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
-  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
-
-lodash@^4.17.14, lodash@^4.17.19, lodash@~4.17.19:
-  version "4.17.20"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
-  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
-
-lodash@~4.17.21:
+lodash@^4.17.10, lodash@^4.17.14, lodash@^4.17.19, lodash@^4.17.4, lodash@~4.17.10, lodash@~4.17.19, lodash@~4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
