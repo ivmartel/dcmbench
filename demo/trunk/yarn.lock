@@ -750,10 +750,10 @@ duplexify@^3.5.1:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-dwv@~0.30.6:
-  version "0.30.6"
-  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.30.6.tgz#6f76a1b9713caaab26ee7abf364a2c91de54fb48"
-  integrity sha512-7ercFCyfwiAeY7lKzr1HEHLTW1njjTXxe3ypksGGC2zq3ejaL96YjO+cQyaWLUTeGtU3DT/kHJTvhxuK6xO9hA==
+dwv@~0.30.8:
+  version "0.30.8"
+  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.30.8.tgz#952053cb52a25f537bd547bf32e54e590d0baabd"
+  integrity sha512-+o/AdL6PjnaMvqqE4GxZ45pmrGa3nNthCAILXt923lULmxbOAsN6zSxSWTsNU0521prgBmQHXsID6qem2ozQcA==
   dependencies:
     i18next "~20.6.0"
     i18next-browser-languagedetector "~6.1.2"
@@ -1742,10 +1742,10 @@ karma-qunit@~4.1.1:
   resolved "https://registry.yarnpkg.com/karma-qunit/-/karma-qunit-4.1.2.tgz#fa27697470e749fb4bd63b1b5e487b6165ec9ec8"
   integrity sha512-taTPqBeHCOlkeKTSzQgIKzAUb79vw3rfbCph+xwwh63tyGjNtljwx91VArhIM9DzIIR3gB9G214wQg+oXI9ycw==
 
-karma@~6.3.9:
-  version "6.3.9"
-  resolved "https://registry.yarnpkg.com/karma/-/karma-6.3.9.tgz#cc309607f0fcdb58a88643184f3e4ba8bff26751"
-  integrity sha512-E/MqdLM9uVIhfuyVnrhlGBu4miafBdXEAEqCmwdEMh3n17C7UWC/8Kvm3AYKr91gc7scutekZ0xv6rxRaUCtnw==
+karma@~6.3.10:
+  version "6.3.10"
+  resolved "https://registry.yarnpkg.com/karma/-/karma-6.3.10.tgz#dfaeae8ef79e6dd3bc95701b3b9d37e79140f8be"
+  integrity sha512-Ofv+sgrkT8Czo6bzzQCvrwVyRSG8/3e7RbawEuxjfsINony+IR/S2csNRUFgPNfmWvju+dqi/MzQGOJ2LnlmfQ==
   dependencies:
     body-parser "^1.19.0"
     braces "^3.0.2"
