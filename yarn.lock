@@ -151,14 +151,7 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.12.0", "@babel/runtime@^7.8.4":
-  version "7.12.13"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.13.tgz#0a21452352b02542db0ffb928ac2d3ca7cb6d66d"
-  integrity sha512-8+3UMPBrjFa/6TtKi/7sehPKqfAm4g6K+YQjyyFOLUTxzOngcRZTlAVY8sc2CORJYqdHQY8gRPHmn+qo15rCBw==
-  dependencies:
-    regenerator-runtime "^0.13.4"
-
-"@babel/runtime@^7.14.6":
+"@babel/runtime@^7.12.0", "@babel/runtime@^7.14.6", "@babel/runtime@^7.8.4":
   version "7.16.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.5.tgz#7f3e34bf8bdbbadf03fbb7b1ea0d929569c9487a"
   integrity sha512-TXWihFIS3Pyv5hzR7j6ihmeLkZfrXGxAr5UfSl8CHf+6q/wpiYDkUau0czckpYG8QmnCIuPpdLtuA9VmuGGyMA==
@@ -636,10 +629,10 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.19.1:
-  version "0.19.1"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.19.1.tgz#3a418f908e34cb80eb4efc1feaccc6268c7c5910"
-  integrity sha512-yCqccv0OwnteryNEcloXwKsY6RpQJNvSdsQPHhmggKxBb9w1uFwkBM9j3MboW4+xLL9JTm/q0+rhLS1WOjJSiA==
+dcmjs@~0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.19.2.tgz#f3ff81797b17cdb2663dc8212f8a3d7dfd145ae2"
+  integrity sha512-FXdKHnCoaONbgZFwxchpXUhLHOtSdIWGtG2A0UDS72FmptHDDXQH017j1e5aVm0Q5ee+42c+W+xWwBScmSyE7w==
   dependencies:
     "@babel/polyfill" "^7.8.3"
     "@babel/runtime" "^7.8.4"
