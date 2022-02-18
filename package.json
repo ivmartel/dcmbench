@@ -18,7 +18,7 @@
     "benchmark": "~2.1.4",
     "daikon": "~1.2.42",
     "dcmjs": "~0.19.5",
-    "dicom-parser": "~1.8.11",
+    "dicom-parser": "~1.8.13",
     "diff": "~5.0.0",
     "dwv": "~0.30.8"
   },
