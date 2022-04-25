@@ -159,15 +159,15 @@
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.17.0.tgz#f0ac33eddbe214e4105363bb17c3341c5ffcc43c"
   integrity sha512-VKXSCQx5D8S04ej+Dqsr1CzYvvWgf20jIw2D+YhQCrIlr2UZGaDds23Y0xg75/skOxpLCRpUZvk/1EAVkGoDOw==
 
-"@babel/polyfill@^7.8.3":
-  version "7.8.7"
-  resolved "https://registry.yarnpkg.com/@babel/polyfill/-/polyfill-7.8.7.tgz#151ec24c7135481336168c3bd8b8bf0cf91c032f"
-  integrity sha512-LeSfP9bNZH2UOZgcGcZ0PIHUt1ZuHub1L3CVmEyqLxCeDLm4C5Gi8jRH8ZX2PNpDhQCo0z6y/+DIs2JlliXW8w==
+"@babel/runtime-corejs2@^7.17.8":
+  version "7.17.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.17.9.tgz#068e3f4cc08c7c62504eb704b5eb8b735b079b56"
+  integrity sha512-+QThIsnjVY12uURTvmnW33risFZ7ulq6OWw0VJL08UwiYiWVp9PM63s+W1L2ppajYyKAYKb7afcGYSHzA0k04Q==
   dependencies:
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.12.0", "@babel/runtime@^7.14.6", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.12.0", "@babel/runtime@^7.14.6":
   version "7.16.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.5.tgz#7f3e34bf8bdbbadf03fbb7b1ea0d929569c9487a"
   integrity sha512-TXWihFIS3Pyv5hzR7j6ihmeLkZfrXGxAr5UfSl8CHf+6q/wpiYDkUau0czckpYG8QmnCIuPpdLtuA9VmuGGyMA==
@@ -679,13 +679,12 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.19.9:
-  version "0.19.9"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.19.9.tgz#be500101b1f75a28ea9eb7ef845a8ed197355e76"
-  integrity sha512-V+0tND+SPX5e7WFeLzeoooaTsZbiKmEP2i3AyERsojaXXfaDV5E+pta5IqId4Ok1yfRT5qfTFwLGstGT6nLplA==
+dcmjs@~0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.20.0.tgz#ce138fa524a731a5e92637817aad72174313a98b"
+  integrity sha512-MrUt+15zDfk6ury7+ku4TW0HjLbzCSmogRqvKqqiCaUwqudy7KMJV4TWfZ4BfIxDg3MTBziNazPzlegGE8GvcA==
   dependencies:
-    "@babel/polyfill" "^7.8.3"
-    "@babel/runtime" "^7.8.4"
+    "@babel/runtime-corejs2" "^7.17.8"
     gl-matrix "^3.1.0"
     lodash.clonedeep "^4.5.0"
     loglevelnext "^3.0.1"
