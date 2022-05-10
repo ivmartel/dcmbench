@@ -679,10 +679,10 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.21.0.tgz#97479fbfb4fd8e911e2ca77980c46f4f1c314f3c"
-  integrity sha512-kYtACYdsNZ7E782OW9h5IYCnvjcJfNFAO0amBnDfE6t8noXaRk9CIzAV0E0yU2UyhVNBGtEuV3l1XsORxmHgAQ==
+dcmjs@~0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.22.0.tgz#2b3ce332d0b546461c69f94ada168b2eac726e5a"
+  integrity sha512-yIptgOUJyoXqp179OGDq05uJI7d06jb+M7aKunPctaiG/FPPmfkaEXokdJyTV0MwsdRqQr4c7Q/bA8dTCUo9Kg==
   dependencies:
     "@babel/runtime-corejs2" "^7.17.8"
     gl-matrix "^3.1.0"
@@ -2249,10 +2249,10 @@ querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
 
-qunit@~2.19.0:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.19.0.tgz#f830dc4ff23d11dd92628bc01f4e39212dedbc9d"
-  integrity sha512-rC7U6j4EQkYedaccl9rYEMoHisvzM20XwXgy437Q0Apqav16iZQXSb/nglnFqI91J8P5ANXaljEY6VIT+LaSkg==
+qunit@~2.19.1:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.19.1.tgz#eb1afd188da9e47f07c13aa70461a1d9c4505490"
+  integrity sha512-gSGuw0vErE/rNjnlBW/JmE7NNubBlGrDPQvsug32ejYhcVFuZec9yoU0+C30+UgeCGwq6Ap89K65dMGo+kDGZQ==
   dependencies:
     commander "7.2.0"
     node-watch "0.7.3"
