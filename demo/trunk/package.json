@@ -17,19 +17,19 @@
   "dependencies": {
     "benchmark": "~2.1.4",
     "daikon": "~1.2.42",
-    "dcmjs": "~0.22.0",
+    "dcmjs": "~0.22.1",
     "dicom-parser": "~1.8.13",
     "diff": "~5.0.0",
     "dwv": "~0.30.8"
   },
   "devDependencies": {
-    "grunt": "~1.5.2",
+    "grunt": "~1.5.3",
     "grunt-cli": "~1.4.3",
     "grunt-contrib-connect": "~3.0.0",
     "grunt-contrib-watch": "~1.1.0",
     "grunt-eslint": "~24.0.0",
     "grunt-karma": "~4.0.2",
-    "karma": "~6.3.19",
+    "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.1",
     "karma-coverage": "^2.2.0",
     "karma-qunit": "~4.1.1",

@@ -679,10 +679,10 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.22.0:
-  version "0.22.0"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.22.0.tgz#2b3ce332d0b546461c69f94ada168b2eac726e5a"
-  integrity sha512-yIptgOUJyoXqp179OGDq05uJI7d06jb+M7aKunPctaiG/FPPmfkaEXokdJyTV0MwsdRqQr4c7Q/bA8dTCUo9Kg==
+dcmjs@~0.22.1:
+  version "0.22.1"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.22.1.tgz#45c845f228e5cf00415a5d3470715060bdcb23ae"
+  integrity sha512-pLYxMPx83fChiZrP3XER1ui2a6rKwZFFdlrkO6hdXUvfpossAdkeMuhTJ938usr/O2RZtWqPMBMGKW8YXzG2PA==
   dependencies:
     "@babel/runtime-corejs2" "^7.17.8"
     gl-matrix "^3.1.0"
@@ -1348,10 +1348,10 @@ grunt-legacy-util@~2.0.1:
     underscore.string "~3.3.5"
     which "~2.0.2"
 
-grunt@~1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/grunt/-/grunt-1.5.2.tgz#46b014e28d17c85baac19d5e891bb3f04923c098"
-  integrity sha512-XCtfaIu72OyDqK24MjWiGC9SwlkuhkS1mrULr1xzuJ2XqAFhP3ZAchZGHJeSCY6mkaOXU4F7SbmmCF7xIVoC9w==
+grunt@~1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/grunt/-/grunt-1.5.3.tgz#3214101d11257b7e83cf2b38ea173b824deab76a"
+  integrity sha512-mKwmo4X2d8/4c/BmcOETHek675uOqw0RuA/zy12jaspWqvTp4+ZeQF1W+OTpcbncnaBsfbQJ6l0l4j+Sn/GmaQ==
   dependencies:
     dateformat "~3.0.3"
     eventemitter2 "~0.4.13"
@@ -1768,10 +1768,10 @@ karma-qunit@~4.1.1:
   resolved "https://registry.yarnpkg.com/karma-qunit/-/karma-qunit-4.1.2.tgz#fa27697470e749fb4bd63b1b5e487b6165ec9ec8"
   integrity sha512-taTPqBeHCOlkeKTSzQgIKzAUb79vw3rfbCph+xwwh63tyGjNtljwx91VArhIM9DzIIR3gB9G214wQg+oXI9ycw==
 
-karma@~6.3.19:
-  version "6.3.19"
-  resolved "https://registry.yarnpkg.com/karma/-/karma-6.3.19.tgz#e50759667b0b9c6ad758655db0547d3ab4d2abf5"
-  integrity sha512-NDhWckzES/Y9xMiddyU1RzaKL76/scCsu8Mp0vR0Z3lQRvC3p72+Ab4ppoxs36S9tyPNX5V48yvaV++RNEBPZw==
+karma@~6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/karma/-/karma-6.4.0.tgz#82652dfecdd853ec227b74ed718a997028a99508"
+  integrity sha512-s8m7z0IF5g/bS5ONT7wsOavhW4i4aFkzD4u4wgzAQWT4HGUeWI3i21cK2Yz6jndMAeHETp5XuNsRoyGJZXVd4w==
   dependencies:
     "@colors/colors" "1.5.0"
     body-parser "^1.19.0"
