@@ -679,10 +679,10 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.24.1:
-  version "0.24.1"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.24.1.tgz#b7154324e4982cb4225555ee9fdd231d9bc79cd9"
-  integrity sha512-lNhR2wx+4izwWUp8UlbinKtSHU4ipVbOqILVISPg5XQmBY6uF4e6a4RmRrPyf0X/mpXf9SWYj7GcnwrKj4aXZw==
+dcmjs@~0.24.2:
+  version "0.24.2"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.24.2.tgz#34c4ba3eaac276b3523ff87bb4f2c4a86cccbb2d"
+  integrity sha512-Pjg1+7x0r1XIY7rfDw98YTxCJkclWHO6QrYpSieXFZCvGZKxaZaY0C17figsMQGchyq6S/NGPO8H6mf1dYDUUw==
   dependencies:
     "@babel/runtime-corejs2" "^7.17.8"
     eslint-config-prettier "^8.5.0"
