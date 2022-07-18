@@ -679,13 +679,12 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.24.3:
-  version "0.24.3"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.24.3.tgz#26b136b9693862d2093033e426aad3306049fcdc"
-  integrity sha512-BefiUqRMI/WwUGIPvUHeStPzQ9ysKOl7rRl2DW9c6/MWQWQXWaW/L5MF6F652NNsKU+0TUApkyhjAs7B9R4q1g==
+dcmjs@~0.24.4:
+  version "0.24.4"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.24.4.tgz#a8c8df31058fe3c4e44102500eb7ac9b30723c34"
+  integrity sha512-JyoZbcWTdJ6GC3U6c8wEEIhVwkslu5EuTFqiCVis1v27J5X1sloPVIt+EQsmT6vwGzNxO82jrnNQPUBDtoO2Fg==
   dependencies:
     "@babel/runtime-corejs2" "^7.17.8"
-    eslint-config-prettier "^8.5.0"
     gl-matrix "^3.1.0"
     lodash.clonedeep "^4.5.0"
     loglevelnext "^3.0.1"
@@ -869,11 +868,6 @@ escape-string-regexp@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
-
-eslint-config-prettier@^8.5.0:
-  version "8.5.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.5.0.tgz#5a81680ec934beca02c7b1a61cf8ca34b66feab1"
-  integrity sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==
 
 eslint-scope@^6.0.0:
   version "6.0.0"
