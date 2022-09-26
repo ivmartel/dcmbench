@@ -738,10 +738,10 @@ di@^0.0.1:
   resolved "https://registry.yarnpkg.com/di/-/di-0.0.1.tgz#806649326ceaa7caa3306d75d985ea2748ba913c"
   integrity sha1-gGZJMmzqp8qjMG112YXqJ0i6kTw=
 
-dicom-parser@~1.8.14:
-  version "1.8.14"
-  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.14.tgz#d3c994e2d48d120464ea28d51f77b34997322028"
-  integrity sha512-8JWtkNJXzGJN9bQKkQzjDD5sLl+BfWYkEhhpAk6xSNclbQ3HVLTMTbxYvryBabyHIVFzWAQDngNAE4897DycLA==
+dicom-parser@~1.8.16:
+  version "1.8.16"
+  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.16.tgz#e005eadf9364b76af4751c5728c2fff654e13166"
+  integrity sha512-ZFLy8vO5PG8UXTouu2QYiSOhBrgAXCqrWJeVvl0KTz8WGCvtbjv6m8640XkUnzfKFqD7hCSf/Hhc0Wk3L0Rqzw==
 
 diff@~5.1.0:
   version "5.1.0"
