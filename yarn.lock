@@ -680,16 +680,17 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.24.10:
-  version "0.24.10"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.24.10.tgz#048a12a1905175763274545c17bb38b506cdfd00"
-  integrity sha512-kugEdBqwwTx7lqUxm4jdklkMJiQ8pZ0aqMw9WkszkDU5lDWHyq2kbRccACtcwqygC7j1d36w8uG/vNLMejeMBg==
+dcmjs@~0.28.0:
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.28.0.tgz#75e2f8dd253dee7b1ae8b80fc17f12d5f1a09705"
+  integrity sha512-YlOw77lxL6d87SwwlQgD8zhqBXwpNWCrGORPvOG8BMOTjaDeXxaHWagFxLYVUHdDBt1uf2mJuCEASPPjIWEvpQ==
   dependencies:
     "@babel/runtime-corejs2" "^7.17.8"
     gl-matrix "^3.1.0"
     lodash.clonedeep "^4.5.0"
     loglevelnext "^3.0.1"
     ndarray "^1.0.19"
+    pako "^2.0.4"
 
 debug@2.6.9:
   version "2.6.9"
@@ -2135,6 +2136,11 @@ osenv@^0.1.4:
 pako@^1.0.6, pako@~1.0.2:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
+
+pako@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-2.0.4.tgz#6cebc4bbb0b6c73b0d5b8d7e8476e2b2fbea576d"
+  integrity sha512-v8tweI900AUkZN6heMU/4Uy4cXRc2AYNRggVmTR+dEncawDJgCdLMximOVA2p4qO57WMynangsfGRb5WD6L1Bg==
 
 parent-module@^1.0.0:
   version "1.0.1"
