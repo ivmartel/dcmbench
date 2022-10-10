@@ -17,7 +17,7 @@
   "dependencies": {
     "benchmark": "~2.1.4",
     "daikon": "~1.2.42",
-    "dcmjs": "~0.24.10",
+    "dcmjs": "~0.28.1",
     "dicom-parser": "~1.8.18",
     "diff": "~5.1.0",
     "dwv": "~0.30.8"
