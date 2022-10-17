@@ -680,16 +680,17 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.24.4:
-  version "0.24.4"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.24.4.tgz#a8c8df31058fe3c4e44102500eb7ac9b30723c34"
-  integrity sha512-JyoZbcWTdJ6GC3U6c8wEEIhVwkslu5EuTFqiCVis1v27J5X1sloPVIt+EQsmT6vwGzNxO82jrnNQPUBDtoO2Fg==
+dcmjs@~0.28.3:
+  version "0.28.3"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.28.3.tgz#a756ab4b02363d12545c9830b8f97b5141723727"
+  integrity sha512-GZOu+CtNvdWsPv8ga9Ywm/1YadEqT/+FhwcpgsbDAmKDUKe+6uNH+8KbEsRcaN1V5WFQEMwRbF9IRTl2qOoZvA==
   dependencies:
     "@babel/runtime-corejs2" "^7.17.8"
     gl-matrix "^3.1.0"
     lodash.clonedeep "^4.5.0"
     loglevelnext "^3.0.1"
     ndarray "^1.0.19"
+    pako "^2.0.4"
 
 debug@2.6.9:
   version "2.6.9"
@@ -738,10 +739,10 @@ di@^0.0.1:
   resolved "https://registry.yarnpkg.com/di/-/di-0.0.1.tgz#806649326ceaa7caa3306d75d985ea2748ba913c"
   integrity sha1-gGZJMmzqp8qjMG112YXqJ0i6kTw=
 
-dicom-parser@~1.8.13:
-  version "1.8.13"
-  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.13.tgz#ce1122bf4363f21b09450e5a47e85ad323926daa"
-  integrity sha512-8M53FPHS4zM3zvu5fdIWdatqrjpiG2+2M6RJ0IxwqLF4gvCYRsqUIusxYaOiNU0sWaptUpnXeZiXunP0LOIcQw==
+dicom-parser@~1.8.19:
+  version "1.8.19"
+  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.19.tgz#b0c89f1de22e3cc4ddb56ce5d574296e0b079d43"
+  integrity sha512-GDsRcsBziaLFkDclRrT2sOk5u2+MxpFbRGeGAMdfOsBbiQHk/Ex8NyCxlNHRFPPEd1H6sfl3HtNYjykGYbjfhQ==
 
 diff@~5.1.0:
   version "5.1.0"
@@ -1769,10 +1770,10 @@ karma-qunit@~4.1.1:
   resolved "https://registry.yarnpkg.com/karma-qunit/-/karma-qunit-4.1.2.tgz#fa27697470e749fb4bd63b1b5e487b6165ec9ec8"
   integrity sha512-taTPqBeHCOlkeKTSzQgIKzAUb79vw3rfbCph+xwwh63tyGjNtljwx91VArhIM9DzIIR3gB9G214wQg+oXI9ycw==
 
-karma@~6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/karma/-/karma-6.4.0.tgz#82652dfecdd853ec227b74ed718a997028a99508"
-  integrity sha512-s8m7z0IF5g/bS5ONT7wsOavhW4i4aFkzD4u4wgzAQWT4HGUeWI3i21cK2Yz6jndMAeHETp5XuNsRoyGJZXVd4w==
+karma@~6.4.1:
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/karma/-/karma-6.4.1.tgz#f2253716dd3a41aaa813fa9f54b6ee047e1127d9"
+  integrity sha512-Cj57NKOskK7wtFWSlMvZf459iX+kpYIPXmkNUzP2WAFcA7nhr/ALn5R7sw3w+1udFDcpMx/tuB8d5amgm3ijaA==
   dependencies:
     "@colors/colors" "1.5.0"
     body-parser "^1.19.0"
@@ -2136,6 +2137,11 @@ pako@^1.0.6, pako@~1.0.2:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
 
+pako@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-2.0.4.tgz#6cebc4bbb0b6c73b0d5b8d7e8476e2b2fbea576d"
+  integrity sha512-v8tweI900AUkZN6heMU/4Uy4cXRc2AYNRggVmTR+dEncawDJgCdLMximOVA2p4qO57WMynangsfGRb5WD6L1Bg==
+
 parent-module@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parent-module/-/parent-module-1.0.1.tgz#691d2709e78c79fae3a156622452d00762caaaa2"
@@ -2250,10 +2256,10 @@ querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
 
-qunit@~2.19.1:
-  version "2.19.1"
-  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.19.1.tgz#eb1afd188da9e47f07c13aa70461a1d9c4505490"
-  integrity sha512-gSGuw0vErE/rNjnlBW/JmE7NNubBlGrDPQvsug32ejYhcVFuZec9yoU0+C30+UgeCGwq6Ap89K65dMGo+kDGZQ==
+qunit@~2.19.2:
+  version "2.19.2"
+  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.19.2.tgz#0b2388fd14ea8b592792b538bf31cbd20b72bfd3"
+  integrity sha512-D575YwUeTFvYu9OrCitmnZ24QkcuwwLj3vtMRLHGUvme4oVljna4Qttm19BBDC4w/7wAZr2/QvbvWN6I4inJYg==
   dependencies:
     commander "7.2.0"
     node-watch "0.7.3"
