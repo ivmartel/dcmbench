@@ -17,7 +17,7 @@
   "dependencies": {
     "benchmark": "~2.1.4",
     "daikon": "~1.2.42",
-    "dcmjs": "~0.28.3",
+    "dcmjs": "~0.29.0",
     "dicom-parser": "~1.8.19",
     "diff": "~5.1.0",
     "dwv": "~0.30.8"
@@ -33,7 +33,7 @@
     "karma-chrome-launcher": "~3.1.1",
     "karma-coverage": "^2.2.0",
     "karma-qunit": "~4.1.1",
-    "qunit": "~2.19.2"
+    "qunit": "~2.19.3"
   },
   "scripts": {
     "start": "grunt start",
