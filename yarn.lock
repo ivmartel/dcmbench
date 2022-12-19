@@ -680,10 +680,10 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.29.1:
-  version "0.29.1"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.29.1.tgz#04915cc60ae463d0cf35292f46f877f6809fa451"
-  integrity sha512-+4bXbN6BoJuNyldHPowymU8bGtaUZg6nbs3b23U4fBn0sgLVYqhYyt7X0trnTe+LwD4BIrsWc9ZKN//no7GlyQ==
+dcmjs@~0.29.2:
+  version "0.29.2"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.29.2.tgz#687b90046f911635829d55830cbdfc5be5e45573"
+  integrity sha512-6DanJddhaN6XDAnYz4gQRtGtsebyW70su5oRDpC/BO0Q/PeECA6SDbqbRR/Ge1Gh+iwnNdzOrGVxVF4N7vQcWw==
   dependencies:
     "@babel/runtime-corejs2" "^7.17.8"
     gl-matrix "^3.1.0"
