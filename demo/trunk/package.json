@@ -17,8 +17,8 @@
   "dependencies": {
     "benchmark": "~2.1.4",
     "daikon": "~1.2.42",
-    "dcmjs": "~0.29.0",
-    "dicom-parser": "~1.8.19",
+    "dcmjs": "~0.29.3",
+    "dicom-parser": "~1.8.20",
     "diff": "~5.1.0",
     "dwv": "~0.30.8"
   },
@@ -27,7 +27,7 @@
     "grunt-cli": "~1.4.3",
     "grunt-contrib-connect": "~3.0.0",
     "grunt-contrib-watch": "~1.1.0",
-    "grunt-eslint": "~24.0.0",
+    "grunt-eslint": "~24.0.1",
     "grunt-karma": "~4.0.2",
     "karma": "~6.4.1",
     "karma-chrome-launcher": "~3.1.1",

@@ -680,10 +680,10 @@ dateformat@~3.0.3:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-dcmjs@~0.29.0:
-  version "0.29.0"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.29.0.tgz#f670a8f1ce8c92008bb64c301a1a77ce6a76e804"
-  integrity sha512-dEEm5DzU5Rx6i+6dDMur41ihFAVz+eTObnj7PIsvmseJeprk+cil/sOeaoFUqPaITapOYjnb7v22rprTtPCTnQ==
+dcmjs@~0.29.3:
+  version "0.29.3"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.29.3.tgz#e672ed079bd5371406e022361c60d7794af40d7b"
+  integrity sha512-aLAkrpejrFAatzU84ID9s01+oUFBzIP3gSkgyr2OcDfOphW7ms/JUDUdH24Y6361NaMovEo4gJ3bRrzsBmI8cA==
   dependencies:
     "@babel/runtime-corejs2" "^7.17.8"
     gl-matrix "^3.1.0"
@@ -739,10 +739,10 @@ di@^0.0.1:
   resolved "https://registry.yarnpkg.com/di/-/di-0.0.1.tgz#806649326ceaa7caa3306d75d985ea2748ba913c"
   integrity sha1-gGZJMmzqp8qjMG112YXqJ0i6kTw=
 
-dicom-parser@~1.8.19:
-  version "1.8.19"
-  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.19.tgz#b0c89f1de22e3cc4ddb56ce5d574296e0b079d43"
-  integrity sha512-GDsRcsBziaLFkDclRrT2sOk5u2+MxpFbRGeGAMdfOsBbiQHk/Ex8NyCxlNHRFPPEd1H6sfl3HtNYjykGYbjfhQ==
+dicom-parser@~1.8.20:
+  version "1.8.20"
+  resolved "https://registry.yarnpkg.com/dicom-parser/-/dicom-parser-1.8.20.tgz#e5ef817d80d2fbc093ffd8c2a73a1cb5b47f50bd"
+  integrity sha512-R8NXEcaqXu7Qe5exY662aXiJCbiE6fEF8+QpSkVcXTTecFzfIaW8KJ2tSwYvt0UMHP0AUBW13VxQSXfKv/0FUA==
 
 diff@~5.1.0:
   version "5.1.0"
@@ -1299,10 +1299,10 @@ grunt-contrib-watch@~1.1.0:
     lodash "^4.17.10"
     tiny-lr "^1.1.1"
 
-grunt-eslint@~24.0.0:
-  version "24.0.0"
-  resolved "https://registry.yarnpkg.com/grunt-eslint/-/grunt-eslint-24.0.0.tgz#ad14e1cd9c869e0365e2bf4a97241c0c8844c7cc"
-  integrity sha512-WpTeBBFweyhMuPjGwRSQV9JFJ+EczIdlsc7Dd/1g78QVI1aZsk4g/H3e+3S5HEwsS1RKL2YZIrGj8hMLlBfN8w==
+grunt-eslint@~24.0.1:
+  version "24.0.1"
+  resolved "https://registry.yarnpkg.com/grunt-eslint/-/grunt-eslint-24.0.1.tgz#a07f4063931c6fefcffbfdf2e60ddfd558d5ba31"
+  integrity sha512-gFzp+ikAkwyu6nqBE2zx1pLVL0JPrerG7jaO4uJV3XUGKPIipv4mfhDOS5MyiMrzUtGdXSW8FkRHjoUnfqbW+g==
   dependencies:
     chalk "^4.1.2"
     eslint "^8.0.1"
