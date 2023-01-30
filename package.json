@@ -33,7 +33,7 @@
     "karma-chrome-launcher": "~3.1.1",
     "karma-coverage": "^2.2.0",
     "karma-qunit": "~4.1.1",
-    "qunit": "~2.19.3"
+    "qunit": "~2.19.4"
   },
   "scripts": {
     "start": "grunt start",
