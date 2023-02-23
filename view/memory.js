@@ -2,7 +2,7 @@
 var dcmb = dcmb || {};
 
 // default test data
-var githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/master/data/';
+var githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/';
 var defaultTestData = [
   {
     name: 'osirix-toutatix-100',

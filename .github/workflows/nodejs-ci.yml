@@ -7,6 +7,8 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      IS_PUSH_MAIN: ${{ github.ref == 'refs/heads/main' }}
     steps:
     - name: Check out code
       uses: actions/checkout@v3
@@ -20,8 +22,8 @@ jobs:
       run: yarn install --frozen-lockfile
     - name: Run lint
       run: yarn run lint
-    - name: Build (if master branch)
-      if: github.ref == 'refs/heads/master'
+    - name: Build (if main branch)
+      if: IS_PUSH_MAIN
       # prod causes problem with loadash...
       # rm -Rf ./node_modules/*
       # yarn install --prod
@@ -29,8 +31,8 @@ jobs:
         mkdir build
         cp -Rf *.* ./build
         cp -Rf css data ext node_modules src view ./build
-    - name: Push to gh-pages (if master branch)
-      if: github.ref == 'refs/heads/master'
+    - name: Push to gh-pages (if main branch)
+      if: IS_PUSH_MAIN
       run: |
         git config user.email github-actions@github.com
         git config user.name github-actions
