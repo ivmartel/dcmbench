@@ -1,7 +1,5 @@
 # dcmbench
 
-[![Build Status](https://travis-ci.org/ivmartel/dcmbench.svg?branch=master)](https://travis-ci.org/ivmartel/dcmbench)
-
 Javascript DICOM parser benchmark tools, see the [live demo](http://ivmartel.github.io/dcmbench).
 
 Parsers:
@@ -13,13 +11,6 @@ Parsers:
 
 ## Available Scripts
 
-``` bash
-# install dependencies
-yarn install
-
-# serve with hot reload at localhost:8080
-yarn run start
-
-# lint files
-yarn run lint
-```
+ - `ìnstall`: install dependencies
+ - `lint`: run code linting
+ - `start`: serve with hot reload at localhost:8080
