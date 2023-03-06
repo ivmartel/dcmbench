@@ -665,10 +665,10 @@ custom-event@~1.0.0:
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
   integrity sha1-XQKkaFCt8bSjF5RqOSj8y1v9BCU=
 
-daikon@~1.2.42:
-  version "1.2.42"
-  resolved "https://registry.yarnpkg.com/daikon/-/daikon-1.2.42.tgz#7239d66b5f9638006f0674f86514b1fdaca33e7c"
-  integrity sha512-uEJKRNpJo6lWCMr1UehBJLCnpsmoY4cmaedjL03UCeUmyoV2SsCYiEo8I+rhfuoj2FHqtDJFRGfZAW729berww==
+daikon@~1.2.43:
+  version "1.2.43"
+  resolved "https://registry.yarnpkg.com/daikon/-/daikon-1.2.43.tgz#6dbbe1e5e2a2e70c079909770ae6a2258d320360"
+  integrity sha512-M3WBMADPPPFhWtH+GHXwQRw5qVg98z+NlOndc4IMp9Q1uLLdK9qRZ4PcIT9Y6QhD5qwtCFyxuun/ySw1EUVYcA==
   dependencies:
     jpeg-lossless-decoder-js "git+https://github.com/rii-mango/JPEGLosslessDecoderJS.git"
     pako "^1.0.6"
