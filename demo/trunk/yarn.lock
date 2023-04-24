@@ -665,10 +665,10 @@ custom-event@~1.0.0:
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
   integrity sha1-XQKkaFCt8bSjF5RqOSj8y1v9BCU=
 
-daikon@~1.2.42:
-  version "1.2.42"
-  resolved "https://registry.yarnpkg.com/daikon/-/daikon-1.2.42.tgz#7239d66b5f9638006f0674f86514b1fdaca33e7c"
-  integrity sha512-uEJKRNpJo6lWCMr1UehBJLCnpsmoY4cmaedjL03UCeUmyoV2SsCYiEo8I+rhfuoj2FHqtDJFRGfZAW729berww==
+daikon@~1.2.43:
+  version "1.2.43"
+  resolved "https://registry.yarnpkg.com/daikon/-/daikon-1.2.43.tgz#6dbbe1e5e2a2e70c079909770ae6a2258d320360"
+  integrity sha512-M3WBMADPPPFhWtH+GHXwQRw5qVg98z+NlOndc4IMp9Q1uLLdK9qRZ4PcIT9Y6QhD5qwtCFyxuun/ySw1EUVYcA==
   dependencies:
     jpeg-lossless-decoder-js "git+https://github.com/rii-mango/JPEGLosslessDecoderJS.git"
     pako "^1.0.6"
@@ -683,10 +683,10 @@ dateformat@~4.6.2:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-4.6.3.tgz#556fa6497e5217fedb78821424f8a1c22fa3f4b5"
   integrity sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==
 
-dcmjs@~0.29.4:
-  version "0.29.4"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.29.4.tgz#3fb13945611979f756bc91b3f199fd87b4eabdb4"
-  integrity sha512-PzD6C4oB7v/AVTIPbkS6D6hjgVcSW7+T+DsxFpkD1xcEgU4qjGM16WGEHH3ZAPDBF0Xgm2d9FXUu/lXZIyfmow==
+dcmjs@~0.29.6:
+  version "0.29.6"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.29.6.tgz#6ca1543e74bae29657d1f7f2273407e23266c011"
+  integrity sha512-xMULkeFpxFNV8JZwWMOW3j1uL3iAe8r3pytlyWnlTxYc/OZ9KSu4wmQMVMBAgmY0GYpeWlji7GMRArVh8ISKhA==
   dependencies:
     "@babel/runtime-corejs2" "^7.17.8"
     gl-matrix "^3.1.0"
@@ -1770,10 +1770,10 @@ karma-qunit@~4.1.1:
   resolved "https://registry.yarnpkg.com/karma-qunit/-/karma-qunit-4.1.2.tgz#fa27697470e749fb4bd63b1b5e487b6165ec9ec8"
   integrity sha512-taTPqBeHCOlkeKTSzQgIKzAUb79vw3rfbCph+xwwh63tyGjNtljwx91VArhIM9DzIIR3gB9G214wQg+oXI9ycw==
 
-karma@~6.4.1:
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/karma/-/karma-6.4.1.tgz#f2253716dd3a41aaa813fa9f54b6ee047e1127d9"
-  integrity sha512-Cj57NKOskK7wtFWSlMvZf459iX+kpYIPXmkNUzP2WAFcA7nhr/ALn5R7sw3w+1udFDcpMx/tuB8d5amgm3ijaA==
+karma@~6.4.2:
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/karma/-/karma-6.4.2.tgz#a983f874cee6f35990c4b2dcc3d274653714de8e"
+  integrity sha512-C6SU/53LB31BEgRg+omznBEMY4SjHU3ricV6zBcAe1EeILKkeScr+fZXtaI5WyDbkVowJxxAI6h73NcFPmXolQ==
   dependencies:
     "@colors/colors" "1.5.0"
     body-parser "^1.19.0"
