@@ -23,7 +23,7 @@ jobs:
     - name: Run lint
       run: yarn run lint
     - name: Build (if main branch)
-      if: env.IS_PUSH_MAIN
+      if: env.IS_PUSH_MAIN == true
       # prod causes problem with loadash...
       # rm -Rf ./node_modules/*
       # yarn install --prod
@@ -32,7 +32,7 @@ jobs:
         cp -Rf *.* ./build
         cp -Rf css data ext node_modules src view ./build
     - name: Push to gh-pages (if main branch)
-      if: env.IS_PUSH_MAIN
+      if: env.IS_PUSH_MAIN == true
       run: |
         git config user.email github-actions@github.com
         git config user.name github-actions
