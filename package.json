@@ -27,7 +27,7 @@
     "grunt-cli": "~1.4.3",
     "grunt-contrib-connect": "~3.0.0",
     "grunt-contrib-watch": "~1.1.0",
-    "grunt-eslint": "~24.0.1",
+    "grunt-eslint": "~24.1.0",
     "grunt-karma": "~4.0.2",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
