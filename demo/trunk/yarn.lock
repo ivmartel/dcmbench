@@ -287,6 +287,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.10.tgz#e57e2a54fc6da58da94b3571b1cb456d39f88597"
   integrity sha512-TmVHsm43br64js9BqHWqiDZA+xMtbUpI1MBIA0EyiBmoV9pcEYFOSdj5fr6enZNfh4fChh+AGOLIzGwJnkshyQ==
 
+"@wearemothership/dicom-character-set@^1.0.4-opt.1":
+  version "1.0.4-opt.1"
+  resolved "https://registry.yarnpkg.com/@wearemothership/dicom-character-set/-/dicom-character-set-1.0.4-opt.1.tgz#4de4b026b47491c5fbd8ada93011aef940131dcd"
+  integrity sha512-stqhnpawYHY2UZKj4RHTF71ab3q3z8S1SO9ToQKjsHQwowUdFVo6YFea93psFux3yqNbRlQjwoCdPjHcD0YQzw==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -651,13 +656,16 @@ custom-event@~1.0.0:
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
   integrity sha1-XQKkaFCt8bSjF5RqOSj8y1v9BCU=
 
-daikon@~1.2.43:
-  version "1.2.43"
-  resolved "https://registry.yarnpkg.com/daikon/-/daikon-1.2.43.tgz#6dbbe1e5e2a2e70c079909770ae6a2258d320360"
-  integrity sha512-M3WBMADPPPFhWtH+GHXwQRw5qVg98z+NlOndc4IMp9Q1uLLdK9qRZ4PcIT9Y6QhD5qwtCFyxuun/ySw1EUVYcA==
+daikon@~1.2.45:
+  version "1.2.45"
+  resolved "https://registry.yarnpkg.com/daikon/-/daikon-1.2.45.tgz#15ccb61adbd009fca70f388e6656106faf769ab8"
+  integrity sha512-AE8A8aLI4T1v17tA0qicecL9S9PIzFIQtGPmI8XK1L+06nJq1C3ZWj6B5gxosBf9h4dEgrvGKasCoibRep/q8g==
   dependencies:
-    jpeg-lossless-decoder-js "git+https://github.com/rii-mango/JPEGLosslessDecoderJS.git"
-    pako "^1.0.6"
+    "@wearemothership/dicom-character-set" "^1.0.4-opt.1"
+    fflate "*"
+    jpeg-lossless-decoder-js "^2.0.7"
+    pako "^1.0"
+    xss "0.0.9"
 
 date-format@^4.0.3:
   version "4.0.3"
@@ -764,10 +772,10 @@ duplexify@^3.5.1:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-dwv@~0.31.0:
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.31.0.tgz#c9777291774d49225ba0c1b8020d104f09312ebf"
-  integrity sha512-c/9cmBdPHtH2l2YEacMLdkqpzXTx0rfcof70ujvR2XhDC/IVgGuXUkM1+ZJKvfFyQowditTciif938ib3SB9vQ==
+dwv@~0.31.2:
+  version "0.31.2"
+  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.31.2.tgz#4c64d6784a5eaed0ad0f8c8f45e0991dab5b5888"
+  integrity sha512-vrB+lJpILElvMc5qCrEcd9dE+SOw9sMBYajgvBZMKZXw6Zcw572IIVn+jC2p4eR0yuMKR3YbQa64swX8wSPObw==
   dependencies:
     jszip "~3.7.0"
     konva "~8.3.0"
@@ -1015,6 +1023,11 @@ faye-websocket@~0.10.0:
   resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.10.0.tgz#4e492f8d04dfb6f89003507f6edbf2d501e7c6f4"
   dependencies:
     websocket-driver ">=0.5.1"
+
+fflate@*:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/fflate/-/fflate-0.7.4.tgz#61587e5d958fdabb5a9368a302c25363f4f69f50"
+  integrity sha512-5u2V/CDW15QM1XbbgS+0DfPxVB+jUKhWEKuuFuHncbk3tEEqzmoXL+2KyOFuKGqOnmdIy0/davWF1CkuwtibCw==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
@@ -1279,10 +1292,10 @@ grunt-contrib-watch@~1.1.0:
     lodash "^4.17.10"
     tiny-lr "^1.1.1"
 
-grunt-eslint@~24.0.1:
-  version "24.0.1"
-  resolved "https://registry.yarnpkg.com/grunt-eslint/-/grunt-eslint-24.0.1.tgz#a07f4063931c6fefcffbfdf2e60ddfd558d5ba31"
-  integrity sha512-gFzp+ikAkwyu6nqBE2zx1pLVL0JPrerG7jaO4uJV3XUGKPIipv4mfhDOS5MyiMrzUtGdXSW8FkRHjoUnfqbW+g==
+grunt-eslint@~24.1.0:
+  version "24.1.0"
+  resolved "https://registry.yarnpkg.com/grunt-eslint/-/grunt-eslint-24.1.0.tgz#b1baaf4ae75f46d5c8568b864bae6bca0a9496de"
+  integrity sha512-AUvpbS0FkuwqyENfQNBRJ+FB0R0ho99u4Ia1FiH8iuMQtvdRLAVseu42kb+8o3xejIdZYpEY5QPTE4FM6P8SuQ==
   dependencies:
     chalk "^4.1.2"
     eslint "^8.0.1"
@@ -1645,9 +1658,10 @@ istanbul-reports@^3.0.5:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-"jpeg-lossless-decoder-js@git+https://github.com/rii-mango/JPEGLosslessDecoderJS.git":
-  version "2.0.4"
-  resolved "git+https://github.com/rii-mango/JPEGLosslessDecoderJS.git#78fe90c7cae985b1a394a66f99c81633144bb867"
+jpeg-lossless-decoder-js@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/jpeg-lossless-decoder-js/-/jpeg-lossless-decoder-js-2.0.7.tgz#ccdba7d9713ef15c50e965126210bddd9d6872e6"
+  integrity sha512-tbZlhFkKmx+JaqVMkq47SKWGuXLkIaV8fTbnhO39dYEnQrSShLGuLCGb0n6ntXjtmk6oAWGiIriWOLwj9od0yQ==
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -2094,9 +2108,10 @@ osenv@^0.1.4:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
-pako@^1.0.6, pako@~1.0.2:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
+pako@^1.0, pako@~1.0.2:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
+  integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
 pako@^2.0.4:
   version "2.0.4"
@@ -2760,6 +2775,11 @@ ws@~8.2.3:
   version "8.2.3"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.2.3.tgz#63a56456db1b04367d0b721a0b80cae6d8becbba"
   integrity sha512-wBuoj1BDpC6ZQ1B7DWQBYVLphPWkm8i9Y0/3YdHjHKHiohOJ1ws+3OccDWtH+PoC9DZD5WOTrJvNbWvjS6JWaA==
+
+xss@0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/xss/-/xss-0.0.9.tgz#8dc9446d604d25e9c2fb9b646d892bf72a2cfa2e"
+  integrity sha512-jPFdM56EihzKcXeGjFy0kxYigtdB1CWCzS3FVp+HYv5a+BwSHpBe+FQOVgaVN1qQ81h8/W0ICj/4/sVRb8eZWQ==
 
 xtend@^4.0.0, xtend@~4.0.0:
   version "4.0.1"
