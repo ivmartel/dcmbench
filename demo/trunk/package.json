@@ -20,18 +20,18 @@
     "dcmjs": "~0.29.6",
     "dicom-parser": "~1.8.21",
     "diff": "~5.1.0",
-    "dwv": "~0.31.2"
+    "dwv": "~0.32.1"
   },
   "devDependencies": {
     "grunt": "~1.6.1",
     "grunt-cli": "~1.4.3",
     "grunt-contrib-connect": "~3.0.0",
     "grunt-contrib-watch": "~1.1.0",
-    "grunt-eslint": "~24.1.0",
+    "grunt-eslint": "~24.2.0",
     "grunt-karma": "~4.0.2",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "^2.2.0",
+    "karma-coverage": "^2.2.1",
     "karma-qunit": "~4.1.1",
     "qunit": "~2.19.4"
   },
