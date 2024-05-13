@@ -17,10 +17,10 @@
   "dependencies": {
     "benchmark": "~2.1.4",
     "daikon": "~1.2.46",
-    "dcmjs": "~0.31.0",
+    "dcmjs": "~0.33.0",
     "dicom-parser": "~1.8.21",
     "diff": "~5.2.0",
-    "dwv": "~0.32.3"
+    "dwv": "~0.32.6"
   },
   "devDependencies": {
     "grunt": "~1.6.1",
