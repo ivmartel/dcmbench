@@ -821,10 +821,10 @@ dateformat@~4.6.2:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-4.6.3.tgz#556fa6497e5217fedb78821424f8a1c22fa3f4b5"
   integrity sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==
 
-dcmjs@~0.31.1:
-  version "0.31.1"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.31.1.tgz#bb8506811bd617f3585b5b19287ab9ad554217d1"
-  integrity sha512-zvFlBb/5qbYsgmiUvb61Zh/7AQkAMJyYRApRqIEJkWXZ09UO4WDYYjC/DjiLupF53GOKDO+g09ZK88qyjkmVkA==
+dcmjs@~0.33.0:
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.33.0.tgz#e4387056fcd4f5a40be1f76f2441bf0b2b58c514"
+  integrity sha512-8QfVA+TeuuKoVyhkJo/iCFDnpiNGDDrRQdM/tsi7gm1a/gNt4yYUBXLDho+CmVgvsaKccv7UMZBrGfmVDfNLvg==
   dependencies:
     "@babel/runtime-corejs3" "^7.22.5"
     adm-zip "^0.5.10"
