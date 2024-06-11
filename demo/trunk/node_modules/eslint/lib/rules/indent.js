@@ -4,6 +4,7 @@
  * @author Teddy Katz
  * @author Vitaly Puzrin
  * @author Gyandeep Singh
+ * @deprecated in ESLint v8.53.0
  */
 
 "use strict";
@@ -493,6 +494,8 @@ const ELEMENT_LIST_SCHEMA = {
 /** @type {import('../shared/types').Rule} */
 module.exports = {
     meta: {
+        deprecated: true,
+        replacedBy: [],
         type: "layout",
 
         docs: {
@@ -1074,7 +1077,7 @@ module.exports = {
             "ObjectExpression, ObjectPattern"(node) {
                 const openingCurly = sourceCode.getFirstToken(node);
                 const closingCurly = sourceCode.getTokenAfter(
-                    node.properties.length ? node.properties[node.properties.length - 1] : openingCurly,
+                    node.properties.length ? node.properties.at(-1) : openingCurly,
                     astUtils.isClosingBraceToken
                 );
 
@@ -1404,7 +1407,7 @@ module.exports = {
             PropertyDefinition(node) {
                 const firstToken = sourceCode.getFirstToken(node);
                 const maybeSemicolonToken = sourceCode.getLastToken(node);
-                let keyLastToken = null;
+                let keyLastToken;
 
                 // Indent key.
                 if (node.computed) {
@@ -1455,7 +1458,7 @@ module.exports = {
 
                 if (node.cases.length) {
                     sourceCode.getTokensBetween(
-                        node.cases[node.cases.length - 1],
+                        node.cases.at(-1),
                         closingCurly,
                         { includeComments: true, filter: astUtils.isCommentToken }
                     ).forEach(token => offsets.ignoreToken(token));
@@ -1485,7 +1488,7 @@ module.exports = {
             },
 
             VariableDeclaration(node) {
-                let variableIndent = Object.prototype.hasOwnProperty.call(options.VariableDeclarator, node.kind)
+                let variableIndent = Object.hasOwn(options.VariableDeclarator, node.kind)
                     ? options.VariableDeclarator[node.kind]
                     : DEFAULT_VARIABLE_INDENT;
 
@@ -1506,7 +1509,7 @@ module.exports = {
                     variableIndent = DEFAULT_VARIABLE_INDENT;
                 }
 
-                if (node.declarations[node.declarations.length - 1].loc.start.line > node.loc.start.line) {
+                if (node.declarations.at(-1).loc.start.line > node.loc.start.line) {
 
                     /*
                      * VariableDeclarator indentation is a bit different from other forms of indentation, in that the

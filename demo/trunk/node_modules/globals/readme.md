@@ -2,22 +2,20 @@
 
 > Global identifiers from different JavaScript environments
 
-It's just a [JSON file](globals.json), so use it in any environment.
+It's just a [JSON file](globals.json), so you can use it in any environment.
 
-This package is used by ESLint.
-
-**This package [no longer accepts](https://github.com/sindresorhus/globals/issues/82) new environments. If you need it for ESLint, just [create a plugin](http://eslint.org/docs/developer-guide/working-with-plugins#environments-in-plugins).**
+This package is used by ESLint 8 and earlier. For ESLint 9 and later, you should depend on this package directly in [your ESLint config](https://eslint.org/docs/latest/use/configure/language-options#predefined-global-variables).
 
 ## Install
 
-```
-$ npm install globals
+```sh
+npm install globals
 ```
 
 ## Usage
 
 ```js
-const globals = require('globals');
+import globals from 'globals';
 
 console.log(globals.browser);
 /*
@@ -36,21 +34,9 @@ Each global is given a value of `true` or `false`. A value of `true` indicates t
 For Node.js this package provides two sets of globals:
 
 - `globals.nodeBuiltin`: Globals available to all code running in Node.js.
-	These will usually be available as properties on the `global` object and include `process`, `Buffer`, but not CommonJS arguments like `require`.
+	These will usually be available as properties on the `globalThis` object and include `process`, `Buffer`, but not CommonJS arguments like `require`.
 	See: https://nodejs.org/api/globals.html
 - `globals.node`: A combination of the globals from `nodeBuiltin` plus all CommonJS arguments ("CommonJS module scope").
 	See: https://nodejs.org/api/modules.html#modules_the_module_scope
 
 When analyzing code that is known to run outside of a CommonJS wrapper, for example, JavaScript modules, `nodeBuiltin` can find accidental CommonJS references.
-
----
-
-<div align="center">
-	<b>
-		<a href="https://tidelift.com/subscription/pkg/npm-globals?utm_source=npm-globals&utm_medium=referral&utm_campaign=readme">Get professional support for this package with a Tidelift subscription</a>
-	</b>
-	<br>
-	<sub>
-		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
-	</sub>
-</div>

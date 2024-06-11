@@ -1,6 +1,7 @@
 /**
  * @fileoverview Rule to flag use of unnecessary semicolons
  * @author Nicholas C. Zakas
+ * @deprecated in ESLint v8.53.0
  */
 
 "use strict";
@@ -19,11 +20,13 @@ const astUtils = require("./utils/ast-utils");
 /** @type {import('../shared/types').Rule} */
 module.exports = {
     meta: {
+        deprecated: true,
+        replacedBy: [],
         type: "suggestion",
 
         docs: {
             description: "Disallow unnecessary semicolons",
-            recommended: true,
+            recommended: false,
             url: "https://eslint.org/docs/latest/rules/no-extra-semi"
         },
 

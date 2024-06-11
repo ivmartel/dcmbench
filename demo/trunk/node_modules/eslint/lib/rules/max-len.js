@@ -1,6 +1,7 @@
 /**
  * @fileoverview Rule to check for max length on a line.
  * @author Matt DuVall <http://www.mattduvall.com>
+ * @deprecated in ESLint v8.53.0
  */
 
 "use strict";
@@ -66,6 +67,8 @@ const OPTIONS_OR_INTEGER_SCHEMA = {
 /** @type {import('../shared/types').Rule} */
 module.exports = {
     meta: {
+        deprecated: true,
+        replacedBy: [],
         type: "layout",
 
         docs: {
@@ -121,7 +124,7 @@ module.exports = {
         }
 
         // The options object must be the last option specified…
-        const options = Object.assign({}, context.options[context.options.length - 1]);
+        const options = Object.assign({}, context.options.at(-1));
 
         // …but max code length…
         if (typeof context.options[0] === "number") {
@@ -287,7 +290,7 @@ module.exports = {
                     if (isJSXEmptyExpressionInSingleLineContainer(containingNode)) {
 
                         // push a unique node only
-                        if (comments[comments.length - 1] !== containingNode.parent) {
+                        if (comments.at(-1) !== containingNode.parent) {
                             comments.push(containingNode.parent);
                         }
                     } else {
@@ -341,7 +344,7 @@ module.exports = {
                  * comments to check.
                  */
                 if (commentsIndex < comments.length) {
-                    let comment = null;
+                    let comment;
 
                     // iterate over comments until we find one past the current line
                     do {
