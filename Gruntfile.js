@@ -7,14 +7,6 @@ module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    eslint: {
-      files: [
-        'Gruntfile.js',
-        'src/**/*.js',
-        'view/**/*.js',
-        'tests/**/*.js'
-      ]
-    },
     karma: {
       unit: {
         configFile: 'karma.conf.js',
@@ -54,11 +46,9 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-eslint');
   grunt.loadNpmTasks('grunt-karma');
 
   // tasks
-  grunt.registerTask('lint', ['eslint']);
   grunt.registerTask('start', ['connect', 'watch']);
   grunt.registerTask('test-ci', ['karma:ci']);
   grunt.registerTask('test', ['karma']);
