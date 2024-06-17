@@ -411,10 +411,10 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
-"@stylistic/eslint-plugin-js@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@stylistic/eslint-plugin-js/-/eslint-plugin-js-2.1.0.tgz#3c4053c12bc6cc344f8ca979bb4399cda386e7a5"
-  integrity sha512-gdXUjGNSsnY6nPyqxu6lmDTtVrwCOjun4x8PUn0x04d5ucLI74N3MT1Q0UhdcOR9No3bo5PGDyBgXK+KmD787A==
+"@stylistic/eslint-plugin-js@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@stylistic/eslint-plugin-js/-/eslint-plugin-js-2.2.0.tgz#87c46cf5498d1a1cd4d1c520123fcf00978dd856"
+  integrity sha512-pdkNeVORubs+k7jmhHivYXggoFvw1ykAyGBQomodOYO8MhO8/IM798XVyjadC6EeTeBiXlEWYRy/4QV34hDz+A==
   dependencies:
     "@types/eslint" "^8.56.10"
     acorn "^8.11.3"
