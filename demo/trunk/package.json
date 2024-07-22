@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "grunt": "~1.6.1",
-    "grunt-cli": "~1.4.3",
+    "grunt-cli": "~1.5.0",
     "grunt-contrib-connect": "~5.0.0",
     "grunt-contrib-watch": "~1.1.0",
     "grunt-karma": "~4.0.2",
@@ -36,7 +36,7 @@
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "^2.2.1",
     "karma-qunit": "~4.2.0",
-    "qunit": "~2.21.0"
+    "qunit": "~2.21.1"
   },
   "scripts": {
     "start": "grunt start",
