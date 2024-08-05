@@ -24,7 +24,7 @@
     "diff": "~5.2.0",
     "dwv": "~0.33.1",
     "eslint": "^9.7.0",
-    "globals": "^15.8.0"
+    "globals": "^15.9.0"
   },
   "devDependencies": {
     "grunt": "~1.6.1",
