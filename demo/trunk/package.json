@@ -19,12 +19,12 @@
     "@stylistic/eslint-plugin-js": "^2.3.0",
     "benchmark": "~2.1.4",
     "daikon": "~1.2.46",
-    "dcmjs": "~0.33.0",
+    "dcmjs": "~0.33.1",
     "dicom-parser": "~1.8.21",
     "diff": "~5.2.0",
     "dwv": "~0.33.1",
     "eslint": "^9.7.0",
-    "globals": "^15.8.0"
+    "globals": "^15.9.0"
   },
   "devDependencies": {
     "grunt": "~1.6.1",
@@ -32,7 +32,7 @@
     "grunt-contrib-connect": "~5.0.0",
     "grunt-contrib-watch": "~1.1.0",
     "grunt-karma": "~4.0.2",
-    "karma": "~6.4.3",
+    "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "^2.2.1",
     "karma-qunit": "~4.2.0",
