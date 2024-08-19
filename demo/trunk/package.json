@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@eslint/js": "^9.4.0",
-    "@stylistic/eslint-plugin-js": "^2.6.2",
+    "@stylistic/eslint-plugin-js": "^2.6.4",
     "benchmark": "~2.1.4",
     "daikon": "~1.2.46",
     "dcmjs": "~0.33.1",
@@ -36,7 +36,7 @@
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "^2.2.1",
     "karma-qunit": "~4.2.0",
-    "qunit": "~2.21.1"
+    "qunit": "~2.22.0"
   },
   "scripts": {
     "start": "grunt start",
