@@ -15,15 +15,15 @@
     "url": "git://github.com/ivmartel/dcmbench.git"
   },
   "dependencies": {
-    "@eslint/js": "^9.4.0",
+    "@eslint/js": "^9.9.1",
     "@stylistic/eslint-plugin-js": "^2.6.4",
     "benchmark": "~2.1.4",
     "daikon": "~1.2.46",
-    "dcmjs": "~0.33.1",
+    "dcmjs": "~0.34.0",
     "dicom-parser": "~1.8.21",
     "diff": "~5.2.0",
     "dwv": "~0.33.1",
-    "eslint": "^9.9.0",
+    "eslint": "^9.9.1",
     "globals": "^15.9.0"
   },
   "devDependencies": {
@@ -35,7 +35,7 @@
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "^2.2.1",
-    "karma-qunit": "~4.2.0",
+    "karma-qunit": "~4.2.1",
     "qunit": "~2.22.0"
   },
   "scripts": {
