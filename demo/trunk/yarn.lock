@@ -415,13 +415,13 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
-"@stylistic/eslint-plugin-js@^2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@stylistic/eslint-plugin-js/-/eslint-plugin-js-2.8.0.tgz#f605202c75aa17692342662231f77d413d96d940"
-  integrity sha512-/e7pSzVMrwBd6yzSDsKHwax3TS96+pd/xSKzELaTkOuYqUhYfj/becWdfDbFSBGQD7BBBCiiE4L8L2cUfu5h+A==
+"@stylistic/eslint-plugin-js@^2.9.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@stylistic/eslint-plugin-js/-/eslint-plugin-js-2.9.0.tgz#75c01c47c373ecbe32d3617c7c5c5b33f49fe0c3"
+  integrity sha512-h08DQybPsXxIvHIvQqU1tFWcu74M7kZK/0S0jVIDdoHSFq7jB+TzxikBWAg5j0lPR17WsGGGHAS8GHFlAAQXHA==
   dependencies:
-    eslint-visitor-keys "^4.0.0"
-    espree "^10.1.0"
+    eslint-visitor-keys "^4.1.0"
+    espree "^10.2.0"
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
