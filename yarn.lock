@@ -1054,7 +1054,7 @@ eslint-visitor-keys@^3.3.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-3.4.1.tgz#c22c48f48942d08ca824cc526211ae400478a994"
   integrity sha512-pZnmmLwYzf+kWaM/Qgrvpen51upAktaaiI01nsJD/Yr3lMOdNtq0cxkrrg16w64VtisN6okbs7Q8AfGqj4c9fA==
 
-eslint-visitor-keys@^4.0.0, eslint-visitor-keys@^4.1.0:
+eslint-visitor-keys@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-4.1.0.tgz#1f785cc5e81eb7534523d85922248232077d2f8c"
   integrity sha512-Q7lok0mqMUSf5a/AdAZkA5a/gHcO6snwQClVNNvFKCAVlxXucdU8pKydU5ZVZjBx5xr37vGbFFWtLQYreLzrZg==
@@ -1100,7 +1100,7 @@ eslint@^9.12.0:
     optionator "^0.9.3"
     text-table "^0.2.0"
 
-espree@^10.0.1, espree@^10.1.0, espree@^10.2.0:
+espree@^10.0.1, espree@^10.2.0:
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/espree/-/espree-10.2.0.tgz#f4bcead9e05b0615c968e85f83816bc386a45df6"
   integrity sha512-upbkBJbckcCNBDBDXEbuhjbP68n+scUd3k/U2EkyM9nw+I/jPiL4cLF/Al06CF96wRltFda16sxDFrxsI1v0/g==
@@ -1475,10 +1475,10 @@ grunt-cli@~1.5.0:
     nopt "~5.0.0"
     v8flags "^4.0.1"
 
-grunt-contrib-connect@~5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/grunt-contrib-connect/-/grunt-contrib-connect-5.0.0.tgz#01efb86e849a6df81d3644cdfd53e02fc6ebeec6"
-  integrity sha512-5bnw/5h8p4P+9EYgFAPKExlNzY1U2/FQSsNlbZmXwbS5l2SyzLwyDqpXKma9RFi2y4s+3IC0ShjE1hJkzuhp4w==
+grunt-contrib-connect@~5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/grunt-contrib-connect/-/grunt-contrib-connect-5.0.1.tgz#c8cc828a3c806520d9126377870b62eeb8bd2f92"
+  integrity sha512-Hfq/0QJl3ddD2N/a/1cDJHkKEOGk6m7W6uxNe0AmYwtf6v0F/4+8q9rvPJ1tl+mrI90lU/89I9T/h48qqeMfQA==
   dependencies:
     async "^3.2.5"
     connect "^3.7.0"
