@@ -29,7 +29,7 @@
   "devDependencies": {
     "grunt": "~1.6.1",
     "grunt-cli": "~1.5.0",
-    "grunt-contrib-connect": "~5.0.0",
+    "grunt-contrib-connect": "~5.0.1",
     "grunt-contrib-watch": "~1.1.0",
     "grunt-karma": "~4.0.2",
     "karma": "~6.4.4",
