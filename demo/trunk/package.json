@@ -19,7 +19,7 @@
     "@stylistic/eslint-plugin-js": "^2.13.0",
     "benchmark": "~2.1.4",
     "daikon": "~1.2.46",
-    "dcmjs": "~0.37.0",
+    "dcmjs": "~0.38.0",
     "dicom-parser": "~1.8.21",
     "diff": "~5.2.0",
     "dwv": "~0.34.1",
@@ -36,7 +36,7 @@
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "^2.2.1",
     "karma-qunit": "~4.2.1",
-    "qunit": "~2.23.1"
+    "qunit": "~2.24.0"
   },
   "scripts": {
     "start": "grunt start",
