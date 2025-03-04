@@ -423,10 +423,10 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
-"@stylistic/eslint-plugin-js@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@stylistic/eslint-plugin-js/-/eslint-plugin-js-4.0.1.tgz#c55e59ad2f00914f9eb103ba9e7be00aff7715dd"
-  integrity sha512-2EGKM6WHnZSidWKCu6ePJCqdpgWiEU1Bt26ktWEfTpCmRP+2vRQ6ViK8X6DLwu4+F0zPLy/Txe2HhI3qJFUvqA==
+"@stylistic/eslint-plugin-js@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@stylistic/eslint-plugin-js/-/eslint-plugin-js-4.1.0.tgz#cb3fcc6bef022f1af8245a6cda404d290358c260"
+  integrity sha512-YOe+dChNoR26JVVt+7BjyebsPIQF05OLNmHCXivq8lLZ4ZeVs4+wXaW+pREVboDiAaSRznauAdAU8f+iQouw6Q==
   dependencies:
     eslint-visitor-keys "^4.2.0"
     espree "^10.3.0"
@@ -859,10 +859,10 @@ dateformat@~4.6.2:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-4.6.3.tgz#556fa6497e5217fedb78821424f8a1c22fa3f4b5"
   integrity sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==
 
-dcmjs@~0.38.1:
-  version "0.38.1"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.38.1.tgz#9c39813ac2717a8efc62d1db64ce8a723e8efae8"
-  integrity sha512-amSv71Gs/Yd8DRLcvS15dGlcWjpSHt5h6NTj8ozWRRuKIP5BgXhAnPPzrsJTXs+LDm13JDA8Ip2/7WLo5qfzhA==
+dcmjs@~0.38.2:
+  version "0.38.2"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.38.2.tgz#968067f58a10ade6345566b472fca37763007985"
+  integrity sha512-+wzHsBHRARXD1YBVf9JgmouF0m0Hp+Vm6VD/vnoZdLMSl9XoqlOKrZ2mpYaxYtnCd9KHwCrzDcC/s5KGttrIgA==
   dependencies:
     "@babel/runtime-corejs3" "^7.22.5"
     adm-zip "^0.5.10"
