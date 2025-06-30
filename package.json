@@ -19,7 +19,7 @@
     "@stylistic/eslint-plugin-js": "^4.4.1",
     "benchmark": "~2.1.4",
     "daikon": "~1.2.46",
-    "dcmjs": "~0.41.0",
+    "dcmjs": "~0.42.0",
     "dicom-parser": "~1.8.21",
     "diff": "~5.2.0",
     "dwv": "~0.34.2",
