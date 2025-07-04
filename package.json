@@ -14,34 +14,41 @@
     "type": "git",
     "url": "git://github.com/ivmartel/dcmbench.git"
   },
+  "type": "module",
   "dependencies": {
-    "@eslint/js": "^9.30.1",
-    "@stylistic/eslint-plugin": "^5.1.0",
-    "benchmark": "~2.1.4",
     "daikon": "~1.2.46",
     "dcmjs": "~0.42.0",
     "dicom-parser": "~1.8.21",
     "diff": "~5.2.0",
-    "dwv": "~0.34.2",
-    "eslint": "^9.30.1",
-    "globals": "^16.3.0"
+    "dwv": "~0.35.1",
+    "tinybench": "^4.0.1"
   },
   "devDependencies": {
-    "grunt": "~1.6.1",
-    "grunt-cli": "~1.5.0",
-    "grunt-contrib-connect": "~5.0.1",
-    "grunt-contrib-watch": "~1.1.0",
-    "grunt-karma": "~4.0.2",
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@eslint/js": "^9.30.1",
+    "@stylistic/eslint-plugin": "^5.1.0",
+    "babel-loader": "^10.0.0",
+    "babel-plugin-istanbul": "^7.0.0",
+    "eslint": "^9.30.1",
+    "globals": "^16.3.0",
+    "html-webpack-plugin": "^5.6.3",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "^2.2.1",
+    "karma-json-reporter": "1.2.1",
     "karma-qunit": "~4.2.1",
-    "qunit": "~2.24.1"
+    "karma-sourcemap-loader": "^0.4.0",
+    "karma-webpack": "^5.0.1",
+    "qunit": "~2.24.1",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
   },
   "scripts": {
-    "start": "grunt start",
+    "start": "webpack serve --config webpack.dev.js",
     "lint": "eslint 'src/**/*.js' 'view/**/*.js' 'tests/**/*.js' '*.js'",
-    "test": "grunt test",
-    "test-ci": "grunt test-ci"
+    "test": "karma start karma.conf.js",
+    "test-ci": "karma start karma.conf.js --browsers ChromeHeadless --reporters progress,coverage,json --single-run"
   }
 }

@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html>
+import {DicomParser} from 'dwv';
 
-<head>
-<title>iframe-dwv</title>
-<meta charset="UTF-8">
-</head>
-
-<script src="../../node_modules/dwv/dist/dwv.min.js"></script>
-
-<script type="text/javascript">
 // Parse a DICOM buffer.
-parse = function (buffer) {
+export function parse(buffer) {
   // setup the dicom parser
-  var dwvParser = new dwv.DicomParser();
+  var dwvParser = new DicomParser();
   // parse the buffer
   dwvParser.parse(buffer);
 };
+
 // Parse a DICOM buffer and return the memory.
-parse2 = function (buffer) {
+export function parse2(buffer) {
   // setup the dicom parser
-  var dwvParser = new dwv.DicomParser();
+  var dwvParser = new DicomParser();
   // parse the buffer
   dwvParser.parse(buffer);
   // return the memory state
@@ -27,14 +19,11 @@ parse2 = function (buffer) {
 };
 
 // Parse a DICOM buffer and dump its content.
-dump = function (buffer) {
+export function dump(buffer) {
   // setup the dicom parser
-  var dwvParser = new dwv.DicomParser();
+  var dwvParser = new DicomParser();
   // parse the buffer
   dwvParser.parse(buffer);
   // return dump
   return dwvParser.getDicomElements();
 };
-</script>
-
-</html>

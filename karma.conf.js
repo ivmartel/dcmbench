@@ -1,20 +1,19 @@
-// Karma configuration file, see link for more information
-// https://karma-runner.github.io/1.0/config/configuration-file.html
+import {webpackTest} from './webpack.test.js';
 
-module.exports = function (config) {
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/6.4/config/configuration-file.html
+
+/**
+ * Get the Karma config for dwv.
+ *
+ * @param {object} config The Karma configuration.
+ */
+export default function (config) {
   config.set({
     basePath: '.',
-    frameworks: ['qunit'],
-    plugins: [
-      require('karma-qunit'),
-      require('karma-chrome-launcher'),
-      require('karma-coverage')
-    ],
+    frameworks: ['qunit', 'webpack'],
     files: [
-      // src
-      'src/**/*.js',
-      // test
-      'tests/**/*.test.js'
+      {pattern: 'tests/**/*.test.js', watched: false},
     ],
     client: {
       clearContext: false,
@@ -24,19 +23,32 @@ module.exports = function (config) {
       }
     },
     preprocessors: {
-      'src/**/*.js': ['coverage']
+      'src/**/*.js': ['webpack', 'sourcemap'],
+      'tests/**/*.test.js': ['webpack']
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './build/coverage/dwv'),
+      dir: './build/coverage/',
       reporters: [
         {type: 'html', subdir: 'report-html'},
-        {type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt'},
         {type: 'text-summary'}
-      ]
+      ],
+      check: {
+        global: {
+          statements: 20,
+          branches: 0,
+          functions: 20,
+          lines: 20
+        }
+      }
     },
     reporters: ['progress'],
     logLevel: config.LOG_INFO,
     browsers: ['Chrome'],
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    webpack: webpackTest,
+    jsonReporter: {
+      stdout: false,
+      outputFile: './build/test-results.json'
+    },
   });
 };

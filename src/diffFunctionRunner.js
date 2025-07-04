@@ -1,24 +1,21 @@
-// namespace
-var dcmb = dcmb || {};
-// diff lib
-var Diff = Diff || {};
+import {Diff} from 'diff';
 
 /**
  * Diff function runner
  * Get the difference between the text outputs of two functions.
  */
-dcmb.DiffFunctionRunner = function () {
+export class DiffFunctionRunner {
 
   // the functions to run
-  var functions = null;
+  #functions;
 
   /**
    * Set the runner functions.
    * @param {Array} funcs An array of functions in the form:
    * {name: string, func: Object}
    */
-  this.setFunctions = function (funcs) {
-    functions = funcs;
+  setFunctions(funcs) {
+    this.#functions = funcs;
   };
 
   /**
@@ -27,20 +24,20 @@ dcmb.DiffFunctionRunner = function () {
    * @return {Array} An array of dump differences in the form:
    * {count: number, added: boolean, removed: boolean, value: string}
    */
-  this.run = function (buffer) {
+  run(buffer) {
     // run dumps
-    var dump0 = functions[0].func(buffer);
-    var dump1 = functions[1].func(buffer);
+    var dump0 = this.#functions[0].func(buffer);
+    var dump1 = this.#functions[1].func(buffer);
     // get diff
     return Diff.diffChars(dump0, dump1);
   };
 
   /**
    * Calculate a similarity percentage.
-   * @param {Array} An array of differences as returned by JsDiff.
+   * @param {Array} diff An array of differences as returned by JsDiff.
    * @return {Number} The similarity percentage.
    */
-  this.getSimiarityPercent = function (diff) {
+  getSimiarityPercent(diff) {
     // count similar and total
     var nSame = 0;
     var total = 0;

@@ -1,24 +1,26 @@
-// namespace
-var dcmb = dcmb || {};
-// benchmark.js
-var Benchmark = Benchmark || {};
+//import Benchmark from 'benchmark';
+import {Bench} from 'tinybench';
 
 /**
  * Function runner for benchmarks.
  * Launch functions within benchmark.js to evaluate their speed.
  */
-dcmb.BenchFunctionRunner = function () {
+export class BenchFunctionRunner {
 
-  // the functions to run
-  var functions = null;
+  /**
+   * functions to run
+   *
+   * @type {Array}
+   */
+  #functions;
 
   /**
    * Set the runner functions.
    * @param {Array} funcs An array of functions in the form:
    * {name: string, func: Object}
    */
-  this.setFunctions = function (funcs) {
-    functions = funcs;
+  setFunctions(funcs) {
+    this.#functions = funcs;
   };
 
   /**
@@ -27,47 +29,51 @@ dcmb.BenchFunctionRunner = function () {
    * @return {Array} An array of memory measures in the form:
    * {count: number, added: boolean, removed: boolean, value: string}
    */
-  this.run = function (buffer) {
-    var results = [];
+  async run(buffer) {
+    const results = [];
 
     // benchmark suite
-    var suite = new Benchmark.Suite('bench');
+    //const suite = new Benchmark.Suite('bench');
+    const suite = new Bench({});
     // handle end of cycle
-    suite.on('cycle', function (event) {
-      // console output
-      console.log(String(event.target));
+    //suite.on('cycle', function (event) {
+    suite.addEventListener('cycle', function (event) {
       // store results
-      var opsPerSec = event.target.hz;
-      var rme = event.target.stats.rme;
-      var rmeTxt = rme.toFixed(rme < 100 ? 2 : 0);
-      var text = opsPerSec + ' \u00B1' + rmeTxt + '%';
+      const task = event.task;
+      const opsPerSec = task.result.latency.df;
+      const rme = task.result.latency.rme;
+      const rmeTxt = rme.toFixed(rme < 100 ? 2 : 0);
+      const text = opsPerSec + ' \u00B1' + rmeTxt + '%';
       results.push(text);
+      // console output
+      console.log(task.name + ':', text);
     });
 
     // avoid creating functions in loops
-    var getFunc = function (f, a) {
-      return function () {
+    const getFunc = function (f, a) {
+      return () => {
         f(a);
       };
     };
     // add parsers to suite
-    for (var i = 0; i < functions.length; ++i) {
-      suite.add(functions[i].name, getFunc(functions[i].func, buffer));
+    for (let func of this.#functions) {
+      suite.add(func.name, getFunc(func.func, buffer));
     }
     // run async
-    suite.run({async: false});
+    //suite.run({async: false});
+    await suite.run();
 
     return results;
   };
 
   /**
    * Get a header row to result data.
-   * @return {Array} An array representing a header row to the result data.
+   * @return {string[]} An array representing a header row to the result data.
    */
-  this.getFunctionHeader = function () {
-    var header = [];
-    for (var i = 0; i < functions.length; ++i) {
-      header.push(functions[i].name);
+  getFunctionHeader() {
+    const header = [];
+    for (let func of this.#functions) {
+      header.push(func.name);
     }
     return header;
   };

@@ -1,4 +1,6 @@
-/* global QUnit, dcmb */
+import {MemoryFunctionRunner} from '../src/memoryFunctionRunner.js';
+
+/* global QUnit */
 /**
  * Tests for the 'memoryFunctionRunner.js' file.
  */
@@ -11,14 +13,14 @@ QUnit.module('memory');
  * @function module:tests/memory
  */
 QUnit.test('Test memory.', function (assert) {
-  var Memory = new dcmb.MemoryFunctionRunner();
-  var max = 1000000;
-  Memory.setFunctions([
+  const memory = new MemoryFunctionRunner();
+  const max = 1000000;
+  memory.setFunctions([
     {
       name: 'Array0',
       func: function () {
-        var arr = [];
-        for (var i = 0; i < max; ++i) {
+        const arr = [];
+        for (let i = 0; i < max; ++i) {
           arr.push(i);
         }
         return performance.memory;
@@ -27,8 +29,8 @@ QUnit.test('Test memory.', function (assert) {
     {
       name: 'Array1',
       func: function () {
-        var arr = [];
-        for (var i = 0; i < 3 * max; ++i) {
+        const arr = [];
+        for (let i = 0; i < 3 * max; ++i) {
           arr.push(i);
         }
         return performance.memory;
@@ -36,8 +38,8 @@ QUnit.test('Test memory.', function (assert) {
     }
   ]);
 
-  var res = Memory.run();
-  var test0 = res[1] > res[0];
+  const res = memory.run();
+  const test0 = res[1] > res[0];
   if (!test0) {
     console.log('Memory test0 failed:', res[0], res[1]);
   }

@@ -1,6 +1,3 @@
-// namespace
-var dcmb = dcmb || {};
-
 /**
 * Drag and drop related code.
 * Expects:
@@ -9,16 +6,16 @@ var dcmb = dcmb || {};
 */
 
 // Setup drag and drop.
-dcmb.setupDragDrop = function (callback) {
+export function setupDragDrop(callback) {
   var dropbox = document.getElementById('dropbox');
-  dropbox.addEventListener('dragover', dcmb.onDragOver);
-  dropbox.addEventListener('dragleave', dcmb.onDragLeave);
-  dropbox.addEventListener('drop', dcmb.getOnDrop(callback));
+  dropbox.addEventListener('dragover', onDragOver);
+  dropbox.addEventListener('dragleave', onDragLeave);
+  dropbox.addEventListener('drop', getOnDrop(callback));
 };
 
 // Handle drag over.
 // Switches the drop box style to 'dropbox hover'.
-dcmb.onDragOver = function (event) {
+const onDragOver = (event) => {
   // prevent default handling
   event.stopPropagation();
   event.preventDefault();
@@ -29,7 +26,7 @@ dcmb.onDragOver = function (event) {
 
 // Handle drag leave.
 // Switches the drop box style to 'dropbox'.
-dcmb.onDragLeave = function (event) {
+const onDragLeave = (event) => {
   // prevent default handling
   event.stopPropagation();
   event.preventDefault();
@@ -41,8 +38,8 @@ dcmb.onDragLeave = function (event) {
 // Handle drop.
 // - Updates the data list by calling updateDataList.
 // - Sets the text of the drop box.
-dcmb.getOnDrop = function (callback) {
-  return function (event) {
+function getOnDrop(callback) {
+  return (event) => {
     // prevent default handling
     event.stopPropagation();
     event.preventDefault();

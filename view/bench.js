@@ -1,9 +1,16 @@
-// namespace
-var dcmb = dcmb || {};
+import {BenchFunctionRunner} from '../src/benchFunctionRunner.js';
+import {DataRunner} from '../src/dataRunner.js';
+import {createTable, getMeans} from '../src/gui.js';
+import {setupDragDrop} from '../src/dragndrop.js';
+
+import {parse as dcmjsParse} from './parsers/dcmjs.js';
+import {parse as dpParse} from './parsers/dicomParser.js';
+//import {parse as dwvPrevParse} from './parsers/dwv-previous.js';
+import {parse as dwvParse} from './parsers/dwv.js';
 
 // default test data
-var githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/';
-var defaultTestData = [
+const githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/';
+const defaultTestData = [
   {
     name: 'osirix-toutatix-100',
     url: githubRaw + 'osirix-toutatix-100.dcm',
@@ -12,58 +19,60 @@ var defaultTestData = [
   {
     name: 'osirix-goudurix',
     url: githubRaw + 'osirix-goudurix.dcm',
-    selected: true
+    selected: false
   },
   {
     name: 'dicompyler-ct.0',
     url: githubRaw + 'dicompyler-ct.0.dcm',
-    selected: true
+    selected: false
   },
   {
     name: 'gdcm-CR-MONO1-10-chest',
     url: githubRaw + 'gdcm-CR-MONO1-10-chest.dcm',
-    selected: true
+    selected: false
   },
   {
     name: 'gdcm-CT-MONO2-8-abdo',
     url: githubRaw + 'gdcm-CT-MONO2-8-abdo.dcm',
-    selected: true
+    selected: false
   },
   //{
   //  "name": "gdcm-US-RGB-8-epicard",
   //  "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm",
-  //  "selected": true
+  //  "selected": false
   //},
   {
     name: 'gdcm-US-RGB-8-esopecho',
     url: githubRaw + 'gdcm-US-RGB-8-esopecho.dcm',
-    selected: true
+    selected: false
   }
 ];
-var parserFunctions = [
-  {name: 'ctk-dcmjs', selected: true},
-  {name: 'daikon', selected: true},
-  {name: 'dcmjs', selected: true},
-  {name: 'dicomParser', selected: true},
-  {name: 'dwv-previous', selected: true},
-  {name: 'dwv', selected: true}
+const parserFunctions = [
+  //{name: 'ctk-dcmjs', selected: false},
+  //{name: 'daikon', selected: false, func: daikonParse},
+  {name: 'dcmjs', selected: false, func: dcmjsParse},
+  {name: 'dicomParser', selected: true, func: dpParse},
+  //{name: 'dwv-previous', selected: false, func: dwvPrevParse},
+  {name: 'dwv', selected: true, func: dwvParse}
 ];
 
 // create default runner object
-var dataRunner = new dcmb.DataRunner();
-dataRunner.setDataList(defaultTestData);
-var benchRunner = new dcmb.BenchFunctionRunner();
+const dataRunner = new DataRunner();
+dataRunner.setDataList(defaultTestData.filter(checkSelected));
+const benchRunner = new BenchFunctionRunner();
 dataRunner.setFunctionRunner(benchRunner);
+
+benchRunner.setFunctions(parserFunctions.filter((checkSelected)));
 
 // listen to status changes
 dataRunner.addEventListener('status-change', function (event) {
-  var newStatus = event.value;
+  const newStatus = event.value;
 
   // status text
-  var pStatus = document.getElementById('status');
+  const pStatus = document.getElementById('status');
   pStatus.innerHTML = newStatus;
   // main button
-  var button = document.getElementById('button');
+  const button = document.getElementById('launch-button');
   button.disabled = false;
   if (newStatus === 'ready' ||
     newStatus === 'done' ||
@@ -79,14 +88,14 @@ dataRunner.addEventListener('status-change', function (event) {
   }
 
   if (newStatus === 'done') {
-    var div = document.getElementById('results');
-    var dataHeader = dataRunner.getDataHeader();
-    var results = dataRunner.getResults();
+    const div = document.getElementById('results');
+    const dataHeader = dataRunner.getDataHeader();
+    const results = dataRunner.getResults();
     // use means as table foot
-    var means = ['Mean'];
-    means = means.concat(dcmb.getMeans(results));
+    let means = ['Mean'];
+    means = means.concat(getMeans(results));
     // add to result div
-    div.appendChild(dcmb.createTable(
+    div.appendChild(createTable(
       benchRunner.getFunctionHeader(), dataHeader, results, means
     ));
   }
@@ -102,13 +111,13 @@ function checkSelected(parser) {
 }
 
 function setupParsers() {
-  var divParsers = document.getElementById('parsers');
-  var fieldsetElem = divParsers.getElementsByTagName('fieldset')[0];
+  const divParsers = document.getElementById('parsers');
+  const fieldsetElem = divParsers.getElementsByTagName('fieldset')[0];
 
-  var parserName = '';
-  for (var i = 0; i < parserFunctions.length; ++i) {
-    parserName = parserFunctions[i].name;
-    var input = document.createElement('input');
+  let parserName = '';
+  for (let parseFunc of parserFunctions) {
+    parserName = parseFunc.name;
+    const input = document.createElement('input');
     input.type = 'checkbox';
     input.name = 'parsers';
     input.id = parserName;
@@ -116,8 +125,8 @@ function setupParsers() {
     input.onclick = function () {
       onChangeParsers(this);
     };
-    input.checked = true;
-    var label = document.createElement('label');
+    input.checked = parseFunc.selected;
+    const label = document.createElement('label');
     label.htmlFor = parserName;
     label.appendChild(document.createTextNode(parserName));
 
@@ -127,7 +136,7 @@ function setupParsers() {
 }
 
 function onChangeParsers(input) {
-  for (var i = 0; i < parserFunctions.length; ++i) {
+  for (let i = 0; i < parserFunctions.length; ++i) {
     if (parserFunctions[i].name === input.value) {
       parserFunctions[i].selected = input.checked;
       break;
@@ -138,19 +147,23 @@ function onChangeParsers(input) {
 
 // Handle change in the input file element.
 // - Updates the data list by calling updateDataList.
-dcmb.onChangeInput = function (files) {
-  var inputData = [];
-  for (var i = 0; i < files.length; ++i) {
-    inputData.push({name: files[i].name,
-      file: files[i]});
+function onChangeInput(event) {
+  const newfiles = event.target.files;
+  const inputData = [];
+  for (let file of newfiles) {
+    inputData.push({
+      name: file.name,
+      file: file
+    });
   }
   // call external function
   updateDataList(inputData);
 };
 
-dcmb.onChangeDefaultDataNumber = function (input) {
-  for (var i = 0; i < defaultTestData.length; ++i) {
-    if (i < input.value) {
+function onChangeDefaultDataNumber(event) {
+  const newNumber = event.target.value;
+  for (let i = 0; i < defaultTestData.length; ++i) {
+    if (i < newNumber) {
       defaultTestData[i].selected = true;
     } else {
       defaultTestData[i].selected = false;
@@ -160,9 +173,9 @@ dcmb.onChangeDefaultDataNumber = function (input) {
 };
 
 // handle launch
-dcmb.onLaunchButton = function () {
+function onLaunchButton(/*event*/) {
   // action according to status
-  var status = dataRunner.getStatus();
+  let status = dataRunner.getStatus();
   if (status === 'ready' ||
     status === 'done' ||
     status === 'cancelled') {
@@ -174,37 +187,51 @@ dcmb.onLaunchButton = function () {
   }
 };
 
+function setupHtml() {
+  const lauchButton = document.getElementById('launch-button');
+  lauchButton.onclick = onLaunchButton;
+
+  const dataNumberInput = document.getElementById('data-quantity');
+  dataNumberInput.onchange = onChangeDefaultDataNumber;
+
+  const fileInput = document.getElementById('file-input');
+  fileInput.onchange = onChangeInput;
+}
+
 // last minute
 document.addEventListener('DOMContentLoaded', function (/*event*/) {
+  // setup html
+  setupHtml();
+
   // drag and drop
-  dcmb.setupDragDrop(updateDataList);
+  setupDragDrop(updateDataList);
 
   // parsers
   setupParsers();
 
   // output user agent
-  var preAgent = document.createElement('pre');
+  const preAgent = document.createElement('pre');
   preAgent.appendChild(document.createTextNode('User agent: '));
   preAgent.appendChild(document.createTextNode(navigator.userAgent));
-  var broDiv = document.getElementById('browser');
+  const broDiv = document.getElementById('browser');
   broDiv.appendChild(preAgent);
 
   // data number input
-  var inputDataQuantity = document.getElementById('data-quantity');
-  inputDataQuantity.value = defaultTestData.length;
+  const inputDataQuantity = document.getElementById('data-quantity');
+  inputDataQuantity.value = 1;
   inputDataQuantity.max = defaultTestData.length;
 });
 
 // iframe content is only available at window.onload time
-window.onload = function () {
-  var ifname = '';
-  var func = null;
-  for (var i = 0; i < parserFunctions.length; ++i) {
-    ifname = 'iframe-' + parserFunctions[i].name;
-    func = document.getElementById(ifname).contentWindow.parse;
-    if (func) {
-      parserFunctions[i].func = func;
-    }
-  }
-  benchRunner.setFunctions(parserFunctions.filter(checkSelected));
-};
+// window.onload = function () {
+//   let ifname = '';
+//   let func;
+//   for (let i = 0; i < parserFunctions.length; ++i) {
+//     ifname = 'iframe-' + parserFunctions[i].name;
+//     func = document.getElementById(ifname).contentWindow.parse;
+//     if (func) {
+//       parserFunctions[i].func = func;
+//     }
+//   }
+//   benchRunner.setFunctions(parserFunctions.filter(checkSelected));
+// };
