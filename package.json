@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@eslint/js": "^9.32.0",
-    "@stylistic/eslint-plugin": "^5.2.0",
+    "@stylistic/eslint-plugin": "^5.2.2",
     "benchmark": "~2.1.4",
     "daikon": "~1.2.46",
     "dcmjs": "~0.43.1",
