@@ -1,5 +1,5 @@
 /*!
- * QUnit 2.24.1
+ * QUnit 2.24.2
  * https://qunitjs.com/
  *
  * Copyright OpenJS Foundation and other contributors
@@ -3905,7 +3905,10 @@
       // cause data loss or invalid YAML syntax.
       //
       // - Quotes, escapes, line breaks, or JSON-like stuff.
-      var rSpecialJson = /['"\\/[{}\]\r\n]/;
+      // - Not allowed in YAML unquoted strings per https://yaml.org/spec/1.2.2/#733-plain-style
+      //   * ": " (colon followed by space)
+      //   * " #" (space followed by hash)
+      var rSpecialJson = /['"\\/[{}\]\r\n|:#]/;
 
       // - Characters that are special at the start of a YAML value
       var rSpecialYaml = /[-?:,[\]{}#&*!|=>'"%@`]/;
@@ -5463,7 +5466,7 @@
   QUnit.isLocal = window$1 && window$1.location && window$1.location.protocol === 'file:';
 
   // Expose the current QUnit version
-  QUnit.version = '2.24.1';
+  QUnit.version = '2.24.2';
   extend(QUnit, {
     config: config,
     diff: diff,
