@@ -2519,10 +2519,10 @@ quick-lru@^5.1.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-5.1.1.tgz#366493e6b3e42a3a6885e2e99d18f80fb7a8c932"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
-qunit@~2.24.2:
-  version "2.24.2"
-  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.24.2.tgz#ed57fb417b686bcf30b8934a6814a7bf7e389f14"
-  integrity sha512-dWlYs+Q9AIDT3eHKgkpEpWrSjHjqTJNCAJr1tUo5bQuDMzlZvaqCz1bNZhqzNu41ibkIQ7b50S9y6IMlrrUfNQ==
+qunit@~2.24.3:
+  version "2.24.3"
+  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.24.3.tgz#7db9a60d9bf902dad2271ee2386a672f22c97d2a"
+  integrity sha512-JTHwSfHf2Cw8TqusZo2tT4F9d+XA/pp/veoxUDiPNHtB1Wc1VPctiHHIv6HA3vrXNOBu9LSzFM7YU2OV9Gz4vQ==
   dependencies:
     commander "7.2.0"
     node-watch "0.7.3"
