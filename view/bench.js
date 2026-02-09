@@ -105,7 +105,7 @@ function setupParsers() {
   var divParsers = document.getElementById('parsers');
   var fieldsetElem = divParsers.getElementsByTagName('fieldset')[0];
 
-  var parserName = '';
+  var parserName;
   for (var i = 0; i < parserFunctions.length; ++i) {
     parserName = parserFunctions[i].name;
     var input = document.createElement('input');
@@ -197,8 +197,8 @@ document.addEventListener('DOMContentLoaded', function (/*event*/) {
 
 // iframe content is only available at window.onload time
 window.onload = function () {
-  var ifname = '';
-  var func = null;
+  var ifname;
+  var func;
   for (var i = 0; i < parserFunctions.length; ++i) {
     ifname = 'iframe-' + parserFunctions[i].name;
     func = document.getElementById(ifname).contentWindow.parse;
