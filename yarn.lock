@@ -969,13 +969,13 @@ dom-serialize@^2.2.1:
     extend "^3.0.0"
     void-elements "^2.0.0"
 
-dwv@~0.35.1:
-  version "0.35.1"
-  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.35.1.tgz#b3c5d58de860d9bbb7927182255eb80fd747a1cb"
-  integrity sha512-Y3ZbvTihXUYVcn7DzwXaXpABuNLiw4BOi5Xzcurb0nxf/9ooPfYnyxahVrGEuCSRG1LySsNzRuPtZDvL6F0J0w==
+dwv@~0.36.0:
+  version "0.36.0"
+  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.36.0.tgz#63ca7d3fd22f5384613d46a6fea5f0eb1f30fa2b"
+  integrity sha512-s2UXKIpCmDjYtyorot5EvBBrpLdS4S0ZD992XJ4r6sETR4oYPfNK5LKk4VSe66yopj+yGxoyuRCJPly7BnFoXQ==
   dependencies:
     jszip "^3.10.1"
-    konva "~9.3.20"
+    konva "~10.2.0"
     magic-wand-tool "~1.1.7"
 
 ee-first@1.1.1:
@@ -2020,10 +2020,10 @@ kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-konva@~9.3.20:
-  version "9.3.22"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-9.3.22.tgz#aa979c410127dda20bf0788ab70a414648c25a91"
-  integrity sha512-yQI5d1bmELlD/fowuyfOp9ff+oamg26WOCkyqUyc+nczD/lhRa3EvD2MZOoc4c1293TAubW9n34fSQLgSeEgSw==
+konva@~10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-10.2.0.tgz#f6ae2d2595faf6b7391cbe912e5f5cc3885566be"
+  integrity sha512-JBoz0Xjbf49UPxCZegZ4WseqOzJ+C4AUDOtJ9eBve5RS5Fcq/u8TdBD5fDl/uPFInpC3a9uycm0sRyZpF4hheg==
 
 levn@^0.4.1:
   version "0.4.1"
