@@ -16,14 +16,14 @@
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
-    "@stylistic/eslint-plugin": "^5.9.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "benchmark": "~2.1.4",
     "daikon": "~1.2.46",
     "dcmjs": "~0.50.1",
     "dicom-parser": "~1.8.21",
     "diff": "~5.2.0",
     "dwv": "~0.36.1",
-    "eslint": "^10.0.2",
+    "eslint": "^10.0.3",
     "globals": "^17.4.0"
   },
   "devDependencies": {
