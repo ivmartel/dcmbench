@@ -974,10 +974,10 @@ dom-serialize@^2.2.1:
     extend "^3.0.0"
     void-elements "^2.0.0"
 
-dwv@~0.36.1:
-  version "0.36.1"
-  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.36.1.tgz#4ec3ba7608f09e93f1e8c34d1842dc6263e1c0f0"
-  integrity sha512-xzgcor72OJR7oUEOobLsOr0XH9QEZa9f9gVgNKqEOjoJuOdbZwlCFB9vLck+jTLgQHFAdG9iu6jZjJCmmYPa+w==
+dwv@~0.36.2:
+  version "0.36.2"
+  resolved "https://registry.yarnpkg.com/dwv/-/dwv-0.36.2.tgz#b18d12eb38cf6903afc500834e35c1dfb0d598d6"
+  integrity sha512-0OyDZ+jszg8Z+rDJXYqOSGXFC8uGQ1Uq6exL5+ahO7FCIfeQUm03p2tn9np2ZBZSCtRyD58YoFKpFD7/966ZQg==
   dependencies:
     jszip "^3.10.1"
     konva "~10.2.0"
