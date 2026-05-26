@@ -1,7 +1,7 @@
 'use strict';
 var $ = require('../internals/export');
-var tryNodeRequire = require('../internals/try-node-require');
 var getBuiltIn = require('../internals/get-built-in');
+var getBuiltInNodeModule = require('../internals/get-built-in-node-module');
 var fails = require('../internals/fails');
 var create = require('../internals/object-create');
 var createPropertyDescriptor = require('../internals/create-property-descriptor');
@@ -26,18 +26,18 @@ var Error = getBuiltIn('Error');
 var NativeDOMException = getBuiltIn(DOM_EXCEPTION) || (function () {
   try {
     // NodeJS < 15.0 does not expose `MessageChannel` to global
-    var MessageChannel = getBuiltIn('MessageChannel') || tryNodeRequire('worker_threads').MessageChannel;
+    var MessageChannel = getBuiltIn('MessageChannel') || getBuiltInNodeModule('worker_threads').MessageChannel;
     // eslint-disable-next-line es/no-weak-map, unicorn/require-post-message-target-origin -- safe
     new MessageChannel().port1.postMessage(new WeakMap());
   } catch (error) {
-    if (error.name == DATA_CLONE_ERR && error.code == 25) return error.constructor;
+    if (error.name === DATA_CLONE_ERR && error.code === 25) return error.constructor;
   }
 })();
 var NativeDOMExceptionPrototype = NativeDOMException && NativeDOMException.prototype;
 var ErrorPrototype = Error.prototype;
 var setInternalState = InternalStateModule.set;
 var getInternalState = InternalStateModule.getterFor(DOM_EXCEPTION);
-var HAS_STACK = 'stack' in Error(DOM_EXCEPTION);
+var HAS_STACK = 'stack' in new Error(DOM_EXCEPTION);
 
 var codeFor = function (name) {
   return hasOwn(DOMExceptionConstants, name) && DOMExceptionConstants[name].m ? DOMExceptionConstants[name].c : 0;
@@ -61,7 +61,7 @@ var $DOMException = function DOMException() {
     this.code = code;
   }
   if (HAS_STACK) {
-    var error = Error(message);
+    var error = new Error(message);
     error.name = DOM_EXCEPTION;
     defineProperty(this, 'stack', createPropertyDescriptor(1, clearErrorStack(error.stack, 1)));
   }

@@ -1,9 +1,10 @@
+'use strict';
 var $ = require('../internals/export');
 var iterate = require('../internals/iterate');
 var createProperty = require('../internals/create-property');
 
 // `Object.fromEntries` method
-// https://github.com/tc39/proposal-object-from-entries
+// https://tc39.es/ecma262/#sec-object.fromentries
 $({ target: 'Object', stat: true }, {
   fromEntries: function fromEntries(iterable) {
     var obj = {};

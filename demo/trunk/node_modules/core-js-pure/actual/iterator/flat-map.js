@@ -1,7 +1,6 @@
-require('../../modules/es.object.to-string');
+'use strict';
+var parent = require('../../stable/iterator/flat-map');
 require('../../modules/esnext.iterator.constructor');
 require('../../modules/esnext.iterator.flat-map');
 
-var entryUnbind = require('../../internals/entry-unbind');
-
-module.exports = entryUnbind('Iterator', 'flatMap');
+module.exports = parent;

@@ -23,8 +23,8 @@ module.exports = {
       setInternalState(that, {
         type: CONSTRUCTOR_NAME,
         index: create(null),
-        first: undefined,
-        last: undefined,
+        first: null,
+        last: null,
         size: 0
       });
       if (!DESCRIPTORS) that.size = 0;
@@ -49,7 +49,7 @@ module.exports = {
           key: key,
           value: value,
           previous: previous = state.last,
-          next: undefined,
+          next: null,
           removed: false
         };
         if (!state.first) state.first = entry;
@@ -69,7 +69,7 @@ module.exports = {
       if (index !== 'F') return state.index[index];
       // frozen object case
       for (entry = state.first; entry; entry = entry.next) {
-        if (entry.key == key) return entry;
+        if (entry.key === key) return entry;
       }
     };
 
@@ -80,15 +80,14 @@ module.exports = {
       clear: function clear() {
         var that = this;
         var state = getInternalState(that);
-        var data = state.index;
         var entry = state.first;
         while (entry) {
           entry.removed = true;
-          if (entry.previous) entry.previous = entry.previous.next = undefined;
-          delete data[entry.index];
+          if (entry.previous) entry.previous = entry.previous.next = null;
           entry = entry.next;
         }
-        state.first = state.last = undefined;
+        state.first = state.last = null;
+        state.index = create(null);
         if (DESCRIPTORS) state.size = 0;
         else that.size = 0;
       },
@@ -106,8 +105,8 @@ module.exports = {
           entry.removed = true;
           if (prev) prev.next = next;
           if (next) next.previous = prev;
-          if (state.first == entry) state.first = next;
-          if (state.last == entry) state.last = prev;
+          if (state.first === entry) state.first = next;
+          if (state.last === entry) state.last = prev;
           if (DESCRIPTORS) state.size--;
           else that.size--;
         } return !!entry;
@@ -179,7 +178,7 @@ module.exports = {
         target: iterated,
         state: getInternalCollectionState(iterated),
         kind: kind,
-        last: undefined
+        last: null
       });
     }, function () {
       var state = getInternalIteratorState(this);
@@ -190,12 +189,12 @@ module.exports = {
       // get next entry
       if (!state.target || !(state.last = entry = entry ? entry.next : state.state.first)) {
         // or finish the iteration
-        state.target = undefined;
+        state.target = null;
         return createIterResultObject(undefined, true);
       }
       // return step by kind
-      if (kind == 'keys') return createIterResultObject(entry.key, false);
-      if (kind == 'values') return createIterResultObject(entry.value, false);
+      if (kind === 'keys') return createIterResultObject(entry.key, false);
+      if (kind === 'values') return createIterResultObject(entry.value, false);
       return createIterResultObject([entry.key, entry.value], false);
     }, IS_MAP ? 'entries' : 'values', !IS_MAP, true);
 

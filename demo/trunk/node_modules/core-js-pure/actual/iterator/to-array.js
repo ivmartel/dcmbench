@@ -1,7 +1,6 @@
-require('../../modules/es.object.to-string');
+'use strict';
+var parent = require('../../stable/iterator/to-array');
 require('../../modules/esnext.iterator.constructor');
 require('../../modules/esnext.iterator.to-array');
 
-var entryUnbind = require('../../internals/entry-unbind');
-
-module.exports = entryUnbind('Iterator', 'toArray');
+module.exports = parent;

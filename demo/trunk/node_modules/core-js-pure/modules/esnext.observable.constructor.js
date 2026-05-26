@@ -17,7 +17,6 @@ var defineBuiltInAccessor = require('../internals/define-built-in-accessor');
 var hostReportErrors = require('../internals/host-report-errors');
 var wellKnownSymbol = require('../internals/well-known-symbol');
 var InternalStateModule = require('../internals/internal-state');
-var OBSERVABLE_FORCED = require('../internals/observable-forced');
 
 var $$OBSERVABLE = wellKnownSymbol('observable');
 var OBSERVABLE = 'Observable';
@@ -31,8 +30,8 @@ var getSubscriptionObserverInternalState = getterFor(SUBSCRIPTION_OBSERVER);
 
 var SubscriptionState = function (observer) {
   this.observer = anObject(observer);
-  this.cleanup = undefined;
-  this.subscriptionObserver = undefined;
+  this.cleanup = null;
+  this.subscriptionObserver = null;
 };
 
 SubscriptionState.prototype = {
@@ -40,7 +39,7 @@ SubscriptionState.prototype = {
   clean: function () {
     var cleanup = this.cleanup;
     if (cleanup) {
-      this.cleanup = undefined;
+      this.cleanup = null;
       try {
         cleanup();
       } catch (error) {
@@ -54,10 +53,10 @@ SubscriptionState.prototype = {
       var subscriptionObserver = this.subscriptionObserver;
       subscription.closed = true;
       if (subscriptionObserver) subscriptionObserver.closed = true;
-    } this.observer = undefined;
+    } this.observer = null;
   },
   isClosed: function () {
-    return this.observer === undefined;
+    return this.observer === null;
   }
 };
 
@@ -181,7 +180,7 @@ defineBuiltIns(ObservablePrototype, {
 
 defineBuiltIn(ObservablePrototype, $$OBSERVABLE, function () { return this; });
 
-$({ global: true, constructor: true, forced: OBSERVABLE_FORCED }, {
+$({ global: true, constructor: true, forced: true }, {
   Observable: $Observable
 });
 
