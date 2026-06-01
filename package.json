@@ -23,7 +23,7 @@
     "dicom-parser": "~1.8.21",
     "diff": "~9.0.0",
     "dwv": "~0.36.3",
-    "eslint": "^10.4.0",
+    "eslint": "^10.4.1",
     "globals": "^17.6.0"
   },
   "devDependencies": {
