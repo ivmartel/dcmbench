@@ -1,5 +1,6 @@
 'use strict';
 
+const requireFromCWD = require('./require-from-cwd');
 const utils = require('./utils');
 const pkg = require('../../package.json');
 
@@ -10,14 +11,14 @@ function findReporter (reporterName, builtin) {
     return builtin.tap;
   }
 
-  // First, check if the reporter is one of the built-in ones
+  // Reporter is one of the built-in ones
   if (hasOwn.call(builtin, reporterName)) {
     return builtin[reporterName];
   }
 
-  // Second, check if the reporter is an npm package
+  // Reporter is a module in node_modules, or (usually, relative) path to a local script
   try {
-    return require(reporterName);
+    return requireFromCWD(reporterName);
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       throw e;
@@ -35,10 +36,13 @@ function displayAvailableReporters (inputReporterName) {
     message.push(`No reporter found matching "${inputReporterName}".`);
   }
 
+  // We don't advertise 'html', because it doesn't make sense in CLI context
+  // We don't advertise 'perf', because it's unlikely to be useful as the only reporter
+  // TODO: Add 'perf' after implementing https://github.com/qunitjs/qunit/issues/1784.
   const jsReporters = [
-    'console',
-    'tap'
-  ].sort();
+    'tap',
+    'console'
+  ];
   message.push(`Built-in reporters: ${jsReporters.join(', ')}`);
 
   const npmReporters = getReportersFromDependencies();

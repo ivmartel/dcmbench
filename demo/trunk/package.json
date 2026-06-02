@@ -22,8 +22,8 @@
     "dcmjs": "~0.52.0",
     "dicom-parser": "~1.8.21",
     "diff": "~9.0.0",
-    "dwv": "~0.36.2",
-    "eslint": "^10.4.0",
+    "dwv": "~0.36.3",
+    "eslint": "^10.4.1",
     "globals": "^17.6.0"
   },
   "devDependencies": {
@@ -36,7 +36,7 @@
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "^2.2.1",
     "karma-qunit": "~4.2.1",
-    "qunit": "~2.25.0"
+    "qunit": "~2.26.0"
   },
   "scripts": {
     "start": "grunt start",
