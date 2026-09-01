@@ -22,12 +22,12 @@
     "dcmjs": "~0.52.0",
     "dicom-parser": "~1.8.21",
     "diff": "~9.0.0",
-    "dwv": "~0.36.3",
-    "eslint": "^10.8.0",
-    "globals": "^17.8.0"
+    "dwv": "~0.36.4",
+    "eslint": "^10.8.1",
+    "globals": "^17.11.0"
   },
   "devDependencies": {
-    "grunt": "~1.6.2",
+    "grunt": "~1.6.3",
     "grunt-cli": "~1.5.0",
     "grunt-contrib-connect": "~5.0.1",
     "grunt-contrib-watch": "~1.1.0",
