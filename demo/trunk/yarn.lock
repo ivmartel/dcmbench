@@ -773,10 +773,10 @@ dateformat@~4.6.2:
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-4.6.3.tgz#556fa6497e5217fedb78821424f8a1c22fa3f4b5"
   integrity sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==
 
-dcmjs@~0.52.0:
-  version "0.52.0"
-  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.52.0.tgz#487824f2b75330f96f137719cfa90675f1b4e499"
-  integrity sha512-0/mT9NACKnwnOnkUx7JAqmWxRcUr7HiCoptw1KhN2StNYE0Hy6+tmpI7CU+lJuBc4rFpcMCalvI8QO6JkJ+7Fg==
+dcmjs@~0.52.2:
+  version "0.52.2"
+  resolved "https://registry.yarnpkg.com/dcmjs/-/dcmjs-0.52.2.tgz#efde99022af8bb4220c8ebe65c597bff0f340ce9"
+  integrity sha512-jt+kyCNcjCNcfQNDDph26NZUBh3alOEM36ao918aotkb2WxkUq3OVu84q3EOCsJcwkMfsEiojiCA8+RYaCR4Ag==
   dependencies:
     "@babel/runtime-corejs3" "7.29.2"
     adm-zip "0.5.17"
@@ -996,10 +996,10 @@ eslint-visitor-keys@^5.0.1:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-5.0.1.tgz#9e3c9489697824d2d4ce3a8ad12628f91e9f59be"
   integrity sha512-tD40eHxA35h0PEIZNeIjkHoDR4YjjJp34biM0mDvplBe//mB+IHCqHDGV7pxF+7MklTvighcCPPZC7ynWyjdTA==
 
-eslint@^10.12.0:
-  version "10.12.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-10.12.0.tgz#4f2f7e679bdce9d71438c2900f2c8d4d297332b0"
-  integrity sha512-npHjrHb2o4ehH3mE+YuxABR+0gyb0aVWCIolgJDArwCiHEIsonBm3ZKjel5b0U5+a+MbEvIyRCGCzD3eKKK2NA==
+eslint@^10.13.0:
+  version "10.13.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-10.13.0.tgz#a8a4742648c0fa9131f429b509de5407682d4864"
+  integrity sha512-UohDjD4zSzEwhf58M3O7vc/ycc8O1I7dNlhtD0WxE8Px8EHNJKtUwzBqrzeGhisRuv2ag4sAYswszCJRgKXYUg==
   dependencies:
     "@eslint-community/eslint-utils" "^4.8.0"
     "@eslint-community/regexpp" "^4.12.2"
@@ -1223,9 +1223,9 @@ flatted@^3.4.2:
   integrity sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q==
 
 follow-redirects@^1.0.0:
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.16.0.tgz#28474a159d3b9d11ef62050a14ed60e4df6d61bc"
-  integrity sha512-y5rN/uOsadFT/JfYwhxRS5R7Qce+g3zG97+JrtFZlC9klX/W5hD7iiLzScI4nZqUS7DNUdhPgw4xI8W2LuXlUw==
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.16.1.tgz#6e0efa40a727fb369b98dab15883ec34787d675e"
+  integrity sha512-FNvFGzoMLWmE6Yj9spb/zjd7yiNCHiAW9/Tg9CXrQ8wuu32HtlJOwWO11OJafl5FfY3DxTdQ0vj42zU1kvv5jg==
 
 for-in@^1.0.1:
   version "1.0.2"
