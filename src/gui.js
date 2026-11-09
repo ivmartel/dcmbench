@@ -1,12 +1,10 @@
-// namespace
-var dcmb = dcmb || {};
 
 /**
  * Get an html span with input text.
  * @param {string} txt The span text.
  * @returns {Object} A DOM span.
  */
-dcmb.getDomSpan = function (text) {
+function getDomSpan(text) {
   var span = document.createElement('span');
   span.appendChild(document.createTextNode(text));
   return span;
@@ -18,13 +16,13 @@ dcmb.getDomSpan = function (text) {
  * @param {number} current The number to compare to the base.
  * @returns {Object} A DOM span inculding the percentage text.
  */
-dcmb.getDiffSpan = function (base, current) {
+function getDiffSpan(base, current) {
   var diff = current - base;
   var sign = diff >= 0 ? '+' : '';
   var percent = diff * 100 / base;
   var percentTxt = percent.toFixed(percent < 100 ? 2 : 0);
 
-  var span = dcmb.getDomSpan('(' + sign + percentTxt + '%)');
+  var span = getDomSpan('(' + sign + percentTxt + '%)');
   span.className = 'stats';
   span.className += diff >= 0 ? ' green' : ' red';
   return span;
@@ -35,20 +33,20 @@ dcmb.getDiffSpan = function (base, current) {
  * @param {number} rme The RME.
  * @returns {Object} A DOM span inculding the rme text.
  */
-dcmb.getRmeSpan = function (rme) {
-  var rmeTxt = rme.toFixed(rme < 100 ? 2 : 0);
-  var span = dcmb.getDomSpan('\u00B1' + rmeTxt + '%');
-  span.className = 'stats';
-  span.className += Math.abs(rme) >= 10 ? ' red' : ' green';
-  return span;
-};
+// function getRmeSpan(rme) {
+//   var rmeTxt = rme.toFixed(rme < 100 ? 2 : 0);
+//   var span = getDomSpan('\u00B1' + rmeTxt + '%');
+//   span.className = 'stats';
+//   span.className += Math.abs(rme) >= 10 ? ' red' : ' green';
+//   return span;
+// };
 
 /**
  * Get the mean values of each columns of the input array.
  * @param {Array} results The value array of arrays.
  * @returns {Array} A vector with each columns mean.
  */
-dcmb.getMeans = function (results) {
+export function getMeans(results) {
   var nrows = results.length;
   var ncols = results[0].length;
   // check number of cols
@@ -62,7 +60,7 @@ dcmb.getMeans = function (results) {
   for (var j = 0; j < ncols; ++j) {
     var sum = 0;
     for (var k = 0; k < nrows; ++k) {
-      sum += dcmb.parseData(results[k][j]).value;
+      sum += parseData(results[k][j]).value;
     }
     means.push(sum / nrows);
   }
@@ -72,7 +70,7 @@ dcmb.getMeans = function (results) {
 /**
  * Parse result data: if string anything before sapce is the value.
  */
-dcmb.parseData = function (data) {
+function parseData(data) {
   var value = data;
   var extra = '';
   if (typeof data === 'string') {
@@ -86,7 +84,7 @@ dcmb.parseData = function (data) {
 /**
  * To fixed for display.
  */
-dcmb.toFixed = function (value) {
+function toFixed(value) {
   return value.toFixed(value < 100 ? 2 : 0);
 };
 
@@ -97,8 +95,7 @@ dcmb.toFixed = function (value) {
  * @param {Array} bodyData The result 'raw' data.
  * @param {Array} footData Some foot data.
  */
-
-dcmb.createTable = function (colHeader, dataHeader, bodyData, footData) {
+export function createTable(colHeader, dataHeader, bodyData, footData) {
   var row;
   var cell;
 
@@ -133,13 +130,13 @@ dcmb.createTable = function (colHeader, dataHeader, bodyData, footData) {
     var rowData = bodyData[i];
     for (var j = 0; j < rowData.length; ++j) {
       cell = document.createElement('td');
-      var pData = dcmb.parseData(rowData[j]);
-      cell.appendChild(document.createTextNode(dcmb.toFixed(pData.value)));
+      var pData = parseData(rowData[j]);
+      cell.appendChild(document.createTextNode(toFixed(pData.value)));
       cell.appendChild(document.createTextNode(pData.extra));
       if (j > 0) {
         cell.appendChild(document.createTextNode(' '));
-        var v0 = dcmb.parseData(rowData[0]).value;
-        cell.appendChild(dcmb.getDiffSpan(v0, pData.value));
+        var v0 = parseData(rowData[0]).value;
+        cell.appendChild(getDiffSpan(v0, pData.value));
       }
       row.appendChild(cell);
     }
@@ -154,12 +151,12 @@ dcmb.createTable = function (colHeader, dataHeader, bodyData, footData) {
     cell = document.createElement('td');
     var value = footData[l];
     if (l !== 0) {
-      value = dcmb.toFixed(value);
+      value = toFixed(value);
     }
     cell.appendChild(document.createTextNode(value));
     if (l > 1) {
       cell.appendChild(document.createTextNode(' '));
-      cell.appendChild(dcmb.getDiffSpan(footData[1], footData[l]));
+      cell.appendChild(getDiffSpan(footData[1], footData[l]));
     }
     row.appendChild(cell);
     tableFoot.appendChild(row);

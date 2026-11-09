@@ -1,4 +1,6 @@
-/* global QUnit, dcmb */
+import {BenchFunctionRunner} from '../src/benchFunctionRunner.js';
+
+/* global QUnit */
 /**
  * Tests for the 'benchFunctionRunner.js' file.
  */
@@ -11,7 +13,7 @@ QUnit.module('bench');
  * @function module:tests/bench
  */
 QUnit.test('Test bench fucntion runner.', function (assert) {
-  var bench = new dcmb.BenchFunctionRunner();
+  var bench = new BenchFunctionRunner();
   bench.setFunctions([
     {name: 'String#indexOf',
       func: function () {

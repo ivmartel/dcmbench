@@ -1,92 +1,110 @@
-// namespace
-var dcmb = dcmb || {};
-dcmb.utils = dcmb.utils || {};
+import {ListenerHandler} from './listen.js';
 
 // Class to handle running functions.
-dcmb.DataRunner = function () {
-
-  // closure to self
-  var self = this;
+export class DataRunner {
 
   // data list
-  var dataList = null;
+  #dataList;
   // function runner
-  var functionRunner = null;
+  #functionRunner;
 
-  // current data index
-  var dataIndex = 0;
+  /**
+   * Current data index
+   *
+   * @type {number}
+   */
+  #dataIndex = 0;
 
   // result array
-  var results = null;
+  #results;
 
-  // status
-  var status = 'ready';
+  /**
+   * Status
+   *
+   * @type {string}
+   */
+  #status = 'ready';
+
   /**
    * Listener handler.
-   * @type Object
+   *
+   * @type {ListenerHandler}
    */
-  var listenerHandler = new dcmb.utils.ListenerHandler();
+  #listenerHandler = new ListenerHandler();
 
-  // Get the status.
-  this.getStatus = function () {
-    return status;
+  /**
+   * Get the status.
+   */
+  getStatus() {
+    return this.#status;
   };
 
-  // Get the results.
-  this.getResults = function () {
-    return results;
+  /**
+   * Get the results.
+   */
+  getResults() {
+    return this.#results;
   };
 
-  // Get the data header.
-  this.getDataHeader = function () {
+  /**
+   * Get the data header.
+   */
+  getDataHeader() {
     var header = [];
-    for (var i = 0; i < dataList.length; ++i) {
-      header.push(dataList[i].name);
+    for (let data of this.#dataList) {
+      header.push(data.name);
     }
     return header;
   };
 
-  // Set the data list.
-  this.setDataList = function (list) {
+  /**
+   * Set the data list.
+   */
+  setDataList(list) {
     if (list.length === 0) {
       throw new Error('Empty list provided.');
     }
-    dataList = list;
+    this.#dataList = list;
   };
 
-  // Set the function runner.
-  this.setFunctionRunner = function (runner) {
-    functionRunner = runner;
+  /**
+   * Set the function runner.
+   */
+  setFunctionRunner(runner) {
+    this.#functionRunner = runner;
   };
 
-  // Set the status.
-  // @private
-  function setStatus(newStatus) {
-    status = newStatus;
-    fireEvent({type: 'status-change', value: status});
+  /**
+   * Set the status.
+   */
+  #setStatus(newStatus) {
+    this.#status = newStatus;
+    this.#fireEvent({type: 'status-change', value: this.#status});
   }
 
-  // Cancel the process.
-  this.cancel = function () {
-    setStatus('cancelling');
+  /**
+   * Cancel the process.
+   */
+  cancel() {
+    this.#setStatus('cancelling');
   };
 
   /**
    * Run the process: load the data and pass it to the function runner.
    */
-  this.run = function () {
+  run() {
     // reset results
-    if (dataIndex === 0) {
-      results = [];
+    if (this.#dataIndex === 0) {
+      this.#results = [];
     }
 
     // current data
-    var data = dataList[dataIndex];
+    var data = this.#dataList[this.#dataIndex];
 
     // console output
     console.log('Launch with: \'' + data.name + '\'');
     // status
-    setStatus('running');
+    this.#setStatus('running');
 
     // read according to type
     if (typeof data.file === 'undefined') {
@@ -94,15 +112,15 @@ dcmb.DataRunner = function () {
       var request = new XMLHttpRequest();
       request.open('GET', data.url, true);
       request.responseType = 'arraybuffer';
-      request.onload = function (/*event*/) {
-        onloadBuffer(this.response);
+      request.onload = (event) => {
+        this.#onloadBuffer(event.target.response);
       };
       request.send(null);
     } else {
       // FileReader
       var reader = new FileReader();
-      reader.onload = function (event) {
-        onloadBuffer(event.target.result);
+      reader.onload = (event) => {
+        this.#onloadBuffer(event.target.result);
       };
       reader.readAsArrayBuffer(data.file);
     }
@@ -112,20 +130,20 @@ dcmb.DataRunner = function () {
    * Handle loaded data. Once done call another run or stop.
    * @param {Object} buffer The data buffer.
    */
-  function onloadBuffer(buffer) {
+  async #onloadBuffer(buffer) {
 
     // call the runner and store the results
-    results.push(functionRunner.run(buffer));
+    this.#results.push(await this.#functionRunner.run(buffer));
 
     // check status
-    if (self.getStatus() !== 'cancelled') {
+    if (this.getStatus() !== 'cancelled') {
       // launch next
-      ++dataIndex;
-      if (dataIndex < dataList.length) {
-        self.run();
+      ++this.#dataIndex;
+      if (this.#dataIndex < this.#dataList.length) {
+        this.run();
       } else {
-        dataIndex = 0;
-        setStatus('done');
+        this.#dataIndex = 0;
+        this.#setStatus('done');
       }
     }
   }
@@ -136,8 +154,8 @@ dcmb.DataRunner = function () {
    * @param {Object} callback The method associated with the provided
    *   event type, will be called with the fired event.
    */
-  this.addEventListener = function (type, callback) {
-    listenerHandler.add(type, callback);
+  addEventListener(type, callback) {
+    this.#listenerHandler.add(type, callback);
   };
   /**
    * Remove an event listener from this class.
@@ -145,16 +163,15 @@ dcmb.DataRunner = function () {
    * @param {Object} callback The method associated with the provided
    *   event type.
    */
-  this.removeEventListener = function (type, callback) {
-    listenerHandler.remove(type, callback);
+  removeEventListener(type, callback) {
+    this.#listenerHandler.remove(type, callback);
   };
   /**
    * Fire an event: call all associated listeners with the input event object.
    * @param {Object} event The event to fire.
-   * @private
    */
-  function fireEvent(event) {
-    listenerHandler.fireEvent(event);
+  #fireEvent(event) {
+    this.#listenerHandler.fireEvent(event);
   }
 
 };
