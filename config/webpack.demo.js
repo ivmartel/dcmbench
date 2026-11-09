@@ -3,13 +3,13 @@ import CopyPlugin from 'copy-webpack-plugin';
 
 import {common, staticFiles} from './webpack.common.js';
 
-// demo build: a self-contained static site in 'build/dist',
+// demo build: a self-contained static site in 'build/demo',
 // published to gh-pages by CI
 export default {
   ...common,
   mode: 'production',
   output: {
-    path: path.resolve(import.meta.dirname, '../build/dist'),
+    path: path.resolve(import.meta.dirname, '../build/demo'),
     filename: '[name].[contenthash].js',
     clean: true
   },

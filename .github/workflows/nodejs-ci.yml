@@ -55,7 +55,7 @@ jobs:
         git checkout gh-pages
         mkdir -p "$DEPLOY_DIR"
         rm -Rf "$DEPLOY_DIR"/*
-        cp -Rf ./build/dist/* "$DEPLOY_DIR"
+        cp -Rf ./build/demo/* "$DEPLOY_DIR"
         git add -A "$DEPLOY_DIR"
         git diff-index --quiet HEAD ||
           git commit -m "CI run ${{ github.run_number }} pushed to $DEPLOY_DIR"
