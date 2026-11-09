@@ -1,9 +1,15 @@
-// namespace
-var dcmb = dcmb || {};
+import {DataRunner} from '../src/dataRunner.js';
+import {MemoryFunctionRunner} from '../src/memoryFunctionRunner.js';
+import {createTable, getMeans} from '../src/gui.js';
+import {setupDragDrop} from '../src/dragndrop.js';
+
+//import {parse2 as dcmjsParse2} from './parsers/dcmjs.js';
+import {parse2 as dwvPrevParse2} from './parsers/dwv-previous.js';
+import {parse2 as dwvParse2} from './parsers/dwv.js';
 
 // default test data
-var githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/';
-var defaultTestData = [
+const githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/';
+const defaultTestData = [
   {
     name: 'osirix-toutatix-100',
     url: githubRaw + 'osirix-toutatix-100.dcm',
@@ -42,20 +48,26 @@ var defaultTestData = [
 ];
 
 // create runner objects
-var dataRunner = new dcmb.DataRunner();
-dataRunner.setDataList(defaultTestData);
-var memoryRunner = new dcmb.MemoryFunctionRunner();
+const dataRunner = new DataRunner();
+dataRunner.setDataList(defaultTestData.filter(checkSelected));
+const memoryRunner = new MemoryFunctionRunner();
 dataRunner.setFunctionRunner(memoryRunner);
+
+memoryRunner.setFunctions([
+  //{name: 'dcmjs', func: dcmjsParse2},
+  {name: 'dwv-previous', func: dwvPrevParse2},
+  {name: 'dwv', func: dwvParse2}
+]);
 
 // listen to status changes
 dataRunner.addEventListener('status-change', function (event) {
-  var newStatus = event.value;
+  const newStatus = event.value;
 
   // status text
-  var pStatus = document.getElementById('status');
+  const pStatus = document.getElementById('status');
   pStatus.innerHTML = newStatus;
   // main button
-  var button = document.getElementById('button');
+  const button = document.getElementById('launch-button');
   button.disabled = false;
   if (newStatus === 'ready' ||
     newStatus === 'done' ||
@@ -71,14 +83,13 @@ dataRunner.addEventListener('status-change', function (event) {
   }
 
   if (newStatus === 'done') {
-    var div = document.getElementById('results');
-    var dataHeader = dataRunner.getDataHeader();
-    var results = dataRunner.getResults();
+    const div = document.getElementById('results');
+    const dataHeader = dataRunner.getDataHeader();
+    const results = dataRunner.getResults();
     // use means as table foot
-    var means = ['Mean'];
-    means = means.concat(dcmb.getMeans(results));
+    const means = ['Mean'].concat(getMeans(results));
     // add to result div
-    div.appendChild(dcmb.createTable(
+    div.appendChild(createTable(
       memoryRunner.getFunctionHeader(), dataHeader, results, means
     ));
   }
@@ -89,39 +100,35 @@ function updateDataList(datalist) {
   dataRunner.setDataList(datalist);
 }
 
-function checkSelected(parser) {
-  return parser.selected === true;
+function checkSelected(data) {
+  return data.selected === true;
 }
 
 // Handle change in the input file element.
 // - Updates the data list by calling updateDataList.
-dcmb.onChangeInput = function (files) {
-  var inputData = [];
-  for (var i = 0; i < files.length; ++i) {
+function onChangeInput(event) {
+  const inputData = [];
+  for (const file of event.target.files) {
     inputData.push({
-      name: files[i].name,
-      file: files[i]
+      name: file.name,
+      file: file
     });
   }
-  // call external function
   updateDataList(inputData);
-};
+}
 
-dcmb.onChangeDefaultDataNumber = function (input) {
-  for (var i = 0; i < defaultTestData.length; ++i) {
-    if (i < input.value) {
-      defaultTestData[i].selected = true;
-    } else {
-      defaultTestData[i].selected = false;
-    }
+function onChangeDefaultDataNumber(event) {
+  const newNumber = event.target.value;
+  for (let i = 0; i < defaultTestData.length; ++i) {
+    defaultTestData[i].selected = i < newNumber;
   }
   dataRunner.setDataList(defaultTestData.filter(checkSelected));
-};
+}
 
 // handle launch
-dcmb.onLaunchButton = function () {
+function onLaunchButton(/*event*/) {
   // action according to status
-  var status = dataRunner.getStatus();
+  const status = dataRunner.getStatus();
   if (status === 'ready' ||
     status === 'done' ||
     status === 'cancelled') {
@@ -131,53 +138,36 @@ dcmb.onLaunchButton = function () {
     // cancel
     dataRunner.cancel();
   }
-};
+}
 
-// show/hide an element
-dcmb.onShowButton = function (id) {
-  var element = document.getElementById(id);
-  if (element) {
-    if (element.style.display === 'none') {
-      element.style.display = '';
-    } else {
-      element.style.display = 'none';
-    }
-  }
-};
+function setupHtml() {
+  const launchButton = document.getElementById('launch-button');
+  launchButton.onclick = onLaunchButton;
+
+  const dataNumberInput = document.getElementById('data-quantity');
+  dataNumberInput.onchange = onChangeDefaultDataNumber;
+
+  const fileInput = document.getElementById('file-input');
+  fileInput.onchange = onChangeInput;
+}
 
 // last minute
 document.addEventListener('DOMContentLoaded', function (/*event*/) {
+  // setup html
+  setupHtml();
+
   // drag and drop
-  dcmb.setupDragDrop();
+  setupDragDrop(updateDataList);
 
   // output user agent
-  var preAgent = document.createElement('pre');
+  const preAgent = document.createElement('pre');
   preAgent.appendChild(document.createTextNode('User agent: '));
   preAgent.appendChild(document.createTextNode(navigator.userAgent));
-  var broDiv = document.getElementById('browser');
+  const broDiv = document.getElementById('browser');
   broDiv.appendChild(preAgent);
 
   // data number input
-  var inputDataQuantity = document.getElementById('data-quantity');
+  const inputDataQuantity = document.getElementById('data-quantity');
   inputDataQuantity.value = defaultTestData.length;
   inputDataQuantity.max = defaultTestData.length;
 });
-
-// iframe content is only available at window.onload time
-window.onload = function () {
-  memoryRunner.setFunctions([
-    /*{
-      "name": "dcmjs",
-      "func": document.getElementById('iframe-dcmjs').contentWindow.parse2
-    },*/
-    {
-      name: 'dwv-previous',
-      func:
-        document.getElementById('iframe-dwv-previous').contentWindow.parse2
-    },
-    {
-      name: 'dwv',
-      func: document.getElementById('iframe-dwv').contentWindow.parse2
-    }
-  ]);
-};
