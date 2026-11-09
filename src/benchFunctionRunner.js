@@ -40,7 +40,7 @@ export class BenchFunctionRunner {
     suite.addEventListener('cycle', function (event) {
       // store results
       const task = event.task;
-      const opsPerSec = task.result.latency.df;
+      const opsPerSec = task.result.throughput.mean;
       const rme = task.result.latency.rme;
       const rmeTxt = rme.toFixed(rme < 100 ? 2 : 0);
       const text = opsPerSec + ' \u00B1' + rmeTxt + '%';
