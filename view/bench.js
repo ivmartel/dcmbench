@@ -74,9 +74,8 @@ function setupParsers() {
   const divParsers = document.getElementById('parsers');
   const fieldsetElem = divParsers.getElementsByTagName('fieldset')[0];
 
-  let parserName = '';
   for (let parseFunc of parserFunctions) {
-    parserName = parseFunc.name;
+    const parserName = parseFunc.name;
     const input = document.createElement('input');
     input.type = 'checkbox';
     input.name = 'parsers';
