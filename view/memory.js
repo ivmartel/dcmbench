@@ -2,10 +2,7 @@ import {DataRunner} from '../src/dataRunner.js';
 import {MemoryFunctionRunner} from '../src/memoryFunctionRunner.js';
 import {createTable, getMeans} from '../src/gui.js';
 import {setupDragDrop} from '../src/dragndrop.js';
-
-//import {parse2 as dcmjsParse2} from './parsers/dcmjs.js';
-import {parse2 as dwvPrevParse2} from './parsers/dwv-previous.js';
-import {parse2 as dwvParse2} from './parsers/dwv.js';
+import {getParserFunction} from '../src/parserFrames.js';
 
 // default test data
 const githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/';
@@ -52,12 +49,6 @@ const dataRunner = new DataRunner();
 dataRunner.setDataList(defaultTestData.filter(checkSelected));
 const memoryRunner = new MemoryFunctionRunner();
 dataRunner.setFunctionRunner(memoryRunner);
-
-memoryRunner.setFunctions([
-  //{name: 'dcmjs', func: dcmjsParse2},
-  {name: 'dwv-previous', func: dwvPrevParse2},
-  {name: 'dwv', func: dwvParse2}
-]);
 
 // listen to status changes
 dataRunner.addEventListener('status-change', function (event) {
@@ -171,3 +162,11 @@ document.addEventListener('DOMContentLoaded', function (/*event*/) {
   inputDataQuantity.value = defaultTestData.length;
   inputDataQuantity.max = defaultTestData.length;
 });
+
+// iframe content is only available at window.onload time
+window.onload = function () {
+  const names = [/*'dcmjs', */'dwv-previous', 'dwv'];
+  memoryRunner.setFunctions(names.map(function (name) {
+    return {name: name, func: getParserFunction(name, 'parse2')};
+  }));
+};

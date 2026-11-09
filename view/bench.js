@@ -2,11 +2,7 @@ import {BenchFunctionRunner} from '../src/benchFunctionRunner.js';
 import {DataRunner} from '../src/dataRunner.js';
 import {createTable, getMeans} from '../src/gui.js';
 import {setupDragDrop} from '../src/dragndrop.js';
-
-import {parse as dcmjsParse} from './parsers/dcmjs.js';
-import {parse as dpParse} from './parsers/dicomParser.js';
-import {parse as dwvPrevParse} from './parsers/dwv-previous.js';
-import {parse as dwvParse} from './parsers/dwv.js';
+import {getParserFunction} from '../src/parserFrames.js';
 
 // default test data
 const githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/';
@@ -48,12 +44,13 @@ const defaultTestData = [
   }
 ];
 const parserFunctions = [
-  //{name: 'ctk-dcmjs', selected: false},
-  //{name: 'daikon', selected: false, func: daikonParse},
-  {name: 'dcmjs', selected: false, func: dcmjsParse},
-  {name: 'dicomParser', selected: true, func: dpParse},
-  {name: 'dwv-previous', selected: false, func: dwvPrevParse},
-  {name: 'dwv', selected: true, func: dwvParse}
+  // func is set at window.onload from the parser iframes
+  {name: 'ctk-dcmjs', selected: false},
+  //{name: 'daikon', selected: false},
+  {name: 'dcmjs', selected: false},
+  {name: 'dicomParser', selected: true},
+  {name: 'dwv-previous', selected: false},
+  {name: 'dwv', selected: true}
 ];
 
 // create default runner object
@@ -62,7 +59,6 @@ dataRunner.setDataList(defaultTestData.filter(checkSelected));
 const benchRunner = new BenchFunctionRunner();
 dataRunner.setFunctionRunner(benchRunner);
 
-benchRunner.setFunctions(parserFunctions.filter((checkSelected)));
 
 // listen to status changes
 dataRunner.addEventListener('status-change', function (event) {
@@ -223,15 +219,9 @@ document.addEventListener('DOMContentLoaded', function (/*event*/) {
 });
 
 // iframe content is only available at window.onload time
-// window.onload = function () {
-//   let ifname = '';
-//   let func;
-//   for (let i = 0; i < parserFunctions.length; ++i) {
-//     ifname = 'iframe-' + parserFunctions[i].name;
-//     func = document.getElementById(ifname).contentWindow.parse;
-//     if (func) {
-//       parserFunctions[i].func = func;
-//     }
-//   }
-//   benchRunner.setFunctions(parserFunctions.filter(checkSelected));
-// };
+window.onload = function () {
+  for (const parser of parserFunctions) {
+    parser.func = getParserFunction(parser.name, 'parse');
+  }
+  benchRunner.setFunctions(parserFunctions.filter(checkSelected));
+};

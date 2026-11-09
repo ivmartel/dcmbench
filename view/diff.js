@@ -1,9 +1,7 @@
 import {DataRunner} from '../src/dataRunner.js';
 import {DiffFunctionRunner} from '../src/diffFunctionRunner.js';
 import {setupDragDrop} from '../src/dragndrop.js';
-
-import {dump as ctkDcmjsDump} from './parsers/ctk-dcmjs.js';
-import {dump as dwvDump} from './parsers/dwv.js';
+import {getParserFunction} from '../src/parserFrames.js';
 
 // default test data
 const githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/';
@@ -50,11 +48,6 @@ const dataRunner = new DataRunner();
 dataRunner.setDataList(defaultTestData.filter(checkSelected));
 const diffRunner = new DiffFunctionRunner();
 dataRunner.setFunctionRunner(diffRunner);
-
-diffRunner.setFunctions([
-  {name: 'ctk-dcmjs', func: ctkDcmjsDump},
-  {name: 'dwv', func: dwvDump}
-]);
 
 // listen to status changes
 dataRunner.addEventListener('status-change', function (event) {
@@ -236,3 +229,11 @@ document.addEventListener('DOMContentLoaded', function (/*event*/) {
   inputDataQuantity.value = defaultTestData.length;
   inputDataQuantity.max = defaultTestData.length;
 });
+
+// iframe content is only available at window.onload time
+window.onload = function () {
+  diffRunner.setFunctions([
+    {name: 'ctk-dcmjs', func: getParserFunction('ctk-dcmjs', 'dump')},
+    {name: 'dwv', func: getParserFunction('dwv', 'dump')}
+  ]);
+};

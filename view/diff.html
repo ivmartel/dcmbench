@@ -6,10 +6,9 @@
 <meta charset="UTF-8">
 <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
-<!-- ctk-dcmjs: emscripten build, only works as globals -->
-<script src="../ext/ctk-dcmjs/libs/jquery-1.11.0.min.js"></script>
-<script src="../ext/ctk-dcmjs/libs/dcmjs-nico.js"></script>
-<script src="../ext/ctk-dcmjs/utils.js"></script>
+<!-- parsers, each in its own iframe -->
+<iframe src="./parsers/ctk-dcmjs.html" id="iframe-ctk-dcmjs" style="display:none"></iframe>
+<iframe src="./parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
 
 </head>
 
