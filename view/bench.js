@@ -5,7 +5,7 @@ import {setupDragDrop} from '../src/dragndrop.js';
 
 import {parse as dcmjsParse} from './parsers/dcmjs.js';
 import {parse as dpParse} from './parsers/dicomParser.js';
-//import {parse as dwvPrevParse} from './parsers/dwv-previous.js';
+import {parse as dwvPrevParse} from './parsers/dwv-previous.js';
 import {parse as dwvParse} from './parsers/dwv.js';
 
 // default test data
@@ -52,7 +52,7 @@ const parserFunctions = [
   //{name: 'daikon', selected: false, func: daikonParse},
   {name: 'dcmjs', selected: false, func: dcmjsParse},
   {name: 'dicomParser', selected: true, func: dpParse},
-  //{name: 'dwv-previous', selected: false, func: dwvPrevParse},
+  {name: 'dwv-previous', selected: false, func: dwvPrevParse},
   {name: 'dwv', selected: true, func: dwvParse}
 ];
 
