@@ -43,8 +43,10 @@ Before finishing a change, run `yarn run lint`, `yarn run test-ci` and
     from the parser iframe `iframe-<name>`.
   - `gui.js`, `dragndrop.js`, `listen.js` — table rendering, drag & drop,
     listener handler.
-- `demo/` — the three pages (`bench`, `memory`, `diff`), each an `.html`
-  template + `.js` entry, plus `defaultData.js` (default test files list).
+- `demo/` — the demo site, it is the root of the build output (and of the
+  dev server): `index.html` (menu), the three pages (`bench`, `memory`,
+  `diff`), each an `.html` template + `.js` entry, plus `defaultData.js`
+  (default test files list).
 - `demo/parsers/<name>.js` — one adapter per parser exporting `parse(buffer)`,
   and optionally `parse2(buffer)` (returns `performance.memory`, used by the
   memory page) and `dump(buffer)` (returns a string, used by the diff page).
@@ -57,12 +59,13 @@ Before finishing a change, run `yarn run lint`, `yarn run test-ci` and
   production the pages fetch them from `raw.githubusercontent.com` (main),
   in development from the local folder (see `demo/defaultData.js`).
 - `tests/` — vitest unit tests (`*.test.js`, node environment).
-- `css/`, `index.html`, `demo/about.html` — static, not processed by webpack.
+- `demo/css/`, `demo/index.html`, `demo/about.html` — static, not processed
+  by webpack.
 
 ## Architecture notes
 
 - **Each parser runs in its own hidden iframe** to isolate its globals and
-  library instances. Webpack builds `demo/parsers/<name>.html` for each entry
+  library instances. Webpack builds `parsers/<name>.html` for each entry
   of `parsers` in `config/webpack.common.js`; the adapter module's exports are
   assigned to the iframe `window` (`library: {type: 'window'}`).
 - Libraries that only work as globals are loaded as classic scripts before the

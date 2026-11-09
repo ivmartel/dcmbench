@@ -2,10 +2,10 @@
 // (process.env.NODE_ENV is replaced by webpack with the 'mode'):
 // - production: the 'data' folder on github main (not deployed),
 // - development: the local 'data' folder served by the dev server
-//   (relative to the demo pages).
+//   (relative to the demo pages, see webpack.dev.js).
 const dataUrl = process.env.NODE_ENV === 'production'
   ? 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/'
-  : '../data/';
+  : 'data/';
 
 // default test data names (files are '<name>.dcm' in the data folder)
 const dataNames = [

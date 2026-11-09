@@ -6,16 +6,21 @@ export default {
   devtool: 'inline-source-map',
   devServer: {
     open: '/',
-    // static files are served from the repository
+    // static files are served from the repository,
+    // with 'demo' as the site root
     static: [
       {
-        directory: './',
+        directory: './demo',
         publicPath: '/'
       },
       {
-        directory: './demo',
-        publicPath: '/demo'
+        directory: './ext',
+        publicPath: '/ext'
       },
+      {
+        directory: './data',
+        publicPath: '/data'
+      }
     ]
   }
 };

@@ -24,12 +24,14 @@ export const parsers = [
 ];
 
 // files served as is: not processed by webpack
-// (path relative to the root, same path in the output)
+// - from: path relative to the repository root,
+// - to: path in the output, 'demo' is the output root.
 export const staticFiles = [
-  'index.html',
-  'css',
-  'demo/about.html',
+  {from: 'demo/index.html', to: 'index.html'},
+  {from: 'demo/css', to: 'css'},
+  {from: 'demo/about.html', to: 'about.html'},
   ...parsers.flatMap((parser) => parser.globalScripts ?? [])
+    .map((src) => ({from: src, to: src}))
 ];
 
 const parserEntries = {};
@@ -41,13 +43,13 @@ for (const parser of parsers) {
     import: './demo/parsers/' + parser.name + '.js',
     library: {type: 'window'}
   };
-  // parser pages are in 'demo/parsers/'
+  // parser pages are in 'parsers/' (relative to the output root)
   const globalScripts = (parser.globalScripts ?? []).map(
-    (src) => '../../' + src
+    (src) => '../' + src
   );
   parserPages.push(new HtmlWebpackPlugin({
     template: './demo/parsers/parser.html',
-    filename: 'demo/parsers/' + parser.name + '.html',
+    filename: 'parsers/' + parser.name + '.html',
     chunks: [entryName],
     parserName: parser.name,
     globalScripts: globalScripts
@@ -63,7 +65,7 @@ for (const parser of parsers) {
 function getViewPage(name) {
   return new HtmlWebpackPlugin({
     template: './demo/' + name + '.html',
-    filename: 'demo/' + name + '.html',
+    filename: name + '.html',
     scriptLoading: 'module',
     chunks: ['dcmbench', name]
   });

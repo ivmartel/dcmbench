@@ -21,9 +21,9 @@ export default {
     ...common.plugins,
     new CopyPlugin({
       // copy as is: do not minimize (vendored builds)
-      patterns: staticFiles.map((from) => ({
+      patterns: staticFiles.map(({from, to}) => ({
         from,
-        to: from,
+        to,
         info: {minimized: true}
       }))
     })
