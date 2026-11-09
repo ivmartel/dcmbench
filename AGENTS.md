@@ -22,9 +22,9 @@ Node >= 22.15 (CI uses Node 26).
 | Install | `yarn install` (CI: `yarn install --immutable`) |
 | Lint | `yarn run lint` |
 | Unit tests (watch) | `yarn test` |
-| Unit tests (CI, with coverage) | `yarn run test-ci` → `coverage/` |
+| Unit tests (CI, with coverage) | `yarn run test-ci` → `build/coverage/` |
 | Dev server | `yarn start` (webpack-dev-server, localhost:8080) |
-| Demo build | `yarn run build-demo` → `build/dist/` |
+| Demo build | `yarn run build-demo` → `build/demo/` |
 
 Before finishing a change, run `yarn run lint`, `yarn run test-ci` and
 `yarn run build-demo` — CI runs exactly these three.
@@ -115,4 +115,4 @@ Enforced by ESLint 10 flat config (`eslint.config.js`: recommended rules plus
 - License is GPL-3.0; contributions fall under `.github/contributing.md`.
 - Dependabot keeps dependencies updated (auto-merge workflow enabled);
   keep `yarn.lock` consistent (`--immutable` in CI).
-- `build/` and `coverage/` are generated and git-ignored.
+- `build/` is generated and git-ignored.

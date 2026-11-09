@@ -1,12 +1,8 @@
 # dependencies
 node_modules
-bower_components
 
 # build
 build
-
-# testing
-/coverage
 
 # misc
 npm-debug.log
