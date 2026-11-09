@@ -5,6 +5,9 @@ bower_components
 # build
 build
 
+# testing
+/coverage
+
 # misc
 npm-debug.log
 yarn-error.log

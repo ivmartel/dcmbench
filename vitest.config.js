@@ -8,7 +8,6 @@ export default defineConfig({
     testTimeout: 5000,
     coverage: {
       provider: 'v8',
-      reportsDirectory: './build/coverage/',
       reporter: ['html', 'text-summary'],
       thresholds: {
         statements: 20,
