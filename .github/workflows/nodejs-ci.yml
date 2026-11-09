@@ -19,8 +19,6 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v7
-      with:
-        fetch-depth: 0
     - name: Setup Node.js
       uses: actions/setup-node@v7
       with:
@@ -52,11 +50,14 @@ jobs:
       run: |
         git config user.email github-actions@github.com
         git config user.name github-actions
+        # shallow checkout: only fetch the gh-pages tip
+        git fetch --depth=1 origin gh-pages:gh-pages
         git checkout gh-pages
         mkdir -p "$DEPLOY_DIR"
-        rm -Rf "$DEPLOY_DIR"/*
+        # ':?' aborts if DEPLOY_DIR is empty or unset (avoids 'rm -Rf /*')
+        rm -Rf "${DEPLOY_DIR:?}"/*
         cp -Rf ./build/demo/* "$DEPLOY_DIR"
         git add -A "$DEPLOY_DIR"
         git diff-index --quiet HEAD ||
           git commit -m "CI run ${{ github.run_number }} pushed to $DEPLOY_DIR"
-        git push -q origin gh-pages
+        git push origin gh-pages
