@@ -13,6 +13,7 @@ const parsers = [
       '../../ext/ctk-dcmjs/utils.js'
     ]
   },
+  {name: 'daikon'},
   {name: 'dcmjs'},
   {name: 'dicomParser'},
   {
@@ -49,6 +50,11 @@ export default {
     diff: './view/diff.js',
     memory: './view/memory.js',
     ...parserEntries
+  },
+  resolve: {
+    // node modules referenced by emscripten builds (daikon CharLS),
+    // only used when running in node
+    fallback: {fs: false, path: false}
   },
   devServer: {
     open: '/',

@@ -46,7 +46,7 @@ const defaultTestData = [
 const parserFunctions = [
   // func is set at window.onload from the parser iframes
   {name: 'ctk-dcmjs', selected: false},
-  //{name: 'daikon', selected: false},
+  {name: 'daikon', selected: false},
   {name: 'dcmjs', selected: false},
   {name: 'dicomParser', selected: true},
   {name: 'dwv-previous', selected: false},
