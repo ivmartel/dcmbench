@@ -6,18 +6,10 @@
 <meta charset="UTF-8">
 <link type="text/css" rel="stylesheet" href="../css/style.css" />
 
-<!-- Third party -->
-<script src="../node_modules/diff/dist/diff.js"></script>
-<!-- local -->
-<script src="../src/listen.js"></script>
-<script src="../src/dataRunner.js"></script>
-<script src="../src/diffFunctionRunner.js"></script>
-<script src="../src/dragndrop.js"></script>
-<script src="./diff.js"></script>
-
-<!-- iframes -->
-<iframe src="./parsers/ctk-dcmjs.html" id="iframe-ctk-dcmjs" style="display:none"></iframe>
-<iframe src="./parsers/dwv.html" id="iframe-dwv" style="display:none"></iframe>
+<!-- ctk-dcmjs: emscripten build, only works as globals -->
+<script src="../ext/ctk-dcmjs/libs/jquery-1.11.0.min.js"></script>
+<script src="../ext/ctk-dcmjs/libs/dcmjs-nico.js"></script>
+<script src="../ext/ctk-dcmjs/utils.js"></script>
 
 </head>
 
@@ -34,15 +26,19 @@
       <legend>Input</legend>
       <ul>
         <li>Use default data, number:
-          <input type="number" name="quantity" id="data-quantity" min="1"
-            onchange="dcmb.onChangeDefaultDataNumber(this)"></li>
-        <li><input type="file" multiple="true" onchange="dcmb.onChangeInput(files)"></li>
-        <li><div id="dropbox">Drop files here</div></li>
+          <input type="number" name="quantity" id="data-quantity" min="1">
+        </li>
+        <li>
+          <input type="file" multiple="true" id="file-input">
+        </li>
+        <li>
+          <div id="dropbox">Drop files here</div>
+        </li>
     </fieldset>
   </div>
 
   <div id="toolbar">
-    <button id="button" onclick="dcmb.onLaunchButton()">Launch</button>
+    <button id="launch-button">Launch</button>
     <p id="status">Ready</p>
   </div>
 
