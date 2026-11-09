@@ -1,4 +1,4 @@
-import {Diff} from 'diff';
+import {diffChars} from 'diff';
 
 /**
  * Diff function runner
@@ -29,7 +29,7 @@ export class DiffFunctionRunner {
     var dump0 = this.#functions[0].func(buffer);
     var dump1 = this.#functions[1].func(buffer);
     // get diff
-    return Diff.diffChars(dump0, dump1);
+    return diffChars(dump0, dump1);
   };
 
   /**
