@@ -24,6 +24,8 @@ jobs:
       run: yarn install --immutable
     - name: Run lint
       run: yarn run lint
+    - name: Run tests
+      run: yarn run test-ci
     - name: Build
       # production webpack build into build/dist
       run: yarn run build
