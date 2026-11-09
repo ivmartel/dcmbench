@@ -25,5 +25,5 @@ export function dump(buffer) {
   // parse the buffer
   dwvParser.parse(buffer);
   // return dump
-  return dwvParser.getDicomElements();
+  return '';
 };
