@@ -13,8 +13,8 @@ export default {
         publicPath: '/'
       },
       {
-        directory: './view',
-        publicPath: '/view'
+        directory: './demo',
+        publicPath: '/demo'
       },
     ]
   }

@@ -28,7 +28,7 @@ export const parsers = [
 export const staticFiles = [
   'index.html',
   'css',
-  'view/about.html',
+  'demo/about.html',
   ...parsers.flatMap((parser) => parser.globalScripts ?? [])
 ];
 
@@ -38,16 +38,16 @@ for (const parser of parsers) {
   const entryName = 'parser-' + parser.name;
   // the module exports are assigned to the iframe window
   parserEntries[entryName] = {
-    import: './view/parsers/' + parser.name + '.js',
+    import: './demo/parsers/' + parser.name + '.js',
     library: {type: 'window'}
   };
-  // parser pages are in 'view/parsers/'
+  // parser pages are in 'demo/parsers/'
   const globalScripts = (parser.globalScripts ?? []).map(
     (src) => '../../' + src
   );
   parserPages.push(new HtmlWebpackPlugin({
-    template: './view/parsers/parser.html',
-    filename: 'view/parsers/' + parser.name + '.html',
+    template: './demo/parsers/parser.html',
+    filename: 'demo/parsers/' + parser.name + '.html',
     chunks: [entryName],
     parserName: parser.name,
     globalScripts: globalScripts
@@ -62,8 +62,8 @@ for (const parser of parsers) {
  */
 function getViewPage(name) {
   return new HtmlWebpackPlugin({
-    template: './view/' + name + '.html',
-    filename: 'view/' + name + '.html',
+    template: './demo/' + name + '.html',
+    filename: 'demo/' + name + '.html',
     scriptLoading: 'module',
     chunks: ['dcmbench', name]
   });
@@ -72,9 +72,9 @@ function getViewPage(name) {
 export const common = {
   entry: {
     dcmbench: './src/index.js',
-    bench: './view/bench.js',
-    diff: './view/diff.js',
-    memory: './view/memory.js',
+    bench: './demo/bench.js',
+    diff: './demo/diff.js',
+    memory: './demo/memory.js',
     ...parserEntries
   },
   resolve: {

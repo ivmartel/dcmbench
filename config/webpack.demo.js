@@ -3,7 +3,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 
 import {common, staticFiles} from './webpack.common.js';
 
-// production build: a self-contained static site in 'build/dist',
+// demo build: a self-contained static site in 'build/dist',
 // published to gh-pages by CI
 export default {
   ...common,

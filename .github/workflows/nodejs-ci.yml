@@ -27,8 +27,7 @@ jobs:
     - name: Run tests
       run: yarn run test-ci
     - name: Build
-      # production webpack build into build/dist
-      run: yarn run build
+      run: yarn run build-demo
     - name: Push to gh-pages (if main branch)
       if: env.IS_PUSH_MAIN == 'true'
       run: |

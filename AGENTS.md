@@ -24,10 +24,10 @@ Node >= 22.15 (CI uses Node 26).
 | Unit tests (watch) | `yarn test` |
 | Unit tests (CI, with coverage) | `yarn run test-ci` → `build/coverage/` |
 | Dev server | `yarn start` (webpack-dev-server, localhost:8080) |
-| Production build | `yarn run build` → `build/dist/` |
+| Demo build | `yarn run build-demo` → `build/dist/` |
 
 Before finishing a change, run `yarn run lint`, `yarn run test-ci` and
-`yarn run build` — CI runs exactly these three.
+`yarn run build-demo` — CI runs exactly these three.
 
 ## Layout
 
@@ -43,26 +43,26 @@ Before finishing a change, run `yarn run lint`, `yarn run test-ci` and
     from the parser iframe `iframe-<name>`.
   - `gui.js`, `dragndrop.js`, `listen.js` — table rendering, drag & drop,
     listener handler.
-- `view/` — the three pages (`bench`, `memory`, `diff`), each an `.html`
+- `demo/` — the three pages (`bench`, `memory`, `diff`), each an `.html`
   template + `.js` entry, plus `defaultData.js` (default test files list).
-- `view/parsers/<name>.js` — one adapter per parser exporting `parse(buffer)`,
+- `demo/parsers/<name>.js` — one adapter per parser exporting `parse(buffer)`,
   and optionally `parse2(buffer)` (returns `performance.memory`, used by the
   memory page) and `dump(buffer)` (returns a string, used by the diff page).
-- `view/parsers/parser.html` — template generating one page per parser.
-- `config/webpack.{common,dev,prod}.js` — build config. `common.js` holds the
-  `parsers` list and `staticFiles` (copied as is in prod).
+- `demo/parsers/parser.html` — template generating one page per parser.
+- `config/webpack.{common,dev,demo}.js` — build config. `common.js` holds the
+  `parsers` list and `staticFiles` (copied as is in the demo build).
 - `ext/` — vendored third-party builds (`ctk-dcmjs`, `dwv-previous`).
   Do not lint, reformat or edit these.
 - `data/` — DICOM test files (`<name>.dcm` + `<name>.jpg` preview). In
   production the pages fetch them from `raw.githubusercontent.com` (main),
-  in development from the local folder (see `view/defaultData.js`).
+  in development from the local folder (see `demo/defaultData.js`).
 - `tests/` — vitest unit tests (`*.test.js`, node environment).
-- `css/`, `index.html`, `view/about.html` — static, not processed by webpack.
+- `css/`, `index.html`, `demo/about.html` — static, not processed by webpack.
 
 ## Architecture notes
 
 - **Each parser runs in its own hidden iframe** to isolate its globals and
-  library instances. Webpack builds `view/parsers/<name>.html` for each entry
+  library instances. Webpack builds `demo/parsers/<name>.html` for each entry
   of `parsers` in `config/webpack.common.js`; the adapter module's exports are
   assigned to the iframe `window` (`library: {type: 'window'}`).
 - Libraries that only work as globals are loaded as classic scripts before the
@@ -74,12 +74,12 @@ Before finishing a change, run `yarn run lint`, `yarn run test-ci` and
 
 1. Add the dependency (`yarn add ...`) or vendor it under `ext/<name>/` with a
    `readme.md` stating source, version and date.
-2. Create `view/parsers/<name>.js` exporting `parse` (and `parse2` / `dump`
+2. Create `demo/parsers/<name>.js` exporting `parse` (and `parse2` / `dump`
    if it should appear on the memory / diff pages).
 3. Add `{name, globalScripts?}` to `parsers` in `config/webpack.common.js`.
 4. In each view that should use it, add
    `<iframe src="./parsers/<name>.html" id="iframe-<name>" style="display:none">`
-   to `view/<page>.html` and an entry to the parser list in `view/<page>.js`.
+   to `demo/<page>.html` and an entry to the parser list in `demo/<page>.js`.
 5. Mention it in the README parser list.
 
 ## Code style
