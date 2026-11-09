@@ -55,5 +55,6 @@
     "lint": "eslint 'src/**/*.js' 'view/**/*.js' 'tests/**/*.js' 'config/*.js' '*.js'",
     "test": "karma start karma.conf.js",
     "test-ci": "karma start karma.conf.js --browsers ChromeHeadless --reporters progress,coverage,json --single-run"
-  }
+  },
+  "packageManager": "yarn@4.18.1"
 }
