@@ -3,46 +3,10 @@ import {DataRunner} from '../src/dataRunner.js';
 import {createTable, getMeans} from '../src/gui.js';
 import {setupDragDrop} from '../src/dragndrop.js';
 import {getParserFunction} from '../src/parserFrames.js';
+import {getDefaultTestData} from './defaultData.js';
 
 // default test data
-const githubRaw = 'https://raw.githubusercontent.com/ivmartel/dcmbench/main/data/';
-const defaultTestData = [
-  {
-    name: 'osirix-toutatix-100',
-    url: githubRaw + 'osirix-toutatix-100.dcm',
-    selected: true
-  },
-  {
-    name: 'osirix-goudurix',
-    url: githubRaw + 'osirix-goudurix.dcm',
-    selected: false
-  },
-  {
-    name: 'dicompyler-ct.0',
-    url: githubRaw + 'dicompyler-ct.0.dcm',
-    selected: false
-  },
-  {
-    name: 'gdcm-CR-MONO1-10-chest',
-    url: githubRaw + 'gdcm-CR-MONO1-10-chest.dcm',
-    selected: false
-  },
-  {
-    name: 'gdcm-CT-MONO2-8-abdo',
-    url: githubRaw + 'gdcm-CT-MONO2-8-abdo.dcm',
-    selected: false
-  },
-  //{
-  //  "name": "gdcm-US-RGB-8-epicard",
-  //  "url": githubRaw + "gdcm-US-RGB-8-epicard.dcm",
-  //  "selected": false
-  //},
-  {
-    name: 'gdcm-US-RGB-8-esopecho',
-    url: githubRaw + 'gdcm-US-RGB-8-esopecho.dcm',
-    selected: false
-  }
-];
+const defaultTestData = getDefaultTestData(1);
 const parserFunctions = [
   // func is set at window.onload from the parser iframes
   {name: 'ctk-dcmjs', selected: false},
