@@ -6,7 +6,9 @@ Guidance for AI coding agents working in this repository.
 
 dcmbench is a browser-based benchmark of JavaScript DICOM parsers (speed,
 memory, dump diff). It is a static web site built with webpack and published
-to GitHub Pages (`gh-pages` branch, `demo/trunk`) by CI on every push to `main`.
+to GitHub Pages (`gh-pages` branch) by CI: pushes to `main` deploy to
+`demo/trunk`, release tags `vX.Y.Z` to `demo/stable`; other branches,
+pre-release tags and PRs are built but not deployed.
 
 Parsers compared: `ctk-dcmjs` (dcmtk compiled with emscripten, vendored),
 `daikon`, `dcmjs`, `dicomParser`, `dwv` (npm) and `dwv-previous` (an older
