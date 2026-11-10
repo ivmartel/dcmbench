@@ -4,12 +4,11 @@ name: Node.js CI
 
 on: [push, pull_request]
 
-permissions:
-  contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       deploy-dir: ${{ steps.target.outputs.dir }}
     steps:
@@ -19,7 +18,7 @@ jobs:
       uses: actions/setup-node@v7
       with:
         node-version: '26'
-    - name: Enable corepack
+    - name: Install and enable corepack
       run: npm install -g corepack && corepack enable
     - name: Install dependencies
       run: yarn install --immutable
