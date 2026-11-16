@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "daikon": "~1.2.46",
-    "dcmjs": "~0.52.2",
+    "dcmjs": "~0.52.3",
     "dicom-parser": "~1.8.21",
     "diff": "~5.2.0",
     "dwv": "~0.35.1",
