@@ -1898,7 +1898,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^5.1.0"
     copy-webpack-plugin: "npm:^14.0.0"
     daikon: "npm:~1.2.46"
-    dcmjs: "npm:~0.52.2"
+    dcmjs: "npm:~0.52.3"
     dicom-parser: "npm:~1.8.21"
     diff: "npm:~5.2.0"
     dwv: "npm:~0.35.1"
@@ -1914,9 +1914,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"dcmjs@npm:~0.52.2":
-  version: 0.52.2
-  resolution: "dcmjs@npm:0.52.2"
+"dcmjs@npm:~0.52.3":
+  version: 0.52.3
+  resolution: "dcmjs@npm:0.52.3"
   dependencies:
     "@babel/runtime-corejs3": "npm:7.29.2"
     adm-zip: "npm:0.5.17"
@@ -1925,7 +1925,7 @@ __metadata:
     loglevel: "npm:1.9.2"
     ndarray: "npm:1.0.19"
     pako: "npm:2.1.0"
-  checksum: 10c0/00c49886df22e99fe26918aee91cc80fc5169278855ad63956bbbb71fd50579bb390116e7cfb7e6299e61192e382fb6dd3a61a66cce7a87b6952f70eed415052
+  checksum: 10c0/a3e96f369697ba5bc8fede7108f4cfce87346d8078045400374474c74f544b98ddb65ae7565a1e3de02ac84fae0ae9e9d3575079839b2d686237f61a8b153157
   languageName: node
   linkType: hard
 
