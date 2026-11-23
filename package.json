@@ -24,7 +24,7 @@
     "dicom-parser": "~1.8.21",
     "diff": "~5.2.0",
     "dwv": "~0.35.1",
-    "tinybench": "^6.2.3"
+    "tinybench": "^6.2.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
