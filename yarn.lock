@@ -1907,7 +1907,7 @@ __metadata:
     daikon: "npm:~1.2.46"
     dcmjs: "npm:~0.52.3"
     dicom-parser: "npm:~1.8.21"
-    diff: "npm:~5.2.0"
+    diff: "npm:~9.0.0"
     dwv: "npm:~0.35.1"
     eslint: "npm:^10.15.0"
     globals: "npm:^17.14.0"
@@ -2035,10 +2035,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"diff@npm:~5.2.0":
-  version: 5.2.0
-  resolution: "diff@npm:5.2.0"
-  checksum: 10c0/aed0941f206fe261ecb258dc8d0ceea8abbde3ace5827518ff8d302f0fc9cc81ce116c4d8f379151171336caf0516b79e01abdc1ed1201b6440d895a66689eb4
+"diff@npm:~9.0.0":
+  version: 9.0.0
+  resolution: "diff@npm:9.0.0"
+  checksum: 10c0/a971cc88f66071a33bd3942db2f51b57d484e9856265ae45cf44fb28ab2fde91f132d9c26d8be0fb6082d2be94d29e1295c1adb251b7461935d6a2dd304cd161
   languageName: node
   linkType: hard
 
